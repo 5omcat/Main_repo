@@ -12,3 +12,4 @@
 + 개인Main_repo로 push한 것들은 매일 오후 4시 전후로 'pull request'해서 넘겨주세요
 
 오늘도 즐코~
+(modify test)
