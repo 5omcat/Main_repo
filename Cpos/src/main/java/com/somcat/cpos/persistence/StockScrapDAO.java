@@ -15,6 +15,7 @@ import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.ScrapVO;
+import com.somcat.cpos.domain.SearchVO;
 
 @Repository
 public class StockScrapDAO implements StockScrapDAOIntf{
@@ -86,5 +87,9 @@ public class StockScrapDAO implements StockScrapDAOIntf{
 	public int deleteInven(int inventory_no) {
 		return sql.delete(ns+"delete", inventory_no);
 	}
-
+	
+	@Override
+	public List<InventoryVO> selectInventoryList(SearchVO svo) {
+		return sql.selectList(ns+"sclist", svo);
+	}
 }

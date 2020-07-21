@@ -7,6 +7,7 @@ import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.ScrapVO;
+import com.somcat.cpos.domain.SearchVO;
 
 public interface StockScrapDAOIntf {
 	public int insertInventory(InventoryVO ivo);
@@ -21,4 +22,5 @@ public interface StockScrapDAOIntf {
 	public int deleteInven(int inventory_no);
 	public int deleteInventory(List<Integer> inventory_no);
 	public List<CategoryVO> selectAllCate();
+	public List<InventoryVO> selectInventoryList(SearchVO svo);
 }
