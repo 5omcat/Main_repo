@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PayMapper">
+  <sql id="search">
+    <if test="category != null">
+      <trim prefix=" and (" suffix=") ">
+      <choose>
+        <when test="category=='large'.toString()">
+          large like '%'||#{large}||'%'
+        </when>
+        <when test="category=='medium'.toString()">
+          medium like '%'||#{medium}||'%'
+        </when>
+      </choose>
+      </trim>
+    </if>
+  </sql>
+  <select id="ilist" resultType="InventoryVO">
+    select pname, barcode, sell_price from tbl_inventory
+  </select>
+  <select id="lilist" parameterType="java.lang.String" resultType="InventoryVO">
+    select pname, barcode, sell_price 
+    from tbl_inventory i join tbl_category c 
+    on i.category = c.category 
+    and c.large = #{large}
+  </select>
+  <select id="lmilist" parameterType="java.util.HashMap" resultType="InventoryVO">
+    select pname, barcode, sell_price 
+    from tbl_inventory i join tbl_category c 
+    on i.category = c.category 
+    and c.large = #{large} 
+    and c.medium = #{medium}
+  </select>
+  <select id="llist" resultType="CategoryVO">
+    select large from tbl_category inner join tbl_inventory 
+    on tbl_category.category = tbl_inventory.category group by large
+  </select>
+  <select id="lmlist" parameterType="java.lang.String" resultType="CategoryVO">
+    select large, medium from tbl_category 
+    where category in
+    (select category from tbl_inventory where large = #{large})
+  </select>
+</mapper>
