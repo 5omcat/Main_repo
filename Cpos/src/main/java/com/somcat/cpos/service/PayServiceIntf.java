@@ -12,5 +12,5 @@ public interface PayServiceIntf {
 	public List<CategoryVO> getmList(String large);
 	public List<InventoryVO> getliList(String large);
 
-	public List<InventoryVO> getlmiList(String large, String medium);
+	public List<InventoryVO> getlmiList(CategoryVO cvo);
 }
