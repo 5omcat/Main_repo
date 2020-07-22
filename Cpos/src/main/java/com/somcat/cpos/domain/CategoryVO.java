@@ -1,23 +1,26 @@
 package com.somcat.cpos.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CategoryVO {
+	private static Logger log = LoggerFactory.getLogger(CategoryVO.class);
 	
-	private int category; // number(4,0),
+	private int category;
 	private String large;
 	private String medium;
 	
 	public CategoryVO() {}
 
+	public CategoryVO(String large, String medium) {
+		this.large = large;
+		this.medium = medium;
+	}
 
 	public CategoryVO(int category, String large, String medium) {
 		this.category = category;
 		this.large = large;
 		this.medium = medium;
-	}
-
-
-	public CategoryVO(String large) {
-		this.large = large;
 	}
 
 
