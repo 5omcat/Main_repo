@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # 여기는 Main_repo 입니다.
 
@@ -13,3 +14,7 @@
 
 오늘도 즐코~
 (modify test)
+=======
+# Main_repo
+let's git it!!!
+>>>>>>> 3e78a790e891a0461d4e67ace41e2f27b6676597
