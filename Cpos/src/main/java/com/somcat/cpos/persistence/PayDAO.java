@@ -1,8 +1,6 @@
 package com.somcat.cpos.persistence;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -15,9 +13,9 @@ import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.InventoryVO;
 
 @Repository
-public class PayDAO implements PayDAOIntf{
+public class PayDAO implements PayDAOIntf {
 	private static Logger log = LoggerFactory.getLogger(PayDAO.class);
-	private static String ns = "PaySoldMapper.";
+	private static String ns = "PayMapper.";
 
 	@Inject
 	SqlSession sql;
@@ -43,10 +41,11 @@ public class PayDAO implements PayDAOIntf{
 	}
 
 	@Override
-	public List<InventoryVO> selectlmiList(String large, String medium) {
-		Map<String, String> map = new HashMap<>();
-		map.put("large", large);
-		map.put("medium", medium);
-		return sql.selectList(ns + "lmilist", map);
+	public List<InventoryVO> selectlmiList(CategoryVO cvo) {
+		/*
+		 * Map<String, String> map = new HashMap<>(); map.put("large", large);
+		 * map.put("medium", medium);
+		 */
+		return sql.selectList(ns + "lmilist", cvo);
 	}
 }

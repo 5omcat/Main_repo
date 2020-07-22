@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.InventoryVO;
-import com.somcat.cpos.persistence.PayDAO;
+import com.somcat.cpos.persistence.PayDAOIntf;
 
 @Service
-public class PayService implements PayServiceIntf{
+public class PayService implements PayServiceIntf {
 	private static Logger log = LoggerFactory.getLogger(PayService.class);
 
 	@Inject
-	PayDAO psdao;
+	PayDAOIntf psdao;
 
 	@Override
 	public List<InventoryVO> getiList() {
@@ -40,8 +40,8 @@ public class PayService implements PayServiceIntf{
 	}
 
 	@Override
-	public List<InventoryVO> getlmiList(String large, String medium) {
-		return psdao.selectlmiList(large, medium);
+	public List<InventoryVO> getlmiList(CategoryVO cvo) {
+		return psdao.selectlmiList(cvo);
 	}
 
 }
