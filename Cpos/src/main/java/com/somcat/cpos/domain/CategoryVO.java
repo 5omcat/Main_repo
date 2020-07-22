@@ -24,6 +24,10 @@ public class CategoryVO {
 	}
 
 
+	public CategoryVO(String large2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getCategory() {
 		return category;
 	}
