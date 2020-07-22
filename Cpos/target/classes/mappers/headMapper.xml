@@ -3,13 +3,15 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ProductMapper">
-<insert id="regist" parameterType="HeadVO"></insert>
-<select id="checkbarcode" parameterType="java.lang.Integer" resultType="java.lang.Integer"></select>
+<insert id="regist" parameterType="HeadVO">
+ insert into tbl_head values(#{pname},#{expire_term},#{get_price},#{sell_price},#{discount_rate},0,#{barcode},#{category})
+</insert>
+<!-- <select id="checkbarcode" parameterType="java.lang.Integer" resultType="java.lang.Integer"></select>
 <select id="checkpname" parameterType="java.lang.String" resultType="java.lang.Integer"></select>
 <select id="hlist" parameterType="Criterion" resultType="HeadVO"></select>
 <select id="lcate" parameterType="Criterion" resultType="HeadVO"></select>
 <select id="mcate" parameterType="Criterion" resultType="HeadVO"></select>
 <update id="modify" parameterType="HeadVO"></update>
 <delete id="remove" parameterType="java.lang.Integer"></delete>
-<select id="total" parameterType="Criterion" resultType="java.lang.Integer"></select>
+<select id="total" parameterType="Criterion" resultType="java.lang.Integer"></select> -->
 </mapper>
