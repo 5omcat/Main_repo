@@ -31,6 +31,15 @@
       </trim>
     </if>
   </sql>
+  <sql id="exscript">
+    <if test="expire_date != null">
+      <trim prefix=" and " >
+      <![CDATA[
+        expire_date <= #{expire_date}
+      ]]>
+      </trim>
+    </if>
+  </sql>
 <insert id="addinven" parameterType="InventoryVO">
   insert into tbl_inventory values(seq_inventory_no.nextval, #{member_id}, #{inv_qnt}, #{barcode}, #{pname}, #{category}, #{get_price}, #{sell_price}, #{expire_date}, #{discount_rate}, 0)
 </insert>
@@ -40,6 +49,14 @@
   on i.category = c.category
   <include refid="lcate"/>
   <include refid="mcate"/>
+</select>
+<select id="sclist" parameterType="SearchVO" resultType="InventoryVO">
+  select inventory_no, inv_qnt, pname, i.category, expire_date, status 
+  from tbl_inventory i inner join tbl_category c 
+  on i.category = c.category
+  <include refid="lcate"/>
+  <include refid="mcate"/>
+  <include refid="exscript"/>
 </select>
 <select id="lcate"></select>
 <select id="mcate"></select>
