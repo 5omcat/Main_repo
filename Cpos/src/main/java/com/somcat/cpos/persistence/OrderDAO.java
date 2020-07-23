@@ -1,5 +1,6 @@
 package com.somcat.cpos.persistence;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,12 +19,14 @@ import com.somcat.cpos.domain.OrderVO;
 public class OrderDAO implements OrderDAOIntf{
 	private static Logger log = LoggerFactory.getLogger(OrderDAO.class);
 
+	String ns = "OrderMapper.";
+	
 	@Inject
 	SqlSession sql;
 	
 	@Override
 	public int insertOrder(OrderVO ovo) {
-		return sql.insert("OrderMapper."+"order", ovo);
+		return sql.insert(ns+"order", ovo);
 	}
 	
 	@Override
@@ -72,6 +75,11 @@ public class OrderDAO implements OrderDAOIntf{
 	public int deleteProduct(int bacode) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<OrderVO> selectOrderList(Criterion cri, String member_id, Date order_date) {
+		return sql.selectList(ns+);
 	}
 
 

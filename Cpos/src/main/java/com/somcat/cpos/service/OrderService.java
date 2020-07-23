@@ -1,5 +1,6 @@
 package com.somcat.cpos.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,8 +27,8 @@ public class OrderService implements OrderServiceIntf {
 	}
 	
 	@Override
-	public List<OrderVO> getList(Criterion cri, String member_id) {
-		return null;
+	public List<OrderVO> getList(Criterion cri, String member_id, Date order_date) {
+		return odao.sel;
 	}
 
 

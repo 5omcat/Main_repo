@@ -1,5 +1,6 @@
 package com.somcat.cpos.persistence;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.somcat.cpos.domain.Criterion;
@@ -10,8 +11,9 @@ import com.somcat.cpos.domain.OrderVO;
 public interface OrderDAOIntf {
 	public int insertProduct(MemberVO mvo);
 	
-	public int insertOrder(OrderVO ovo);
+	public int insertOrder(OrderVO ovo);//used
 
+	public List<OrderVO> selectOrderList(Criterion cri, String member_id, Date order_date);
 	public int selectBarcode(String id);
 
 	public int selectPname(String id);
