@@ -21,4 +21,7 @@ public class OrderCtrl {
 	@GetMapping("/orderlist")
 	public void orderlist() {
 	}
+	@GetMapping("/order")
+	public void order() {
+	}
 }

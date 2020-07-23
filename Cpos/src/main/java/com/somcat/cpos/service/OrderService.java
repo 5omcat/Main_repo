@@ -10,24 +10,26 @@ import org.springframework.stereotype.Service;
 
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.OrderVO;
+import com.somcat.cpos.persistence.OrderDAOIntf;
 
 @Service
 public class OrderService implements OrderServiceIntf {
 	private static Logger log = LoggerFactory.getLogger(OrderService.class);
 
+	@Inject
+	OrderDAOIntf odao;
 	
 	
-	
+	@Override
+	public int registOrder(OrderVO ovo) {
+		return odao.insertOrder(ovo);
+	}
 	
 	@Override
 	public List<OrderVO> getList(Criterion cri, String member_id) {
 		return null;
 	}
 
-	@Override
-	public int registOrder(OrderVO ovo) {
-		return 0;
-	}
 
 	@Override
 	public int modifyOrder(OrderVO ovo) {

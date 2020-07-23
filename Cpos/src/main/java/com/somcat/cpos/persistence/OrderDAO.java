@@ -22,6 +22,11 @@ public class OrderDAO implements OrderDAOIntf{
 	SqlSession sql;
 	
 	@Override
+	public int insertOrder(OrderVO ovo) {
+		return sql.insert("OrderMapper."+"order", ovo);
+	}
+	
+	@Override
 	public int insertProduct(MemberVO mvo) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -69,10 +74,5 @@ public class OrderDAO implements OrderDAOIntf{
 		return 0;
 	}
 
-	@Override
-	public int insertOrder(OrderVO ovo) {
-		return sql.insert("OrderMapper."+"order", ovo);
-		
-	}
 
 }
