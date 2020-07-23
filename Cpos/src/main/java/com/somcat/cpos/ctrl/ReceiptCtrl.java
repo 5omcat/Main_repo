@@ -1,5 +1,7 @@
 package com.somcat.cpos.ctrl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.somcat.cpos.domain.ReceiptVO;
 import com.somcat.cpos.service.ReceiptServiceIntf;
 
-
 @Controller
 @RequestMapping("/receipt/*")
 public class ReceiptCtrl {
@@ -22,13 +23,15 @@ public class ReceiptCtrl {
 	@Inject
 	ReceiptServiceIntf rsv;
 	
-	@GetMapping("/list")
+	@GetMapping("/soldlist")
 	public void getReceiptList(ReceiptVO rvo, Model model) {
-		
+		List<ReceiptVO> list = rsv.selectReceiptList(rvo);
+		model.addAttribute("list", list);
 	}
 	
-	@GetMapping(value = "/list/{rno}")
-	public void getReceiptDetail(@PathVariable("rno")int rno) {
-		
+	@GetMapping(value = "/soldlist/{rno}")
+	public ReceiptVO getReceiptDetail(@PathVariable("rno")int rno) {
+		ReceiptVO rvo = rsv.selectReceiptDetail(rno);
+		return rvo;
 	}
 }
