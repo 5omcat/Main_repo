@@ -5,9 +5,5 @@
 <jsp:include page="common/header.jsp"></jsp:include>
 <%-- <jsp:include page="common/main.jsp"></jsp:include> --%>
 <jsp:include page="order/ons.jsp"></jsp:include>
-<<<<<<< HEAD
 <jsp:include page="common/footer.jsp"></jsp:include>
 <jsp:include page="common/nav.jsp"/>
-=======
-<jsp:include page="common/footer.jsp"></jsp:include>
->>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507

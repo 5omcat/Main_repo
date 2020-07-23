@@ -19,15 +19,6 @@
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 		<fasterxml.jackson-version>2.10.0</fasterxml.jackson-version>
 	</properties>
-<<<<<<< HEAD
-	
-	<repositories>
-      <repository>
-         <id>Spring Plugins</id>
-         <url>https://repo.spring.io/plugins-release</url>
-      </repository>
-   </repositories>
-=======
 
 	<repositories>
 		<repository>
@@ -36,7 +27,6 @@
 		</repository>
 	</repositories>
 
->>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
 	<dependencies>
 
 		<!-- Spring -->

@@ -1,6 +1,5 @@
 package com.somcat.cpos.ctrl;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +25,6 @@ import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.ScrapVO;
 import com.somcat.cpos.domain.SearchVO;
-import com.somcat.cpos.service.StockScrapService;
 import com.somcat.cpos.service.StockScrapServiceIntf;
 
 @Controller
@@ -67,7 +65,7 @@ public class StockScrapCtrl {
 		  CategoryVO cvo = new CategoryVO(large); // cvo.setLarge(large);
 		  log.info(">>>" + cvo.getLarge()); 
 		  SearchVO svo = new SearchVO(cvo, new Date());
-		  List<InventoryVO> bList = (List<InventoryVO>) ssv.getInvenList2(svo); 
+		  List<InventoryVO> bList = ssv.getInvenList2(svo); 
 		  return new ResponseEntity<>(bList, HttpStatus.OK); 
 		  }
 	  
@@ -102,7 +100,7 @@ public class StockScrapCtrl {
 	  public ResponseEntity<List<InventoryVO>> list(@PathVariable("large") String large) { 
 		  CategoryVO cvo = new CategoryVO(large); // cvo.setLarge(large);
 		  log.info(">>>" + cvo.getLarge()); 
-		  List<InventoryVO> bList = (List<InventoryVO>) ssv.getInvenList(cvo); 
+		  List<InventoryVO> bList = ssv.getInvenList(cvo); 
 		  log.info(">>list::" + bList.get(0).getExpire_date()); 
 		  return new ResponseEntity<>(bList, HttpStatus.OK); 
 		  }

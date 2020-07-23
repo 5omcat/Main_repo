@@ -3,7 +3,6 @@ package com.somcat.cpos.service;
 import java.sql.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;

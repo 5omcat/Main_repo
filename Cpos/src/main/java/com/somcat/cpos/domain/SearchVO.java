@@ -2,9 +2,6 @@ package com.somcat.cpos.domain;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class SearchVO {
 	private CategoryVO cate;
 	private Date expire_date;
