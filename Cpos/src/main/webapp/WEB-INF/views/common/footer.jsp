@@ -5,8 +5,7 @@
 <!-- Footer -->
 <footer class="py-5 bg-dark">
   <div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy; Kitae PARK
-      2020</p>
+    <p class="m-0 text-center text-white">푸터푸터 여기에 '로그아웃버튼'이랑 '네비게이션' 만들어줘야함</p>
   </div>
   <!-- /.container -->
 </footer>
