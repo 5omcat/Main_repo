@@ -24,5 +24,6 @@ hs_err_pid*
 /.metadata/
 
 # Custum ecpt
-Spring_Shop_06_Comment/
-Spring_Shop_07_AOP/
+/Spring_Shop_06_Comment/
+/Spring_Shop_07_AOP/
+/Servers/

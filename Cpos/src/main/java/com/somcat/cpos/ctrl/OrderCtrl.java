@@ -18,7 +18,12 @@ import com.somcat.cpos.service.OrderServiceIntf;
 public class OrderCtrl {
 	private static Logger log = LoggerFactory.getLogger(OrderCtrl.class);
 
+<<<<<<< HEAD
 	@GetMapping("/ons")
 	public void ons() {
+=======
+	@GetMapping("/orderlist")
+	public void orderlist() {
+>>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
 	}
 }

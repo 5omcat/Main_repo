@@ -17,7 +17,11 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>발주 확인</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>상품 자동 재고등록</li>
             </ul>
+<<<<<<< HEAD
             <a href="#" class="btn btn-block btn-primary text-uppercase">GO</a>
+=======
+            <a href="/order/orderlist" class="btn btn-block btn-primary text-uppercase">GO</a>
+>>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
           </div>
         </div>
         <div class="card">
