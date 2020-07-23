@@ -1,75 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<jsp:include page="../common/header.jsp"></jsp:include>
+	pageEncoding="UTF-8"%>
+<link href="/resources/css/ksy/sy.css" rel="stylesheet">
+<%-- <jsp:include page="../common/header.jsp"></jsp:include> --%>
 
 <section class="pricing py-5">
   <div class="container">
-    <div class="row">
-      <!-- Free Tier -->
-      <div class="col-lg-4">
-        <div class="card mb-5 mb-lg-0">
-          <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">Free</h5>
-            <h6 class="card-price text-center">$0<span class="period">/month</span></h6>
-            <hr>
-            <ul class="fa-ul">
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Single User</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>5GB Storage</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Unlimited Private Projects</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Dedicated Phone Support</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Free Subdomain</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
-            </ul>
-            <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
-          </div>
-        </div>
-      </div>
-      <!-- Plus Tier -->
-      <div class="col-lg-4">
-        <div class="card mb-5 mb-lg-0">
-          <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">Plus</h5>
-            <h6 class="card-price text-center">$9<span class="period">/month</span></h6>
-            <hr>
-            <ul class="fa-ul">
-              <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>5 Users</strong></li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>50GB Storage</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Private Projects</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated Phone Support</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Free Subdomain</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
-            </ul>
-            <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
-          </div>
-        </div>
-      </div>
-      <!-- Pro Tier -->
-      <div class="col-lg-4">
+    <div class="row custm_a1">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">Pro</h5>
-            <h6 class="card-price text-center">$49<span class="period">/month</span></h6>
+            <h5 class="card-title text-muted text-uppercase text-center">발주 시스템</h5>
+            <h6 class="card-price text-center">ORDER</h6>
             <hr>
             <ul class="fa-ul">
-              <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Unlimited Users</strong></li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>150GB Storage</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Private Projects</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated Phone Support</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Unlimited</strong> Free Subdomains</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Monthly Status Reports</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>발주 등록/수정/취소</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>발주 내역 확인</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>발주 확인</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>상품 자동 재고등록</li>
             </ul>
-            <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
+            <a href="/order/orderlist" class="btn btn-block btn-primary text-uppercase">GO</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-muted text-uppercase text-center">통계 시스템</h5>
+            <h6 class="card-price text-center">STATS</h6>
+            <hr>
+            <ul class="fa-ul">
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>매출 통계</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>소비자 분석</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>기간별 매출 분석</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>AI 상품 추천</li>
+            </ul>
+            <a href="#" class="btn btn-block btn-primary text-uppercase">GO</a>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </section>
 
-<jsp:include page="../common/footer.jsp"></jsp:include>
+<%-- <jsp:include page="../common/footer.jsp"></jsp:include> --%>

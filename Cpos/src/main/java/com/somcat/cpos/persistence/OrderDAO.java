@@ -2,6 +2,9 @@ package com.somcat.cpos.persistence;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -9,11 +12,15 @@ import org.springframework.stereotype.Repository;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.HeadVO;
 import com.somcat.cpos.domain.MemberVO;
+import com.somcat.cpos.domain.OrderVO;
 
 @Repository
 public class OrderDAO implements OrderDAOIntf{
 	private static Logger log = LoggerFactory.getLogger(OrderDAO.class);
 
+	@Inject
+	SqlSession sql;
+	
 	@Override
 	public int insertProduct(MemberVO mvo) {
 		// TODO Auto-generated method stub
@@ -61,4 +68,11 @@ public class OrderDAO implements OrderDAOIntf{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int insertOrder(OrderVO ovo) {
+		return sql.insert("OrderMapper."+"order", ovo);
+		
+	}
+
 }

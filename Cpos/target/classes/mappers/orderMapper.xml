@@ -3,10 +3,11 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="OrderMapper">
-<!-- 	<select id="" parameterType="" resultType=""></select>
-	<insert id="" parameterType=""></insert>
-	<update id="" parameterType=""></update>
-	>
-	<delete id="" parameterType=""></delete>
-	> -->
+	<!-- <select id="" parameterType="" resultType=""></select> <insert id="" 
+		parameterType=""></insert> <update id="" parameterType=""></update> > <delete 
+		id="" parameterType=""></delete> > -->
+	<insert id="order" parameterType="OrderVO">
+		insert into tbl_order(order_no, member_id, barcode, pname, order_qnt, order_date, get_date, wrap_no, expire_term, status) 
+		values(seq_order_ono.nextval, #{member_id}, #{barcode}, #{pname}, #{order_qnt}, sysdate, null, #{wrap_no}, #{expire_term}, 0);
+	</insert>
 </mapper>
