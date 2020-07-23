@@ -1,7 +1,9 @@
 package com.somcat.cpos.persistence;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -27,6 +29,14 @@ public class OrderDAO implements OrderDAOIntf{
 	@Override
 	public int insertOrder(OrderVO ovo) {
 		return sql.insert(ns+"order", ovo);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderList(Criterion cri, String member_id, Date order_date) {
+		Map<String, Date> map = new HashMap<>();
+		map.put("order_date", order_date);
+		//map.put("member_id", member_id);
+		return sql.selectList(ns+"orderList",map);
 	}
 	
 	@Override
@@ -77,10 +87,6 @@ public class OrderDAO implements OrderDAOIntf{
 		return 0;
 	}
 
-	@Override
-	public List<OrderVO> selectOrderList(Criterion cri, String member_id, Date order_date) {
-		return sql.selectList(ns+);
-	}
 
 
 }

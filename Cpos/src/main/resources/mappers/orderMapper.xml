@@ -3,8 +3,8 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="OrderMapper">
-	<select id="orderList" parameterType="" resultType="OrderVO">
-	
+	<select id="orderList" parameterType="java.util.HashMap" resultType="OrderVO">
+	select 
 	</select>
 	<insert id="order" parameterType="OrderVO">
 		insert into tbl_order(order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term) values(seq_order_no.nextval, #{member_id}, #{barcode}, #{pname}, #{order_qnt}, sysdate, #{wrap_no}, #{expire_term})

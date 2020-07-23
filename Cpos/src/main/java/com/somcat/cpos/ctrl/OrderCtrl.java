@@ -43,8 +43,8 @@ public class OrderCtrl {
 //		return new ResponseEntity<CommentDTO>(csv.getList(cri, pno),HttpStatus.OK);
 //	}
 	
-	@PostMapping("/orderlist/{member_id}/{order_date}/{page}",
-		produce = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@PostMapping(value = "/orderlist/{member_id}/{order_date}/{page}", 
+			produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<OrderVO>> orderlist(@PathVariable("member_id")String member_id, @PathVariable("order_date")Date order_date,
 			@PathVariable("page")int page){
 		Criterion cri = new Criterion(page, 10);

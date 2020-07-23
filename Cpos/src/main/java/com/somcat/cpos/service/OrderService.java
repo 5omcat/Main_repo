@@ -28,7 +28,7 @@ public class OrderService implements OrderServiceIntf {
 	
 	@Override
 	public List<OrderVO> getList(Criterion cri, String member_id, Date order_date) {
-		return odao.sel;
+		return null;
 	}
 
 
