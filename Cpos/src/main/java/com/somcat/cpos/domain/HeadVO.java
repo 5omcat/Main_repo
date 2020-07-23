@@ -10,7 +10,7 @@ public class HeadVO {
 	private int get_price;
 	private int sell_price;
 	private int discount_rate;
-	private int status;
+	private String status;
 	
 	//그냥
 	public HeadVO() {
@@ -18,7 +18,7 @@ public class HeadVO {
 	
 	//modify
 		public HeadVO(String pname, int expire_term, int get_price, int sell_price,
-				int discount_rate, int status) {
+				int discount_rate) {
 			this.pname = pname;
 			this.expire_term = expire_term;
 			this.get_price = get_price;
@@ -27,8 +27,8 @@ public class HeadVO {
 		}
 	//regist	
 	public HeadVO(String pname, int expire_term, int get_price, int sell_price,
-			int discount_rate, int barcode, int category, int status) {
-		this(pname, expire_term, get_price, sell_price, discount_rate, status);
+			int discount_rate, int barcode, int category) {
+		this(pname, expire_term, get_price, sell_price, discount_rate);
 		this.barcode = barcode;
 		this.category = category;		
 	}
@@ -41,11 +41,11 @@ public class HeadVO {
 	}
 
 	
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

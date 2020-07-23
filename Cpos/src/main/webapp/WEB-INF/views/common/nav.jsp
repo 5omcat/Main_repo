@@ -6,12 +6,13 @@
 </div>
 
 <div class="btn-group">
-  <a href="" class="btn btn-primary">재고관리</a>
-  <a href="" class="btn btn-primary">폐기관리</a>
+  <a href="/stockscrap/inventory" class="btn btn-primary">재고관리</a>
+  <a href="/stockscrap/scrap" class="btn btn-primary">폐기관리</a>
 </div>
 
 <div class="btn-group">
-  <a href="" class="btn btn-primary">판매조회</a>
+  <a href="/stockscrap/ssmenu" class="btn btn-primary">판매조회</a>
+  <a href="stockscrap/ssmenu" class="btn btn-primary">판매조회</a>
 </div>
 
 <div class="btn-group">

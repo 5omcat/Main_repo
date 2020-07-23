@@ -33,11 +33,16 @@
     <tbody id="tbody">
     <c:forEach items="${iList }" var="ivo">
       <tr>
-        <td>${ivo.pname }</td>
-        <td>${ivo.inv_qnt }</td>
-        <td>${ivo.category }</td>
-        <td>${ivo.discount_rate }</td>
-        <td class="ex_date">${ivo.expire_date }</td>
+        <td class="pname">${ivo.pname }</td>
+        <td class="qnt">${ivo.inv_qnt }</td>
+        <td class="cate">${ivo.category }</td>
+        <td class="hidden">${ivo.discount_rate }
+        <input type="hidden" name="ino" value="${ivo.inventory_no }">
+        <input type="hidden" name="barcode" value="${ivo.barcode }">
+        <input type="hidden" class="get_price" value="${ivo.get_price }">
+        </td>
+        <td class="ex_date">
+        <input type="hidden" name="exdate" value="${ivo.expire_date }">${ivo.expire_date }</td>
         <fmt:formatDate value="${ivo.expire_date }" pattern="yyyy-MM-dd" var="expire"/>
         <c:choose>
         <c:when test="${expire <= today }">
@@ -95,7 +100,7 @@ $("#lcate").on("change", function(e) {
   listUp(txt);
 });
 function listUp(txt) {
-    $.getJSON("/stockscrap/getIlist/"+txt+".json",function(result){
+    $.getJSON("/stockscrap/getExList/"+txt+".json",function(result){
       printList(result);
       }).fail(function(){
         alert("large주문 리스트 출력 실패");
@@ -108,13 +113,16 @@ function  printList(pvo){
      for(svo of pvo){
       let exdate = displayTime(svo.expire_date);
       uls +='<tr>';
-      uls +='<td>'+svo.pname+'</td>';
-      uls +='<td><input type="number" value="'+svo.inv_qnt+'" class="qnt" min="0"></td>';
-      uls +='<td>'+svo.category+'</td>';
-      uls +='<td>'+svo.discount_rate+'</td>';
-      uls +='<td class="ex_date">'+exdate+'</td>';
+      uls +='<td class="pname">'+svo.pname+'</td>';
+      uls +='<td class="qnt">'+svo.inv_qnt+'</td>';
+      uls +='<td class="cate">'+svo.category+'</td>';
+      uls +='<td class="hidden">'+svo.discount_rate+'<input type="hidden" name="barcode" value="'+svo.barcode+'">';
+      uls +='<input type="hidden" name="ino" value="'+svo.inventory_no+'">';
+      uls +='<input type="hidden" class="get_price" value="'+svo.get_price+'">'+'</td>';
+      uls +='<td class="ex_date"><input type="hidden" name="exdate" value="'+svo.expire_date+'">'+exdate+'</td>';
       uls += exScrap(exdate) == 1 ? '<td><button type="button" class="scrapBtn">폐기</button></td>'
           :'<td>'+svo.status+'</td>';
+      uls +='</tr>';
      }
     }else{
      uls += '<tr><td rowspan="6">해당 상품이 없습니다.</td></tr>';
@@ -127,7 +135,7 @@ $("#mcate").on("change", function() {
     let txt2 = $(this).val();
     alert("선택한것: "+txt + "/" + txt2);
     
-     $.getJSON("/stockscrap/getIlist/"+txt+"/"+txt2+".json",function(result){
+     $.getJSON("/stockscrap/getExList/"+txt+"/"+txt2+".json",function(result){
           //console.log(result);
         printList(result);
         }).fail(function(){
@@ -196,14 +204,22 @@ $("#mcate").on("change", function() {
   
   $(document).on("click", ".scrapBtn", function() {
 	 console.log($(this));
-	 $.ajax({
-		 type:"get",
-		 url:"barcode:",
-		 data: {}
-	 }).done(function(result) {
-		alert(result==1?"폐기처리 성공":"폐기처리 실패");
+	 let barcode = $(this).closest('tr').find(".hidden").find("input[name=barcode]").val();
+	 let ex = $(this).closest('tr').find("input[name=exdate]").val();
+	   console.log("ino="+$(this).closest('tr').find("input[name=ino]").val());
+	   $.ajax({
+	     type:"post",
+	     url:"/stockscrap/scrap",
+	     data: {barcode:barcode,
+	       pname:$(this).closest('tr').find(".pname").text(),
+	       category:$(this).closest('tr').find(".cate").text(),
+	       scrap_qnt:$(this).closest('tr').find(".qnt").text(),
+	       get_price:$(this).closest('tr').find(".get_price").val(), 
+	       expire_date:ex,
+	       ino:$(this).closest('tr').find("input[name=ino]").val()}
+	   }).done(function(result) {
+		alert(result=="1"?"폐기처리성공":"폐기처리실패");
 	});
 });
 </script>
-<jsp:include page="../common/nav.jsp"></jsp:include>
 <%-- <jsp:include page="../common/footer.jsp"></jsp:include> --%>

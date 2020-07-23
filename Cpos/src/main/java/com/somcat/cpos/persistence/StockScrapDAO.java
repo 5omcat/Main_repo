@@ -84,12 +84,13 @@ public class StockScrapDAO implements StockScrapDAOIntf{
 	}
 
 	@Override
-	public int deleteInven(int inventory_no) {
-		return sql.delete(ns+"delete", inventory_no);
+	public int deleteInven(int ino) {
+		return sql.delete(ns+"delete", ino);
 	}
-	
+
 	@Override
 	public List<InventoryVO> selectInventoryList(SearchVO svo) {
 		return sql.selectList(ns+"sclist", svo);
 	}
+
 }

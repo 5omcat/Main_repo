@@ -10,7 +10,7 @@
     <if test="type != null">
       <trim prefix=" and (" suffix=") ">
         <choose>
-          <when test="type=='category'.toString()">
+          <when test='type=="category".toString()'>
             category like #{category}||'%'
           </when>
         </choose>
@@ -18,14 +18,14 @@
     </if>
   </sql>
   <sql id="lcate">
-    <if test="large != null and large != 'x'.toString()">
+    <if test='large != null and large != "x".toString()'>
       <trim prefix=" where " >
         large = #{large}
       </trim>
     </if>
   </sql>
   <sql id="mcate">
-    <if test="medium != null and medium != '중분류'.toString()">
+    <if test='medium != null and medium != "중분류".toString()'>
       <trim prefix=" and " >
         medium = #{medium}
       </trim>
@@ -51,7 +51,7 @@
   <include refid="mcate"/>
 </select>
 <select id="sclist" parameterType="SearchVO" resultType="InventoryVO">
-  select inventory_no, inv_qnt, pname, i.category, expire_date, status 
+  select inventory_no, inv_qnt, pname, barcode, get_price, i.category, expire_date, status 
   from tbl_inventory i inner join tbl_category c 
   on i.category = c.category
   <include refid="lcate"/>
@@ -64,24 +64,23 @@
   update tbl_inventory set inv_qnt = #{inv_qnt} where inventory_no = #{inventory_no}
 </update>
 <insert id="addscrap" parameterType="ScrapVO">
-  insert into tbl_scrap values(seq_scrap_no.nextval, #{member_id}, #{barcode}, #{category}, #{get_price}, sysdate, #{expire_date})
+  insert into tbl_scrap values(seq_scrap_no.nextval, #{member_id}, #{barcode}, #{pname}, #{category}, #{get_price}, sysdate, #{expire_date}, #{scrap_qnt})
 </insert>
 <insert id="addsclist" parameterType="java.util.List">
   <foreach collection="list" item="exscrap" separator="" open="INSERT ALL" close="select * from tbl_scrap where scrap_date = sysdate">
-  into tbl_scrap values(seq_scrap_no.nextval, #{member_id}, #{barcode}, #{category}, #{get_price}, sysdate, #{expire_date}, #{pname}, #{scrap_qnt}, #{ino})\
+  into tbl_scrap values(seq_scrap_no.nextval, #{member_id}, #{barcode}, #{category}, #{get_price}, sysdate, #{expire_date}, #{pname}, #{scrap_qnt}, #{ino})
   </foreach>
 </insert>
 <select id="all" resultType="CategoryVO">
   select large from tbl_inventory i INNER JOIN TBL_CATEGORY c 
   on i.CATEGORY = c.CATEGORY group by large
-  /* select category, large, medium from tbl_inventory group by large */
 </select>
 <delete id="deliv" parameterType="java.util.List">
   <foreach collection="list" item="scrap" separator="" open="DELETE ALL" close="select * from tbl_scrap where scrap_date = sysdate">
-  from tbl_inventory where ino = #{scrap.ino}
+  from tbl_inventory where inventory_no = #{ino}
   </foreach>
 </delete>
 <delete id="delete" parameterType="java.lang.Integer">
-  delete from tbl_inventory where ino = #{scrap.ino}
+  delete from tbl_inventory where inventory_no = #{ino}
 </delete>
 </mapper>

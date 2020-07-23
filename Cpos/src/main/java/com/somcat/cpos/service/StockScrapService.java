@@ -3,6 +3,7 @@ package com.somcat.cpos.service;
 import java.sql.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -15,14 +16,14 @@ import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.ScrapVO;
 import com.somcat.cpos.domain.SearchVO;
-import com.somcat.cpos.persistence.StockScrapDAO;
+import com.somcat.cpos.persistence.StockScrapDAOIntf;
 
 @Service
 public class StockScrapService implements StockScrapServiceIntf{
 	private static Logger log = LoggerFactory.getLogger(StockScrapService.class);
 	
 	@Inject
-	StockScrapDAO sdao;
+	StockScrapDAOIntf sdao;
 
 	@Override
 	public int addInventory(InventoryVO ivo) {
@@ -81,8 +82,10 @@ public class StockScrapService implements StockScrapServiceIntf{
 		return sdao.selectInventoryList(svo);
 	}
 
+	@Transactional
 	@Override
 	public int addScrap(ScrapVO svo) {
-		return sdao.insertScrap(svo);
+		sdao.insertScrap(svo);
+		return sdao.deleteInven(svo.getIno());
 	}
 }

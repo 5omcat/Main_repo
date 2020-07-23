@@ -41,7 +41,9 @@
     <tbody id="tbody">
     <c:forEach items="${iList }" var="ivo">
       <tr>
-        <td><input type="hidden" value="${ivo.inventory_no }" class="ino">${ivo.pname }</td>
+        <td>
+        <input type="hidden" value="${ivo.inventory_no }" class="ino">
+        ${ivo.pname }</td>
         <td><input type="number" value="${ivo.inv_qnt }" class="qnt" min="0" readonly></td>
         <td><button type="button" class="mod_qntBtn">수정</button></td>
         <td>${ivo.category }</td>
@@ -262,5 +264,4 @@ $("#mcate").on("change", function() {
 	});
 	
 </script>
-<jsp:include page="../common/nav.jsp"></jsp:include>
 <jsp:include page="../common/footer.jsp"></jsp:include>

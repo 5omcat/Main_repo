@@ -14,6 +14,8 @@ public class OrderVO {
 	private int expire_term;
 	private int status;
 	
+	public OrderVO() {}
+	
 	public OrderVO(int order_no, int barcode, int order_qnt, Date order_date, Date get_date, int wrap_no, int status) {
 		this.order_no = order_no;
 		this.barcode = barcode;
