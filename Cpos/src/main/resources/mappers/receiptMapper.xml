@@ -39,6 +39,9 @@
     select/*+INDEX_DESC(tbl_sell pk_sell)*/ sell_no, pay_method, sell_date, receipt_no from tbl_sell where rownum > 0 
     ]]>
     <include refid="search"/>
+    <![CDATA[
+    group by receipt_no
+    ]]>
   </select>
   <select id="rdetail">
     select * from tbl_sell where receipt_no = #{receipt_no}
