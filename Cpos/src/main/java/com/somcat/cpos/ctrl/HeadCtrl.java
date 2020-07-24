@@ -39,7 +39,7 @@ public class HeadCtrl {
 		if(isFull > 0 ) {
 			reAttr.addFlashAttribute("hSign", "상품등록완료");
 		}
-		return "redirect:/head/plist";		
+		return "redirect:/";		
 	}
 	
 	

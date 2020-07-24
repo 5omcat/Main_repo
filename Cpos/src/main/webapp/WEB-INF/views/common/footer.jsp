@@ -12,6 +12,8 @@
 </footer>
 
 <script>
+ 
+
   let msg = '<c:out value="${msg}"/>';
   if (msg != '') {
     alert(msg);
@@ -60,6 +62,8 @@
 	         }
 	      }
   });
+  
+ 
 </script>
 </body>
 
