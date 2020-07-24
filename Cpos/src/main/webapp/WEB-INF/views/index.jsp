@@ -6,3 +6,4 @@
 <%-- <jsp:include page="common/main.jsp"></jsp:include> --%>
 <jsp:include page="order/ons.jsp"></jsp:include>
 <jsp:include page="common/footer.jsp"></jsp:include>
+<jsp:include page="common/nav.jsp"/>
