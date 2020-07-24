@@ -4,11 +4,7 @@
 <%@ page session="false" %>
 <jsp:include page="common/header.jsp"></jsp:include>
 <%-- <jsp:include page="common/main.jsp"></jsp:include> --%>
-<<<<<<< HEAD
+
 <jsp:include page="head/ons.jsp"></jsp:include>
 <jsp:include page="common/footer.jsp"></jsp:include>
-=======
-<jsp:include page="order/ons.jsp"></jsp:include>
-<jsp:include page="common/footer.jsp"></jsp:include>
-<jsp:include page="common/nav.jsp"/>
->>>>>>> 52a4ffcf3a4ba33eaaec13aaa0d362bac7f74030
+
