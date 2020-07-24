@@ -12,25 +12,10 @@ public class ScrapVO {
 	private int get_price; //number(4,0),
 	private Date scrap_date;
 	private Date expire_date;
+	private int ino;
 	
 	public ScrapVO() {}
 	
-	public String getPname() {
-		return pname;
-	}
-
-	public void setPname(String pname) {
-		this.pname = pname;
-	}
-
-	public int getScrap_qnt() {
-		return scrap_qnt;
-	}
-
-	public void setScrap_qnt(int scrap_qnt) {
-		this.scrap_qnt = scrap_qnt;
-	}
-
 	public ScrapVO(int scrap_no, String member_id, int barcode, int category, int get_price, Date scrap_date,
 			Date expire_date) {
 		this.scrap_no = scrap_no;
@@ -43,7 +28,7 @@ public class ScrapVO {
 	}
 	
 	public ScrapVO(int scrap_no, String member_id, int barcode, int category, int get_price, Date scrap_date,
-			Date expire_date, String pname, int scrap_qnt) {
+			Date expire_date, String pname, int scrap_qnt, int ino) {
 		this.scrap_no = scrap_no;
 		this.member_id = member_id;
 		this.barcode = barcode;
@@ -53,6 +38,7 @@ public class ScrapVO {
 		this.expire_date = expire_date;
 		this.pname = pname;
 		this.scrap_qnt = scrap_qnt;
+		this.ino = ino;
 	}
 
 	public int getScrap_no() {
@@ -96,5 +82,28 @@ public class ScrapVO {
 	}
 	public void setExpire_date(Date expire_date) {
 		this.expire_date = expire_date;
+	}
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public int getScrap_qnt() {
+		return scrap_qnt;
+	}
+
+	public void setScrap_qnt(int scrap_qnt) {
+		this.scrap_qnt = scrap_qnt;
+	}
+
+	public int getIno() {
+		return ino;
+	}
+
+	public void setIno(int ino) {
+		this.ino = ino;
 	}
 }
