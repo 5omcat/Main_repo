@@ -7,9 +7,13 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+=======
+import org.springframework.web.bind.annotation.GetMapping;
+>>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +33,7 @@ public class HeadCtrl {
 	@Inject
 	HeadServiceIntf hsv;	
 	
+<<<<<<< HEAD
 	@GetMapping("/pregist")
 	public void regist() {
 		
@@ -76,5 +81,11 @@ public class HeadCtrl {
 	}
 
 
+=======
+	@GetMapping("/plist")
+	public void plist() {
+		
+	}
+>>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
 	
 }

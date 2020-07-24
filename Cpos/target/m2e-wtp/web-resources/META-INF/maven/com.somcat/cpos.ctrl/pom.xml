@@ -28,7 +28,15 @@
       </repository>
    </repositories>
 
+	<repositories>
+		<repository>
+			<id>Spring Plugins</id>
+			<url>https://repo.spring.io/plugins-release</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -127,6 +135,19 @@
 			
 
 		<!-- DB -->
+	
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
 		<dependency>
          <groupId>com.oracle</groupId>
          <artifactId>ojdbc6</artifactId>

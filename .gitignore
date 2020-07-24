@@ -26,6 +26,12 @@ hs_err_pid*
 =======
 
 # Custum ecpt
+<<<<<<< HEAD
 Spring_Shop_06_Comment/
 Spring_Shop_07_AOP/
 >>>>>>> 3741a9c7ee98f1c92a58d04d82a6535cdac49409
+=======
+/Spring_Shop_06_Comment/
+/Spring_Shop_07_AOP/
+/Servers/
+>>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
