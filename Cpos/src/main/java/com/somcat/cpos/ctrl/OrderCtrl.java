@@ -1,16 +1,13 @@
 package com.somcat.cpos.ctrl;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,27 +26,17 @@ public class OrderCtrl {
 	@Inject
 	OrderServiceIntf osv;
 	
-	@GetMapping("/orderlist")
-	public void orderlist() {
-	}
-	
-//	@GetMapping(value = "/list/{pno}/{page}",
-//			produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-//	public ResponseEntity<CommentDTO> list(@PathVariable("pno")int pno,
-//			@PathVariable("page") int page){
-//		//List<CommentVO> cList = (List<CommentVO>) csv.getList(pno);
-//		Criterion cri = new Criterion(page, 10);
-//		
-//		return new ResponseEntity<CommentDTO>(csv.getList(cri, pno),HttpStatus.OK);
-//	}
-	
-	@PostMapping(value = "/orderlist/{member_id}/{order_date}/{page}", 
-			produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<OrderVO>> orderlist(@PathVariable("member_id")String member_id, @PathVariable("order_date")Date order_date,
-			@PathVariable("page")int page){
+	@GetMapping(value = "/orderlist/{member_id}/{flag_hdate}/{flag_tdate}/{page}")
+	public String orderlist(@PathVariable("member_id")String member_id, 
+			@PathVariable("flag_hdate")String flag_hdate,
+			@PathVariable("flag_tdate")String flag_tdate,
+			@PathVariable("page")int page, Model model){
 		Criterion cri = new Criterion(page, 10);
-		return new ResponseEntity<List<OrderVO>>(osv.getList(cri, member_id, order_date), HttpStatus.OK);
-		
+		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
+		List<OrderVO> ordL = osv.getList(cri, ovo);
+		model.addAttribute("ordL", ordL);
+		model.addAttribute("pgvo", ordL);
+		return "order/orderlist";
 	}
 	
 	@GetMapping("/order")

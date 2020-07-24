@@ -32,11 +32,11 @@ public class OrderDAO implements OrderDAOIntf{
 	}
 	
 	@Override
-	public List<OrderVO> selectOrderList(Criterion cri, String member_id, Date order_date) {
-		Map<String, Date> map = new HashMap<>();
-		map.put("order_date", order_date);
-		//map.put("member_id", member_id);
-		return sql.selectList(ns+"orderList",map);
+	public List<OrderVO> selectOrderList(Criterion cri, OrderVO ovo) {
+		Map<Object, Object> map = new HashMap<>();
+		map.put("cri", cri);
+		map.put("ovo",ovo);
+		return sql.selectList(ns+"orderList", map);
 	}
 	
 	@Override

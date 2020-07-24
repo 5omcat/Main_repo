@@ -4,7 +4,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="OrderMapper">
 	<select id="orderList" parameterType="java.util.HashMap" resultType="OrderVO">
-	select 
+	  <![CDATA[
+select order_no, member_id, barcode, pname, order_qnt, TO_CHAR(order_date,'YYYYMM-DDHH24MISS') as order_sdate, wrap_no, expire_term from (select /*+INDEX(tbl_order pk_order)*/
+  rownum as rn, order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term
+  from tbl_order where member_id = 'testMember1' and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= '20200722000000' and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= '20200724235959' 
+  AND rownum <= #{cri.pageNum} * #{cri.amount})
+  where rn > (#{cri.pageNum}-1) * #{cri.amount}
+  ]]>
 	</select>
 	<insert id="order" parameterType="OrderVO">
 		insert into tbl_order(order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term) values(seq_order_no.nextval, #{member_id}, #{barcode}, #{pname}, #{order_qnt}, sysdate, #{wrap_no}, #{expire_term})
