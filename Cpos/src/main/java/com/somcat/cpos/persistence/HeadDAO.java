@@ -39,7 +39,7 @@ public class HeadDAO implements HeadDAOIntf{
 
 	@Override
 	public List<HeadVO> selectHeadList(Criterion cri) {
-		return sql.selectList(hs+"hlist", cri);
+		return sql.selectList(hs+"plist", cri);
 	}
 
 	@Override

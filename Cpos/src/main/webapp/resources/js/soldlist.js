@@ -2,10 +2,12 @@ function allList() {
 	
 }
 
-function searchList(category, pay_method, sell_date) {
+function searchList(member_id, category, pay_method, sell_date) {
 	$.ajax({
-		url: "/receipt/list",
+		url: "/receipt/soldlist",
 		data: {category:category, pay_method:pay_method, sell_date:sell_date},
+	}).done( function(result) {
+		printList(result);
 	});
 }
 
@@ -18,6 +20,16 @@ function printList(list){
 		ulTag += '<li class="nav-item">'+displayTime(rvo.sell_date)+'</li>';
 		$("#cmtList").append(ulTag);
 	}
+}
+
+function printDetail(rno){
+	$.ajax({
+		url:"/receipt/soldlist/"+rno
+	}).done(function(rvo) {
+		for(let key in rvo){
+			console.log(key+":"+rvo[key]);
+		}
+	});
 }
 
 function displayTime(modd8){

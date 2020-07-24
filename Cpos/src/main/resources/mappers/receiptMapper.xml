@@ -4,17 +4,19 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ReceiptMapper">
   <sql id="search">
-  <if test="sell_date != null and pay_method == null">
+  <if test="sell_date == 'null' and pay_method == 'null'">
+  </if>
+  <if test="sell_date != 'null' and pay_method == 'nul'">
     <trim prefix=" and (" suffix=") ">
         sell_date = #{sell_date}
     </trim>
   </if>
-  <if test="pay_method != null and sell_date == null">
+  <if test="pay_method != 'null' and sell_date == 'null'">
     <trim prefix=" and (" suffix=") ">
       pay_method = #{pay_method}
     </trim>
   </if>
-  <if test="pay_method != null and sell_date != null">
+  <if test="pay_method != 'null' and sell_date != 'null'">
     <trim prefix=" and (" suffix=") ">
       pay_method = #{pay_method} and sell_date = #{sell_date}
     </trim>

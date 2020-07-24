@@ -25,3 +25,4 @@
 </head>
 
 <body>
+<c:set var="ses" value="${mid}" scope="session"/>

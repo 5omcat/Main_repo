@@ -25,8 +25,20 @@ public class ReceiptCtrl {
 	
 	@GetMapping("/soldlist")
 	public void getReceiptList(ReceiptVO rvo, Model model) {
-		List<ReceiptVO> list = rsv.selectReceiptList(rvo);
-		model.addAttribute("list", list);
+		log.info("msgmsg");
+		List<ReceiptVO> list = null;
+		if(rvo!=null) {
+			log.info("get list 진입");
+			list = rsv.selectReceiptList(rvo);
+			log.info("list 불러옴");
+		}else {
+			log.info(">>> rvo = null");
+		}
+		if(list==null) {
+			log.info(">>>> list select fail");
+		}else {
+			model.addAttribute("list", list);
+		}
 	}
 	
 	@GetMapping(value = "/soldlist/{rno}")
