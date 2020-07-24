@@ -4,5 +4,5 @@
 <%@ page session="false" %>
 <jsp:include page="common/header.jsp"></jsp:include>
 <%-- <jsp:include page="common/main.jsp"></jsp:include> --%>
-<jsp:include page="order/ons.jsp"></jsp:include>
+<jsp:include page="head/ons.jsp"></jsp:include>
 <jsp:include page="common/footer.jsp"></jsp:include>

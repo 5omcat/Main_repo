@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<jsp:include page="../common/nav.jsp"></jsp:include>
+
 <section class="py-5">
   <div class="container">
     <h1>상품 수정</h1>

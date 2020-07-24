@@ -61,7 +61,7 @@ public class HeadService implements HeadServiceIntf{
 	}
 
 	@Override
-	public int getTotalCount(Criterion cri) {
-		return hdao.selectTotalCount(cri);
+	public int getTotalCount() {
+		return hdao.selectTotalCount();
 	}
 }

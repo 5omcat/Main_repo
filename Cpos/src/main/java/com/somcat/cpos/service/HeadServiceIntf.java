@@ -17,5 +17,5 @@ public interface HeadServiceIntf {
 	public List<HeadVO> getMediumCate(Criterion cri);
 	public int modify(HeadVO hvo);
 	public int remove(int barcode);	
-	public int getTotalCount(Criterion cri);
+	public int getTotalCount();
 }

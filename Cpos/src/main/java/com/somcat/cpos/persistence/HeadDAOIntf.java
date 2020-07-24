@@ -17,5 +17,5 @@ public interface HeadDAOIntf {
 	public List<HeadVO> selectMediumCate(Criterion cri);
 	public int updateHead(HeadVO hvo);
 	public int deleteHead(int barcode);
-	public int selectTotalCount(Criterion cri);
+	public int selectTotalCount();
 }

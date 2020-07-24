@@ -33,7 +33,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-<<<<<<< HEAD
+
 	
 	<!-- 넘어다니는 데이터들의 값을 encodign해줌 -->
 	<filter>
@@ -49,19 +49,5 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-=======
-	<filter>
-		<filter-name>encoding</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
-		</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encoding</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
->>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
+
 </web-app>

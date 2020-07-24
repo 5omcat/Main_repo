@@ -6,6 +6,7 @@
   <div class="container">
     <h1>상품 등록</h1>
     <form action="/head/pregist" method="post">
+    <input type="hidden" name="category" value="${hvo.category }" id="category">
       <div class="form-group">
         <label for="pname">상품명:</label> 
         <input type="text" class="form-control" name="pname">
@@ -39,24 +40,31 @@
         <label for="discount_rate">할인률</label>
         <input type="number" class="from-control" name="discount_rate">
       </div>
-      <button type="submit" class="btn btn-dark">등록</button>       
+      <button type="submit" class="btn btn-dark" id="rBtn">등록</button>       
     </form>
   </div> 
 </section>
 
 <script src="/resources/js/common.js"></script>
 <script type="text/javascript">
-
+  
 	let bBtn = document.getElementById('bBtn');
-	console.log('btn'+bBtn);
 	
+		
 	bBtn.onclick = function(event){
 		let largeVal = document.getElementById('large').value;
-		console.log("large"+largeVal);
 		let mediumVal = document.getElementById('medium').value;
-		let rmNum = Math.floor(Math.random()*10000);
+		rnNum(1000,9999);	
 		makeBarcode(largeVal,mediumVal,rmNum);
-	};
+		/* makeCategory(largeVal,mediumVal);
+		console.log("함수실행"); */
+	}; 
+	 
+	
+	
+	
+	
+	
 
 </script>
 

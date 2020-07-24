@@ -39,7 +39,7 @@ public class HeadDAO implements HeadDAOIntf{
 
 	@Override
 	public List<HeadVO> selectHeadList(Criterion cri) {
-		return sql.selectList(hs+"hlist", cri);
+		return sql.selectList(hs+"plist", cri);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class HeadDAO implements HeadDAOIntf{
 	}
 
 	@Override
-	public int selectTotalCount(Criterion cri) {
-		return sql.selectOne(hs+"total",cri);
+	public int selectTotalCount() {
+		return sql.selectOne(hs+"total");
 	}
 }

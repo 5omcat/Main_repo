@@ -22,16 +22,10 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /.metadata/
-<<<<<<< HEAD
-=======
 
 # Custum ecpt
-<<<<<<< HEAD
-Spring_Shop_06_Comment/
-Spring_Shop_07_AOP/
->>>>>>> 3741a9c7ee98f1c92a58d04d82a6535cdac49409
-=======
 /Spring_Shop_06_Comment/
 /Spring_Shop_07_AOP/
 /Servers/
->>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
+/Servers2/
+
