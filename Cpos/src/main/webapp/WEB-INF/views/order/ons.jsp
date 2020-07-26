@@ -24,9 +24,7 @@
 						<li><span class="fa-li"><i class="fas fa-check"></i></span>상품
 							자동 재고등록</li>
 					</ul>
-            <fmt:formatDate var="currtime" value="${now}" pattern="yyyyMMddhhmmss" />
-            <fmt:parseNumber value="${currtime - (00000007000000)}" integerOnly="true" var="dhtime" scope="request" />
-					<a href="/order/orderlist?member_id=${mvo.member_id}&flag_hdate=${dhtime}&flag_tdate=${currtime}&pageNum=1" 
+					<a href="/order/orderlist?member_id=${mvo.member_id}&pageNum=1&flag_hdate=&flag_tdate=" 
 					class="btn btn-block btn-primary text-uppercase">GO</a>
 				</div>
 			</div>
@@ -46,12 +44,11 @@
 						<li><span class="fa-li"><i class="fas fa-check"></i></span>AI
 							상품 추천</li>
 					</ul>
-					<a href="/order/order"
+					<a href="/order/cal"
 						class="btn btn-block btn-primary text-uppercase">GO</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-
 <jsp:include page="../common/footer.jsp"></jsp:include>

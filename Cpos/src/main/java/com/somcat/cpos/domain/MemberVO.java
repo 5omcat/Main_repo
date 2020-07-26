@@ -14,7 +14,6 @@ public class MemberVO {
 	}
 
 	public MemberVO(String member_id, String member_pwd) {
-		super();
 		this.member_id = member_id;
 		this.member_pwd = member_pwd;
 	}
