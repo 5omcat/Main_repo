@@ -87,6 +87,14 @@ public class OrderDAO implements OrderDAOIntf{
 		return 0;
 	}
 
+	@Override
+	public int selectTotalCount(Criterion cri, OrderVO ovo) {
+		Map<Object, Object> map = new HashMap<>();
+		map.put("cri", cri);
+		map.put("ovo",ovo);
+		return sql.selectOne(ns+"totalCount", map);
+	}
+
 
 
 }

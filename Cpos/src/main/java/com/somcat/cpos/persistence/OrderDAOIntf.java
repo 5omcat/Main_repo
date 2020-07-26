@@ -28,4 +28,6 @@ public interface OrderDAOIntf {
 	public int updateProduct(HeadVO hvo);
 
 	public int deleteProduct(int bacode);
+
+	public int selectTotalCount(Criterion cri, OrderVO ovo);
 }

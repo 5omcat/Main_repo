@@ -30,26 +30,26 @@
 				</tr>
 			</c:otherwise>
 		</c:choose>
-<%-- 		<ul class="pagination">
+		<ul class="pagination">
 			<c:if test="${pgvo.prev }">
 				<li class="page-item"><a class="page-link"
-					href="/product/list?pageNum=${pgvo.beginPagingNum-1}&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Prev</a></li>
+					href="/order/orderlist?pageNum=${pgvo.beginPagingNum-1}&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Prev</a></li>
 			</c:if>
 
 			<c:forEach begin="${pgvo.beginPagingNum }"
 				end="${pgvo.endPagingNum }" var="i">
 				<li class="page-item ${pgvo.cri.pageNum == i ? 'active' : ''}">
 					<a class="page-link"
-					href="/product/list?pageNum=${i }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">${i}</a>
+					href="/order/orderlist?pageNum=${i }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">${i}</a>
 				</li>
 			</c:forEach>
 
 			<c:if test="${pgvo.next }">
 				<li class="page-item"><a class="page-link"
-					href="/product/list?pageNum=${pgvo.endPagingNum + 1 }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Next</a></li>
+					href="/order/orderlist?pageNum=${pgvo.endPagingNum + 1 }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Next</a></li>
 			</c:if>
 
-		</ul> --%>
+		</ul>
 	</div>
 </section>
 <jsp:include page="../common/footer.jsp"></jsp:include>

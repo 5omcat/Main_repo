@@ -40,4 +40,9 @@ public class OrderService implements OrderServiceIntf {
 	public int cancelOrder(int order_no) {
 		return 0;
 	}
+
+	@Override
+	public int getTotalCount(Criterion cri, OrderVO ovo) {
+		return odao.selectTotalCount(cri, ovo);
+	}
 }

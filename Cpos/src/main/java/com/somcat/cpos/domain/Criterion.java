@@ -5,6 +5,7 @@ public class Criterion {
 	private int amount; // 한 페이지에 보여줄 글의 수
 	private int pageNum;
 	private String keyword;
+	private String type;
 	
 	public Criterion() {
 		this(1,10);
@@ -12,6 +13,17 @@ public class Criterion {
 	public Criterion(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
+	}
+	public Criterion(int pageNum) {
+		this.pageNum = pageNum;
+		this.amount = 10;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public int getAmount() {
 		return amount;

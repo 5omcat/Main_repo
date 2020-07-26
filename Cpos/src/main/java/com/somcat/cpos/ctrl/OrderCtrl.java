@@ -13,38 +13,44 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.OrderVO;
+import com.somcat.cpos.domain.PagingVO;
 import com.somcat.cpos.service.OrderServiceIntf;
 
 @Controller
-@RequestMapping("/order/*")
+@RequestMapping("/order")
 public class OrderCtrl {
 	private static Logger log = LoggerFactory.getLogger(OrderCtrl.class);
 
 	@Inject
 	OrderServiceIntf osv;
 	
-	@GetMapping(value = "/orderlist/{member_id}/{flag_hdate}/{flag_tdate}/{page}")
-	public String orderlist(@PathVariable("member_id")String member_id, 
-			@PathVariable("flag_hdate")String flag_hdate,
-			@PathVariable("flag_tdate")String flag_tdate,
-			@PathVariable("page")int page, Model model){
-		Criterion cri = new Criterion(page, 10);
+	
+	@GetMapping(value="/orderlist")
+	public void list(Model model, Criterion cri, @RequestParam(value = "flag_hdate", required = false)
+			String flag_hdate, @RequestParam(value = "flag_tdate", required = false)
+			String flag_tdate, @RequestParam(value = "member_id", required = false)
+			String member_id) {
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
-		List<OrderVO> ordL = osv.getList(cri, ovo);
-		model.addAttribute("ordL", ordL);
-		model.addAttribute("pgvo", ordL);
-		return "order/orderlist";
+		model.addAttribute("ordL", osv.getList(cri, ovo));
+		int totalCount = osv.getTotalCount(cri, ovo);
+		model.addAttribute("pgvo", new PagingVO(totalCount, cri));
 	}
+	
 	
 	@GetMapping("/order")
 	public void order() {
 	}
 	
-	@PostMapping("/order")
-	public void order(RequestBody reqb, OrderVO ovo){
-		osv.registOrder(ovo);
+	@GetMapping("/ons")
+	public void ons() {
 	}
+	
+//	@PostMapping("/order")
+//	public void order(RequestBody reqb, OrderVO ovo){
+//		osv.registOrder(ovo);
+//	}
 }

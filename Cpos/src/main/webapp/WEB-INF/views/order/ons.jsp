@@ -1,41 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="../common/header.jsp"></jsp:include>
 <link href="/resources/css/ksy/sy.css" rel="stylesheet">
-<%-- <jsp:include page="../common/header.jsp"></jsp:include> --%>
 
 <section class="pricing py-5">
-  <div class="container">
-    <div class="row custm_a1">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">발주 시스템</h5>
-            <h6 class="card-price text-center">ORDER</h6>
-            <hr>
-            <ul class="fa-ul">
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>발주 등록/수정/취소</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>발주 내역 확인</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>발주 확인</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>상품 자동 재고등록</li>
-            </ul>
-            <a href="/order/orderlist/testMember1/202007220000/20200724235959/1" class="btn btn-block btn-primary text-uppercase">GO</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">통계 시스템</h5>
-            <h6 class="card-price text-center">STATS</h6>
-            <hr>
-            <ul class="fa-ul">
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>매출 통계</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>소비자 분석</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>기간별 매출 분석</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>AI 상품 추천</li>
-            </ul>
-            <a href="/order/order" class="btn btn-block btn-primary text-uppercase">GO</a>
-          </div>
-        </div>
-      </div>
-    </div>
+	<div class="container">
+		<div class="row custm_a1">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title text-muted text-uppercase text-center">발주
+						시스템</h5>
+					<h6 class="card-price text-center">ORDER</h6>
+					<hr>
+					<ul class="fa-ul">
+						<li><span class="fa-li"><i class="fas fa-check"></i></span>발주
+							등록/수정/취소</li>
+						<li><span class="fa-li"><i class="fas fa-check"></i></span>발주
+							내역 확인</li>
+						<li><span class="fa-li"><i class="fas fa-check"></i></span>발주
+							확인</li>
+						<li><span class="fa-li"><i class="fas fa-check"></i></span>상품
+							자동 재고등록</li>
+					</ul>
+            <fmt:formatDate var="currtime" value="${now}" pattern="yyyyMMddhhmmss" />
+            <fmt:parseNumber value="${currtime - (00000007000000)}" integerOnly="true" var="dhtime" scope="request" />
+					<a href="/order/orderlist?member_id=${mvo.member_id}&flag_hdate=${dhtime}&flag_tdate=${currtime}&pageNum=1" 
+					class="btn btn-block btn-primary text-uppercase">GO</a>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title text-muted text-uppercase text-center">통계
+						시스템</h5>
+					<h6 class="card-price text-center">STATS</h6>
+					<hr>
+					<ul class="fa-ul">
+						<li><span class="fa-li"><i class="fas fa-check"></i></span>매출
+							통계</li>
+						<li><span class="fa-li"><i class="fas fa-check"></i></span>소비자
+							분석</li>
+						<li><span class="fa-li"><i class="fas fa-check"></i></span>기간별
+							매출 분석</li>
+						<li><span class="fa-li"><i class="fas fa-check"></i></span>AI
+							상품 추천</li>
+					</ul>
+					<a href="/order/order"
+						class="btn btn-block btn-primary text-uppercase">GO</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
-<%-- <jsp:include page="../common/footer.jsp"></jsp:include> --%>
+<jsp:include page="../common/footer.jsp"></jsp:include>
