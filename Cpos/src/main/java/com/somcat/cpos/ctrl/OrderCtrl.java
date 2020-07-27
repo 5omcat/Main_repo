@@ -39,7 +39,7 @@ public class OrderCtrl {
 		if (flag_hdate.length() < 1 && flag_tdate.length() < 1) {
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 			flag_tdate = format1.format(System.currentTimeMillis());
-			flag_hdate = flag_tdate;
+			flag_hdate = String.valueOf(Integer.parseInt(flag_tdate)-7);
 		}
 		flag_hdate += "000000";
 		flag_tdate += "235959";
@@ -50,6 +50,7 @@ public class OrderCtrl {
 		log.info("cri:" + cri.getAmount());
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
 		model.addAttribute("ordL", osv.getList(cri, ovo));
+		model.addAttribute("infOvo", ovo);
 		//ordL에 flag 2개 없음. 추가해서 연결시켜줘야 페이징 연속가능.
 		int totalCount = osv.getTotalCount(cri, ovo);
 		model.addAttribute("pgvo", new PagingVO(totalCount, cri));

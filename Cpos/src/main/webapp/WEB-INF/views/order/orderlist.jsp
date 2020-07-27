@@ -97,27 +97,25 @@ $(function(){
 				</tr>
 			</c:otherwise>
 		</c:choose>
-		<c:forEach items="${ordL}" var="ovo2" begin="1" end="1" step="1">
 		<ul class="pagination">
 			<c:if test="${pgvo.prev }">
 				<li class="page-item"><a class="page-link"
-					href="/order/orderlist?member_id=${ovo2.member_id }&flag_hdate=${ovo2.flag_hdate}&flag_tdate=${ovo2.flag_tdate}&pageNum=${pgvo.beginPagingNum-1}&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Prev</a></li>
+					href="/order/orderlist?member_id=${infOvo.member_id }&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${pgvo.beginPagingNum-1}&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Prev</a></li>
 			</c:if>
 
 			<c:forEach begin="${pgvo.beginPagingNum }"
 				end="${pgvo.endPagingNum }" var="i">
 				<li class="page-item ${pgvo.cri.pageNum == i ? 'active' : ''}">
 					<a class="page-link"
-					href="/order/orderlist?member_id=${ovo2.member_id}&flag_hdate=${ovo2.flag_hdate}&flag_tdate=${ovo2.flag_tdate}&pageNum=${i }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">${i}</a>
+					href="/order/orderlist?member_id=${infOvo.member_id}&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${i }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">${i}</a>
 				</li>
 			</c:forEach>
 
 			<c:if test="${pgvo.next }">
 				<li class="page-item"><a class="page-link"
-					href="/order/orderlist?member_id=${ovo2.member_id}&flag_hdate=${ovo2.flag_hdate}&flag_tdate=${ovo2.flag_tdate}&pageNum=${pgvo.endPagingNum + 1 }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Next</a></li>
+					href="/order/orderlist?member_id=${infOvo.member_id}&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${pgvo.endPagingNum + 1 }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Next</a></li>
 			</c:if>
 		</ul>
-		</c:forEach>
 	</div>
 </section>
 
