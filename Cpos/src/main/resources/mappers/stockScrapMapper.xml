@@ -67,9 +67,13 @@
   insert into tbl_scrap values(seq_scrap_no.nextval, #{member_id}, #{barcode}, #{pname}, #{category}, #{get_price}, sysdate, #{expire_date}, #{scrap_qnt})
 </insert>
 <insert id="addsclist" parameterType="java.util.List">
-  <foreach collection="list" item="exscrap" separator="" open="INSERT ALL" close="select * from tbl_scrap where scrap_date = sysdate">
-  into tbl_scrap values(seq_scrap_no.nextval, #{member_id}, #{barcode}, #{category}, #{get_price}, sysdate, #{expire_date}, #{pname}, #{scrap_qnt}, #{ino})
-  </foreach>
+  insert into tbl_scrap
+  select seq_scrap_no.nextval, a.* from(
+  <foreach collection="list" item="ex" separator="UNION ALL">
+    select #{ex.member_id} as member_id, #{ex.barcode} as barcode, #{ex.pname} as pname, 
+    #{ex.category} as category, #{ex.get_price} as get_price, sysdate, 
+    #{ex.expire_date} as expire_date, #{ex.scrap_qnt} as scrap_qnt from dual
+  </foreach> ) a
 </insert>
 <select id="all" resultType="CategoryVO">
   select large from tbl_inventory i INNER JOIN TBL_CATEGORY c 
@@ -77,7 +81,7 @@
 </select>
 <delete id="deliv" parameterType="java.util.List">
   <foreach collection="list" item="scrap" separator="" open="DELETE ALL" close="select * from tbl_scrap where scrap_date = sysdate">
-  from tbl_inventory where inventory_no = #{ino}
+  from tbl_inventory where inventory_no = #{scrap}
   </foreach>
 </delete>
 <delete id="delete" parameterType="java.lang.Integer">

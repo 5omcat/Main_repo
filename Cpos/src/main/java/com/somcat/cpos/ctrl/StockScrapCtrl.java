@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,6 +27,7 @@ import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.ScrapVO;
 import com.somcat.cpos.domain.SearchVO;
 import com.somcat.cpos.service.StockScrapServiceIntf;
+
 
 @Controller
 @RequestMapping("/stockscrap/*")
@@ -118,23 +120,36 @@ public class StockScrapCtrl {
 		  return new ResponseEntity<>(bList, HttpStatus.OK); 
 		  }
 	  
+	  @ResponseBody
+	  @RequestMapping(value="/allScrap")
+	  public String allscrap(@RequestBody ArrayList<ScrapVO> jsonData) throws Exception{
+		  log.info(">>>>>>>>>> allScrap: "+jsonData.size());
+		  //log.info(">>>>>>>>>> jsonData-pname: "+jsonData.get(0).getPname());
+		  //log.info(">>>>>>>>>> jsonData-exdate: "+jsonData.get(0).getExpire_date());
+		  //log.info(">>>>>>>>>> jsonData-member_id: "+jsonData.get(0).getMember_id());
+		  //log.info("svo가 있을까?=>>>>>>"+jsonData.toString());
+		  
+		  if(jsonData.size() != 0) {
+		  int a = ssv.addScrap(jsonData);
+		  return a==1?"1":a+"";
+		  }
+		  else
+			  return "폐기처리할 상품 없음";
+	  }
+	  
 	  @PostMapping("/scraplist") 
 	  public String scrapAdd(List<ScrapVO> iList) {
 		  ssv.addScrap(iList); 
 		  return "redirect:/stockscrap/inventory"; 
 		  }
 	  
-	  @GetMapping("/getget")
-	  public void getget(@ModelAttribute("list") String list) {
-		  log.info(">>>dddddd"+list);
-		  
-	  }
-	  
 	  @ResponseBody
 	  @PostMapping("/scrap")
 	  public String scrap(ScrapVO svo) {
+		  Date d = svo.getExpire_date();
 		  svo.setMember_id("pos2");
 		  log.info("ino="+svo.getIno());
+		  log.info("date="+d);
 		  int result = ssv.addScrap(svo);
 		  log.info(">>>d="+result);
 		  return result==1?"1":"0";

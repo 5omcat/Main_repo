@@ -65,9 +65,7 @@
       <tr>
         <td colspan="6"><button type="button"><a class="btn" href="/stockscrap/exscrap">폐기리스트</a></button></td>
       </tr>
-      <tr>
-        <td colspan="6"><button type="button" id="allscrap">오늘자 전체 폐기</button></td>
-      </tr>
+      
     </tfoot>
   </table>
 

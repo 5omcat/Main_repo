@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 
 <jsp:useBean id="now" class="java.util.Date" />
@@ -37,13 +38,13 @@
         <td class="qnt">${ivo.inv_qnt }</td>
         <td class="cate">${ivo.category }</td>
         <td class="hidden">${ivo.discount_rate }
-        <input type="hidden" name="ino" value="${ivo.inventory_no }">
-        <input type="hidden" name="barcode" value="${ivo.barcode }">
+        <input type="hidden" class="ino" name="ino" value="${ivo.inventory_no }">
+        <input type="hidden" class="barcode" name ="barcode" value="${ivo.barcode }">
         <input type="hidden" class="get_price" value="${ivo.get_price }">
         </td>
         <td class="ex_date">
-        <input type="hidden" name="exdate" value="${ivo.expire_date }">${ivo.expire_date }</td>
         <fmt:formatDate value="${ivo.expire_date }" pattern="yyyy-MM-dd" var="expire"/>
+        <input type="hidden" class="exdate" value="${ivo.expire_date }" disabled>${expire }</td>
         <c:choose>
         <c:when test="${expire <= today }">
         <td><button type="button" class="scrapBtn">폐기</button></td>
@@ -116,10 +117,10 @@ function  printList(pvo){
       uls +='<td class="pname">'+svo.pname+'</td>';
       uls +='<td class="qnt">'+svo.inv_qnt+'</td>';
       uls +='<td class="cate">'+svo.category+'</td>';
-      uls +='<td class="hidden">'+svo.discount_rate+'<input type="hidden" name="barcode" value="'+svo.barcode+'">';
-      uls +='<input type="hidden" name="ino" value="'+svo.inventory_no+'">';
+      uls +='<td class="hidden">'+svo.discount_rate+'<input type="hidden" class="barcode" value="'+svo.barcode+'">';
+      uls +='<input type="hidden" class="ino" name="ino" value="'+svo.inventory_no+'">';
       uls +='<input type="hidden" class="get_price" value="'+svo.get_price+'">'+'</td>';
-      uls +='<td class="ex_date"><input type="hidden" name="exdate" value="'+svo.expire_date+'">'+exdate+'</td>';
+      uls +='<td class="ex_date"><input type="hidden" class="exdate" name="exdate" value="'+exdate+'">'+exdate+'</td>';
       uls += exScrap(exdate) == 1 ? '<td><button type="button" class="scrapBtn">폐기</button></td>'
           :'<td>'+svo.status+'</td>';
       uls +='</tr>';
@@ -141,35 +142,51 @@ $("#mcate").on("change", function() {
         }).fail(function(){
           alert("주문 리스트 출력 실패");
         });
-    
-     /* $.ajax({
-        type: "post",
-        url: "/stockscrap/getIlist",
-        data: {large:txt, medium:txt2}
-      }).done(function(result){
-        alert(result);
-        printList(result);
-        //listInventory(cate);
-      });  */
-      
   });
   
   $("#allscrap").on("click", function() {
     var tags = document.getElementsByClassName("ex_date");
-    console.log("tags");
-    console.log(tags);
-    //console.log("1번:"+tags[0].innerText);
-    sclist=[];
-     for ( let i = 0; i < tags.length; i++ ){
-       sclist.push(tags[i].innerText);
-       //if(exScrap(val)==1)
-     }
-       console.log(sclist);
-    //console.log("z:"+$(".ex_date")[1].value);
     
-    //let a = document.getElementsbyClassName("ex_date")[i].val;
-    //sclist.add(a);
-    //console.log(sclist);
+    //sclist=[];
+    
+    let barcodes = $(".barcode");
+    let datas = [];
+    //console.log(barcodes);
+    for (let i = 0; i <barcodes.length; i++) {
+    	
+    	  //bararr.push($(".barcode").eq(i).val());
+        //console.log("dd:"+bararr[i]);
+        //bararr.push(barcodes.eq(i).val());
+        //console.log("dd:"+bararr[i]);
+        
+        let scData = {
+        		member_id:"posSomcat",
+        		barcode:$(".barcode").eq(i).val(),
+        		pname:$(".pname").eq(i).text(),
+        		category:$(".cate").eq(i).text(),
+        		get_price:$(".get_price").eq(i).val(), 
+        		expire_date:$(".exdate").eq(i).val(), 
+        		scrap_qnt:$(".qnt").eq(i).text(),
+        		ino:$(".ino").eq(i).val()};
+        datas.push(scData);
+    }
+    //console.log(datas);
+    jQuery.ajaxSettings.traditional = true;
+    $.ajax({
+    	url:"/stockscrap/allScrap",
+    	type:"POST",
+    	dataType:"json",
+    	data:JSON.stringify(datas),
+    	contentType: "application/json; charset=utf-8",
+    	success: function(data) {
+    		alert(data==1?"처리완료!":"처리 실패"+data);
+    		location.reload();
+    	},
+    	error: function(e) {
+    		alert("에러메시지:관리자에게 문의하세요~");
+    		console.log(e);
+    	}
+		});
   });
   
   function exScrap(date) {
@@ -203,10 +220,10 @@ $("#mcate").on("change", function() {
     }
   
   $(document).on("click", ".scrapBtn", function() {
-	 console.log($(this));
+	 //console.log($(this));
 	 let barcode = $(this).closest('tr').find(".hidden").find("input[name=barcode]").val();
-	 let ex = $(this).closest('tr').find("input[name=exdate]").val();
-	   console.log("ino="+$(this).closest('tr').find("input[name=ino]").val());
+	 let ex = $(this).closest('tr').find(".exdate").val();
+	 let ex2 = $(this).closest('tr').find(".exdate").text();
 	   $.ajax({
 	     type:"post",
 	     url:"/stockscrap/scrap",
@@ -218,8 +235,12 @@ $("#mcate").on("change", function() {
 	       expire_date:ex,
 	       ino:$(this).closest('tr').find("input[name=ino]").val()}
 	   }).done(function(result) {
-		alert(result=="1"?"폐기처리성공":"폐기처리실패");
-	});
+		   alert(result=="1"?"폐기처리성공":"폐기처리실패");
+		   location.reload();
+	   }).fail(function(e) {
+		   alert("관리자에게 문의하세요~~");
+		   console.log(e);
+	   });
 });
 </script>
 <%-- <jsp:include page="../common/footer.jsp"></jsp:include> --%>

@@ -48,6 +48,7 @@ public class StockScrapService implements StockScrapServiceIntf{
 	@Override
 	public int addScrap(List<ScrapVO> svo) {
 		List<Integer> ilist = sdao.insertScrap(svo);
+		log.info("addscrap-ilist: "+ilist);
 		return sdao.deleteInventory(ilist);
 	}
 
