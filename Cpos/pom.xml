@@ -124,7 +124,7 @@
 		</dependency>
 
 		<!-- DB -->
-	
+
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
@@ -183,6 +183,12 @@
 			<version>2.4</version>
 			<classifier>jdk15</classifier>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
 
 		<!-- Test -->
 		<dependency>

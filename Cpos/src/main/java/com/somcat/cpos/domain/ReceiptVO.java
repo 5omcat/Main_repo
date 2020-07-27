@@ -9,6 +9,9 @@ public class ReceiptVO {
 	private int sell_qnt;
 	private String pay_method;
 	private Date sell_date;
+	private Date sell_date_s;	//정렬 시작일
+	private Date sell_date_e;	//정렬 종료일
+	private String category;
 	private int discount_rate;
 	private int receipt_no;
 	
@@ -23,25 +26,45 @@ public class ReceiptVO {
 	}
 
 
-	public ReceiptVO(String member_id, Date sell_date) {
-		super();
-		this.member_id = member_id;
-		this.sell_date = sell_date;
-	}
-
-
-	public ReceiptVO(String member_id, String pay_method) {
+	public ReceiptVO(String member_id, String pay_method, Date sell_date_s, Date sell_date_e, String category) {
 		super();
 		this.member_id = member_id;
 		this.pay_method = pay_method;
+		this.sell_date_s = sell_date_s;
+		this.sell_date_e = sell_date_e;
+		this.category = category;
 	}
 
+	public Date getSell_date() {
+		return sell_date;
+	}
 
-	public ReceiptVO(String member_id, String pay_method, Date sell_date) {
-		super();
-		this.member_id = member_id;
-		this.pay_method = pay_method;
+	public void setSell_date(Date sell_date) {
 		this.sell_date = sell_date;
+	}
+
+	public Date getSell_date_s() {
+		return sell_date_s;
+	}
+
+	public void setSell_date_s(Date sell_date_s) {
+		this.sell_date_s = sell_date_s;
+	}
+
+	public Date getSell_date_e() {
+		return sell_date_e;
+	}
+
+	public void setSell_date_e(Date sell_date_e) {
+		this.sell_date_e = sell_date_e;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public int getSell_no() {
@@ -82,14 +105,6 @@ public class ReceiptVO {
 
 	public void setPay_method(String pay_method) {
 		this.pay_method = pay_method;
-	}
-
-	public Date getSell_date() {
-		return sell_date;
-	}
-
-	public void setSell_date(Date sell_date) {
-		this.sell_date = sell_date;
 	}
 
 	public int getDiscount_rate() {
