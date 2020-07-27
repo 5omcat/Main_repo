@@ -26,7 +26,7 @@ public class OrderService implements OrderServiceIntf {
 	}
 	
 	@Override
-	public List<OrderVO> getList(Criterion cri, OrderVO ovo) {
+	public List<List<OrderVO>> getList(Criterion cri, OrderVO ovo) {
 		return odao.selectOrderList(cri, ovo);
 	}
 

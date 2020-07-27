@@ -13,7 +13,7 @@ public interface OrderDAOIntf {
 	
 	public int insertOrder(OrderVO ovo);//used
 
-	public List<OrderVO> selectOrderList(Criterion cri, OrderVO ovo);
+	public List<List<OrderVO>> selectOrderList(Criterion cri, OrderVO ovo);
 	
 	public int selectBarcode(String id);
 

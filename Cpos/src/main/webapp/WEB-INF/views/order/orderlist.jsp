@@ -76,17 +76,21 @@ $(function(){
 		<span>기간 조회 : </span><input type="text" name="date1" id="date1" size="12" /> ~ 
 		<input type="text" name="date2" id="date2" size="12" /><button type="button" id="ord_chkupBtn">조회</button>
 		<c:choose>
-			<c:when test="${ordL ne null && ordL.size() != 0 }">
-				<c:forEach items="${ordL}" var="ovo">
+			<c:when test="${ordWL ne null && ordWL.size() != 0 }">
+				<c:forEach items="${ordWL}" var="ovol">
 					<div class="media border p-3">
 						<img src="/resources/img/order_picon1.png" alt="John Doe"
 							class="mr-3 mt-3 rounded-circle"
 							style="width: 60px; margin-top: auto !important; margin-bottom: auto !important;">
 						<div class="media-body">
 							<h4>
+							<c:forEach items="${ovol}" var="ovo" begin="0" end="0">
 								김 점장 <small><i>Posted on ${ovo.order_sdate}</i></small>
 							</h4>
+							</c:forEach>
+							<c:forEach items="${ovol}" var="ovo">
 							<p>${ovo.pname}</p>
+							</c:forEach>
 						</div>
 					</div>
 				</c:forEach>

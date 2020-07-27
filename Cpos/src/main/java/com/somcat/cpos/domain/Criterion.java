@@ -3,7 +3,7 @@ package com.somcat.cpos.domain;
 
 public class Criterion {
 	private int amount; // 한 페이지에 보여줄 글의 수
-	private int pageNum;
+	private int pageNum;// 선택된 페이지 번호
 	private String keyword;
 	private String type;
 	

@@ -9,6 +9,6 @@ public interface OrderServiceIntf {
 	public int registOrder(OrderVO ovo);
 	public int modifyOrder(OrderVO ovo);
 	public int cancelOrder(int order_no);
-	public List<OrderVO> getList(Criterion cri, OrderVO ovo);
+	public List<List<OrderVO>> getList(Criterion cri, OrderVO ovo);
 	public int getTotalCount(Criterion cri, OrderVO ovo);
 }

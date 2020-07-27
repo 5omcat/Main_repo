@@ -1,6 +1,7 @@
 package com.somcat.cpos.ctrl;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -9,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,9 +49,9 @@ public class OrderCtrl {
 		}
 		log.info("cri:" + cri.getAmount());
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
-		model.addAttribute("ordL", osv.getList(cri, ovo));
+		List<List<OrderVO>> ordWL = osv.getList(cri, ovo);
+		model.addAttribute("ordWL", ordWL);
 		model.addAttribute("infOvo", ovo);
-		//ordL에 flag 2개 없음. 추가해서 연결시켜줘야 페이징 연속가능.
 		int totalCount = osv.getTotalCount(cri, ovo);
 		model.addAttribute("pgvo", new PagingVO(totalCount, cri));
 	}
