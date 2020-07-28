@@ -18,3 +18,11 @@ body {
   background-size: cover;
   -o-background-size: cover;
 }
+
+.qnt {
+	width: 80px;
+}
+
+.scrap option:hover{
+	background: #ddd;
+}

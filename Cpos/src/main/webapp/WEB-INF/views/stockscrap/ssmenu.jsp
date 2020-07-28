@@ -6,11 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>stockScrap 페이지~~~~~~~~</title>
+<title>재고/폐기</title>
 </head>
 <body>
 버튼 두개
-<button type="button"><a href="/stockscrap/inventory">재고관리</a></button>
-<button type="button"><a href="/stockscrap/exscrap">폐기관리</a></button>
+<a href="/stockscrap/inventory" class="btn ">재고관리</a></button>
+<a href="/stockscrap/exscrap" class="btn ">폐기관리</a></button>
 </body>
 </html>
