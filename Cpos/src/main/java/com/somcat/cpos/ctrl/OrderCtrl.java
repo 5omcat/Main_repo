@@ -32,27 +32,30 @@ public class OrderCtrl {
 			@RequestParam(value = "flag_hdate", required = false) String flag_hdate,
 			@RequestParam(value = "flag_tdate", required = false) String flag_tdate,
 			@RequestParam(value = "member_id", required = false) String member_id) {
-		log.info("flag_hdate:" + flag_hdate);
-		log.info("flag_hdate:" + flag_hdate);
-		log.info("member_id2:" + member_id);
-		log.info("cri.pageNum:" + cri.getPageNum());
 		if (flag_hdate.length() < 1 && flag_tdate.length() < 1) {
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 			flag_tdate = format1.format(System.currentTimeMillis());
 			flag_hdate = String.valueOf(Integer.parseInt(flag_tdate)-7);
 		}
-		flag_hdate += "000000";
-		flag_tdate += "235959";
+		if (flag_hdate.length()<9) {
+			flag_hdate += "000000";
+			flag_tdate += "235959";
+		}
 		if (member_id.length() < 1) {
 			MemberVO mvo = new MemberVO("testMember1", "1234", "신논현1호점", 0);
 			member_id = mvo.getMember_id();
 		}
-		log.info("cri:" + cri.getAmount());
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
+		cri.setAmount(osv.getAmount(ovo,cri.getPageNum()));
+		if (cri.getPageNum()==1) {
+			cri.setUnderamount(0);
+		}else {
+			cri.setUnderamount(osv.getUnderAmount(ovo, cri.getPageNum()));
+		}
 		List<List<OrderVO>> ordWL = osv.getList(cri, ovo);
 		model.addAttribute("ordWL", ordWL);
 		model.addAttribute("infOvo", ovo);
-		int totalCount = osv.getTotalCount(cri, ovo);
+		int totalCount = osv.getTotalCount(ovo);
 		model.addAttribute("pgvo", new PagingVO(totalCount, cri));
 	}
 

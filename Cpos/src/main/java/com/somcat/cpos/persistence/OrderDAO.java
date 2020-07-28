@@ -106,11 +106,24 @@ public class OrderDAO implements OrderDAOIntf {
 	}
 
 	@Override
-	public int selectTotalCount(Criterion cri, OrderVO ovo) {
+	public int selectTotalCount(OrderVO ovo) {
+		return sql.selectOne(ns + "totalCount", ovo);
+	}
+
+	@Override
+	public int selectAmount(OrderVO ovo, int pageNum) {
 		Map<Object, Object> map = new HashMap<>();
-		map.put("cri", cri);
-		map.put("ovo", ovo);
-		return sql.selectOne(ns + "totalCount", map);
+		map.put("pageNum", pageNum);
+		map.put("ovo",ovo);
+		return sql.selectOne(ns+"amountCount", map);
+	}
+
+	@Override
+	public int selectUnderAmount(OrderVO ovo, int pageNum) {
+		Map<Object, Object> map = new HashMap<>();
+		map.put("pageNum", pageNum);
+		map.put("ovo",ovo);
+		return sql.selectOne(ns+"underAmountCount", map);
 	}
 
 }

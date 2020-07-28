@@ -42,7 +42,17 @@ public class OrderService implements OrderServiceIntf {
 	}
 
 	@Override
-	public int getTotalCount(Criterion cri, OrderVO ovo) {
-		return odao.selectTotalCount(cri, ovo);
+	public int getTotalCount(OrderVO ovo) {
+		return odao.selectTotalCount(ovo);
+	}
+
+	@Override
+	public int getAmount(OrderVO ovo, int pageNum) {
+		return odao.selectAmount(ovo, pageNum);
+	}
+
+	@Override
+	public int getUnderAmount(OrderVO ovo, int pageNum) {
+		return odao.selectUnderAmount(ovo, pageNum);
 	}
 }

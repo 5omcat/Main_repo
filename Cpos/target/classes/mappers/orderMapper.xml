@@ -4,22 +4,49 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="OrderMapper">
 	<select id="orderList" parameterType="java.util.HashMap" resultType="OrderVO">
-	  <![CDATA[
-select order_no, member_id, barcode, pname, order_qnt, TO_CHAR(order_date,'YYYY-MM-DD HH24:MI:SS') as order_sdate, wrap_no, expire_term from (select /*+INDEX(tbl_order pk_order)*/
-  rownum as rn, order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term
-  from tbl_order where member_id = #{ovo.member_id} and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= #{ovo.flag_hdate} and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{ovo.flag_tdate} 
-  AND rownum <= #{cri.pageNum} * #{cri.amount})
-  where rn > (#{cri.pageNum}-1) * #{cri.amount}
+  <![CDATA[
+  select order_no, member_id, barcode, pname, order_qnt, 
+TO_CHAR(order_date,'YYYY-MM-DD HH24:MI:SS') as order_sdate, 
+wrap_no, expire_term from 
+(SELECT 
+  order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term, ROW_NUMBER() OVER(ORDER BY order_no ASC) AS rank
+  from tbl_order 
+  where member_id = #{ovo.member_id}
+   and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= #{ovo.flag_hdate}
+    and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{ovo.flag_tdate} 
+  )body where body.rank BETWEEN (#{cri.underamount}+1) AND (#{cri.underamount} + #{cri.amount})
   ]]>
 	</select>
 	
 	<insert id="order" parameterType="OrderVO">
 		insert into tbl_order(order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term) values(seq_order_no.nextval, #{member_id}, #{barcode}, #{pname}, #{order_qnt}, sysdate, #{wrap_no}, #{expire_term})
 	</insert>
-	
-	<select id="totalCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+	<select id="amountCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 	<![CDATA[
-	select count(count(order_no)) from tbl_order where member_id = #{ovo.member_id} and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= #{ovo.flag_hdate} and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{ovo.flag_tdate} group by wrap_no
+	SELECT sum(cnt) from
+	(SELECT WRAP_NO, COUNT(WRAP_NO ) cnt, ROW_NUMBER() OVER(ORDER BY WRAP_NO ASC) AS rank
+	FROM TBL_ORDER where member_id = #{ovo.member_id}
+    and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= #{ovo.flag_hdate}
+    and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{ovo.flag_tdate} 
+    GROUP by wrap_no)body WHERE body.RANK BETWEEN ((#{pageNum}-1)*10+1) AND #{pageNum}*10
+	]]>
+	</select>
+	<select id="underAmountCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+	<![CDATA[
+	SELECT sum(cnt) from
+	(SELECT WRAP_NO, COUNT(WRAP_NO ) cnt, ROW_NUMBER() OVER(ORDER BY WRAP_NO ASC) AS rank
+	FROM TBL_ORDER where member_id = #{ovo.member_id}
+    and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= #{ovo.flag_hdate}
+    and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{ovo.flag_tdate} GROUP by wrap_no)body WHERE body.RANK >=1 AND body.RANK <= (#{pageNum}-1)*10
+	]]>
+	</select>
+	<select id="totalCount" parameterType="OrderVO" resultType="java.lang.Integer">
+	<![CDATA[
+	SELECT count(rank) from
+	(SELECT WRAP_NO, COUNT(WRAP_NO ) cnt, ROW_NUMBER() OVER(ORDER BY WRAP_NO ASC) AS rank
+	FROM TBL_ORDER where member_id = #{member_id}
+    and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= #{flag_hdate}
+    and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{flag_tdate} GROUP by wrap_no)
 		]]>
 	</select>
 </mapper>

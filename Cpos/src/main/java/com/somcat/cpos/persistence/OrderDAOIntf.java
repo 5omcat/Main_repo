@@ -29,5 +29,9 @@ public interface OrderDAOIntf {
 
 	public int deleteProduct(int bacode);
 
-	public int selectTotalCount(Criterion cri, OrderVO ovo);
+	public int selectTotalCount(OrderVO ovo);
+
+	public int selectAmount(OrderVO ovo, int pageNum);
+
+	public int selectUnderAmount(OrderVO ovo, int pageNum);
 }
