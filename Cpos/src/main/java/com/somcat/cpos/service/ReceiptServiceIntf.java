@@ -10,5 +10,5 @@ public interface ReceiptServiceIntf {
 	public int insertReciept(ReceiptVO rvo);
 	
 	public List<ReceiptVO> selectReceiptList(ReceiptVO rvo);
-	public ReceiptVO selectReceiptDetail(int recno);
+	public ReceiptVO selectReceiptDetail(int rno);
 }

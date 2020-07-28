@@ -2,29 +2,34 @@ package com.somcat.cpos.service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.somcat.cpos.domain.ReceiptVO;
+import com.somcat.cpos.persistence.ReceiptDAOIntf;
 
 @Service
 public class ReceiptService implements ReceiptServiceIntf{
 	private static Logger log = LoggerFactory.getLogger(ReceiptService.class);
 
+	@Inject
+	ReceiptDAOIntf rdao;
 
 	@Override
 	public int insertReciept(ReceiptVO rvo) {
-		return 0;
+		return rdao.insertReceipt(rvo);
 	}
 
 	@Override
 	public List<ReceiptVO> selectReceiptList(ReceiptVO rvo) {
-		return null;
+		return rdao.getReceiptList(rvo);
 	}
 
 	@Override
-	public ReceiptVO selectReceiptDetail(int recno) {
-		return null;
+	public ReceiptVO selectReceiptDetail(int rno) {
+		return rdao.getReceiptDetail(rno);
 	}
 }

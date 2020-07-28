@@ -11,28 +11,104 @@ public class ReceiptVO {
 	private Date sell_date;
 	private Date sell_date_s;	//정렬 시작일
 	private Date sell_date_e;	//정렬 종료일
-	private String category;
+	private String str_date_s;
+	private String str_date_e;
+	private int category;
 	private int discount_rate;
-	private int receipt_no;
+	private String receipt_no;
+	private String pname;
+	private int get_price;
+	private int sell_price;
 	
 	public ReceiptVO() {
 		
 	}
 
-	public ReceiptVO(String member_id, int receipt_no) {
+	public ReceiptVO(String member_id, String receipt_no) {
 		super();
 		this.member_id = member_id;
 		this.receipt_no = receipt_no;
 	}
 
+	public ReceiptVO(int sell_no, String pay_method, Date sell_date, String receipt_no, String pname) {
+		super();
+		this.sell_no = sell_no;
+		this.pay_method = pay_method;
+		this.sell_date = sell_date;
+		this.receipt_no = receipt_no;
+		this.pname = pname;
+	}
 
-	public ReceiptVO(String member_id, String pay_method, Date sell_date_s, Date sell_date_e, String category) {
+	public ReceiptVO(String member_id, String pay_method, Date sell_date_s, Date sell_date_e, int category) {
 		super();
 		this.member_id = member_id;
 		this.pay_method = pay_method;
 		this.sell_date_s = sell_date_s;
 		this.sell_date_e = sell_date_e;
 		this.category = category;
+	}
+
+	
+	public ReceiptVO(int sell_no, String member_id, int barcode, int sell_qnt, String pay_method, Date sell_date,
+			Date sell_date_s, Date sell_date_e, int category, int discount_rate, String receipt_no, String pname,
+			int get_price, int sell_price) {
+		super();
+		this.sell_no = sell_no;
+		this.member_id = member_id;
+		this.barcode = barcode;
+		this.sell_qnt = sell_qnt;
+		this.pay_method = pay_method;
+		this.sell_date = sell_date;
+		this.sell_date_s = sell_date_s;
+		this.sell_date_e = sell_date_e;
+		this.category = category;
+		this.discount_rate = discount_rate;
+		this.receipt_no = receipt_no;
+		this.pname = pname;
+		this.get_price = get_price;
+		this.sell_price = sell_price;
+	}
+
+	
+	
+	public String getStr_date_s() {
+		return str_date_s;
+	}
+
+	public void setStr_date_s(String str_date_s) {
+		this.str_date_s = str_date_s;
+	}
+
+	public String getStr_date_e() {
+		return str_date_e;
+	}
+
+	public void setStr_date_e(String str_date_e) {
+		this.str_date_e = str_date_e;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public int getGet_price() {
+		return get_price;
+	}
+
+	public void setGet_price(int get_price) {
+		this.get_price = get_price;
+	}
+
+	public int getSell_price() {
+		return sell_price;
+	}
+
+	public void setSell_price(int sell_price) {
+		this.sell_price = sell_price;
 	}
 
 	public Date getSell_date() {
@@ -59,11 +135,11 @@ public class ReceiptVO {
 		this.sell_date_e = sell_date_e;
 	}
 
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 
@@ -115,11 +191,11 @@ public class ReceiptVO {
 		this.discount_rate = discount_rate;
 	}
 
-	public int getReceipt_no() {
+	public String getReceipt_no() {
 		return receipt_no;
 	}
 
-	public void setReceipt_no(int receipt_no) {
+	public void setReceipt_no(String receipt_no) {
 		this.receipt_no = receipt_no;
 	}
 	

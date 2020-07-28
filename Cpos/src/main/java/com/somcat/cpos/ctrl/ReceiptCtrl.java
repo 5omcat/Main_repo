@@ -1,5 +1,9 @@
 package com.somcat.cpos.ctrl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.somcat.cpos.domain.ReceiptVO;
 import com.somcat.cpos.service.ReceiptServiceIntf;
 
-import net.sf.json.JSON;
 
 @Controller
 @RequestMapping("/receipt/*")
@@ -28,20 +31,50 @@ public class ReceiptCtrl {
 	ReceiptServiceIntf rsv;
 	
 	@GetMapping("/soldlist")
-	public void getReceiptList(ReceiptVO rvo, Model model) {
+	public void getReceiptList(ReceiptVO rvo, Model model) throws ParseException {
 		log.info("msgmsg");
 		List<ReceiptVO> list = null;
-		log.info(rvo.getMember_id());
-		if(rvo!=null) {
-			log.info("get list 진입");
-			list = rsv.selectReceiptList(rvo);
-			log.info("list 불러옴");
-		}
+		Calendar cal = Calendar.getInstance();
+		log.info("rvo 정보 생성");
+		String member_id = "";
+		cal.set(1999, Calendar.JANUARY, 1);
+		Date sell_date_s = new Date(cal.getTimeInMillis());
+		Date sell_date_e = new Date();
+		int cate = -1;
+		rvo = new ReceiptVO(member_id, "null", sell_date_s, sell_date_e, cate);
+		log.info(rvo.getPay_method()+" "+rvo.getSell_date_s()+" "+rvo.getSell_date_e());
+		
+		list = rsv.selectReceiptList(rvo);
 		if(list==null) {
 			log.info(">>>> list select fail");
 		}else {
+			for(int i=0; i<list.size(); i++) {
+				log.info(list.get(i).getPay_method());
+				log.info(list.get(i).getPname());
+				log.info(list.get(i).getReceipt_no());
+			}
+			
 			model.addAttribute("list", list);
 		}
+	}
+	
+	@GetMapping("/list")
+	@ResponseBody
+	public String searchList(ReceiptVO rvo) throws ParseException {
+		List<ReceiptVO> list = null;
+		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+		log.info("get list 진입");
+//		String sell_date_s = format.format(rvo.getSell_date_s());
+//		String sell_date_e = format.format(rvo.getSell_date_e());
+		Date s_date = format.parse(rvo.getStr_date_s());
+		Date e_date = format.parse(rvo.getStr_date_e());
+		rvo.setSell_date_s(s_date);
+		rvo.setSell_date_e(e_date);
+//		log.info(s_date+" : "+e_date);
+		JSONObject obj = new JSONObject();
+		obj.put("list", list);
+		String str = JSONObject.toJSONString(obj);
+		return str;
 	}
 	
 	@GetMapping(value = "/detail/{rno}")

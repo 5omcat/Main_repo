@@ -24,13 +24,18 @@
       <button type="button" class="btn btn-primary" id="schBtn">조회</button>
     </div>
   <div class="container listArea" style="overflow: auto">
-    <ul>
-      <li>순번</li>
-      <li>영수증번호</li>
-      <li>품목</li>
-      <li>결제수단</li>
-      <li>판매일시</li>
+    <ul class="nav nav-pills nav-justified" id="recList">
+      <li class="nav-item">순번</li>
+      <li class="nav-item">영수증번호</li>
+      <li class="nav-item">품목</li>
+      <li class="nav-item">결제수단</li>
+      <li class="nav-item">판매일시</li>
     </ul>
+    <c:if test="${list ne null}">
+    	<c:forEach var="rvo" items="${list}" >
+    		
+    	</c:forEach>
+    </c:if>
   </div>
   <div class="container detailArea">
     
@@ -68,9 +73,9 @@
 		  }
 		  console.log(member_id);
 		  console.log(category+" "+pay_method);
-		  console.log(sell_date_s);
-		  console.log(sell_date_e);
-		  //searchList(member_id, category, pay_method, sell_date_s, sell_date_e);
+		  console.log(typeof sell_date_s);
+		  console.log(typeof sell_date_e);
+		  searchList(member_id, category, pay_method, sell_date_s, sell_date_e);
 	  });
 });
 </script>

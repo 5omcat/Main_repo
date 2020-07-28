@@ -4,15 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ReceiptMapper">
   <sql id="search">
-  <choose>
-  	<when test=""></when>
-  	<when test=""></when>
-  </choose>
-  <choose>
-  	<when test=""></when>
-  	<when test=""></when>
-  </choose>
-  <if test="pay_method != 'null'">
+  <if test="pay_method != 'null'.toString()">
     <trim prefix=" and (" suffix=") ">
       pay_method = #{pay_method}
     </trim>
@@ -37,13 +29,13 @@
     insert into tbl_receipt(sell_no, member_id, barcode, sell_qnt, pay_method, sell_date, discount_rate, receipt_no) 
     values(seq_sell_no.nextval, #{member_id}, #{barcode}, #{sell_qnt}, #{pay_method}, sysdate, #{discount_rate}, #{receipt_no})
   </insert>
-  <select id="rlist" parameterType="ReceiptVO" resultType="java.util.List">
+  <select id="rlist" parameterType="ReceiptVO" resultType="ReceiptVO">
   <![CDATA[
-    select/*+INDEX_DESC(tbl_sell pk_sell)*/ sell_no, pay_method, sell_date, receipt_no from tbl_sell where rownum > 0 
+    select/*+INDEX_DESC(tbl_sell pk_sell)*/ sell_no, pay_method, sell_date, receipt_no, pname from tbl_sell where rownum > 0 
     ]]>
     <include refid="search"/>
     <![CDATA[
-    and sell_date = (between #{sell_date_s} and #{sell_date_e}) group by receipt_no
+    and (sell_date between #{sell_date_s} and #{sell_date_e}) group by receipt_no, pay_method, sell_date, sell_no, pname
     ]]>
   </select>
   <select id="rdetail" parameterType="java.lang.Integer" resultType="ReceiptVO">
