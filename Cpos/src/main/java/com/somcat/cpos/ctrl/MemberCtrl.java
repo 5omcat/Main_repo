@@ -55,14 +55,15 @@ public class MemberCtrl {
 	}
 	
 	@PostMapping("/login")
-	public String login(MemberVO mvo, HttpSession ses, RedirectAttributes reAttr, HttpServletRequest request, HttpServletResponse response){
+	public String login(MemberVO mvo, HttpServletRequest req, RedirectAttributes reAttr){
 		MemberVO minfo = msv.login(mvo);
+		HttpSession ses = req.getSession();
 		if(minfo != null) {
+			ses.setAttribute("mid", minfo.getMember_id());
+			log.info(">>>>"+minfo.getMember_id());
 			if(minfo.getOpt()==0) {
-				ses.setAttribute("mvo", minfo);
 				return "/store/nav";
 			}else if(minfo.getOpt()==1) {
-				ses.setAttribute("mvo", minfo);
 				return "/head/plist";
 			}
 		}else {

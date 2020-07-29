@@ -2,22 +2,42 @@ function allList() {
 	
 }
 
-function searchList(category, pay_method, sell_date) {
+function searchList(member_id, division, pay_method, sell_date_s, sell_date_e) {
 	$.ajax({
 		url: "/receipt/list",
-		data: {category:category, pay_method:pay_method, sell_date:sell_date},
+		data: {division:division, pay_method:pay_method, str_date_s:sell_date_s, str_date_e:sell_date_e},
+	}).done(function(result) {
+		console.log('list select success');
+		printList(result);
 	});
 }
 
 function printList(list){
-	for(let rvo of list){
-		let ul = "<ul>";
+	alert('list');
+	console.log(list);
+	let rvo = JSON.parse(list);
+	console.log(rvo);
+	for(let key of rvo){
 		let ulTag = '<ul class="nav nav-pills nav-justified">';
+		ulTag += '<li class="nav-item">'+rvo.sell_no+'</li>';
 		ulTag += '<li class="nav-item">'+rvo.receipt_no+'</li>';
 		ulTag += '<li class="nav-item"><a href="/receipt/soldlist/"'+rvo.receipt_no+'">'+rvo.pname+' 등 </li>';
+		ulTag += '<li class="nav-item">'+rvo.pay_method+'</li>';
 		ulTag += '<li class="nav-item">'+displayTime(rvo.sell_date)+'</li>';
-		$("#cmtList").append(ulTag);
+		$("#recList").append(ulTag);
 	}
+}
+
+function printDetail(rno){
+	$.ajax({
+		url:"/receipt/detail/"+rno
+	}).done(function(str) {
+		let rvo = JSON.parse(str);
+		alert('detail');
+		for(let key in rvo){
+			console.log(key+":"+rvo[key]);
+		}
+	});
 }
 
 function displayTime(modd8){

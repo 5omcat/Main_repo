@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.HeadVO;
 import com.somcat.cpos.persistence.HeadDAOIntf;
@@ -61,7 +62,12 @@ public class HeadService implements HeadServiceIntf{
 	}
 
 	@Override
-	public int getTotalCount(Criterion cri) {
-		return hdao.selectTotalCount(cri);
+	public int getTotalCount() {
+		return hdao.selectTotalCount();
+	}
+
+	@Override
+	public HeadVO getProduct(int barcode) {
+		return hdao.selectProduct(barcode);
 	}
 }

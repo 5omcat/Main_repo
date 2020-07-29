@@ -20,11 +20,16 @@
 <script src="/resources/js/jquery-3.5.1.min.js"></script>
 <script src="/resources/js/popper.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/common.js"></script>
+
 <!-- Custom styles for this template -->
-<!-- <link href="/resources/css/custom.css" rel="stylesheet"> -->
+<link href="/resources/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
+<<<<<<< HEAD
 <div class="form-group">
 <input type="hidden" value="${mvo.member_id}" id="hddn_mid"/>
 </div>
+=======
+>>>>>>> a42b0b834f30d2940628d1ba2bc9ded18df5e90a

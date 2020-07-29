@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+  <insert id="join" parameterType="MemberVO">
+    insert into tbl_member(member_id, member_pwd, opt) values(#{member_id}, #{member_pwd}, 0)
+  </insert>
+  <select id="checkid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(member_id) from tbl_member where member_id = #{member_id}
+  </select>
+  <select id="login" parameterType="MemberVO" resultType="MemberVO">
+    select * from tbl_member where member_id = #{member_id} and member_pwd = #{member_pwd}
+  </select>
+  <select id="mlist" parameterType="Criterion" resultType="MemberVO">
+    select * from tbl_member
+  </select>
+  <delete id="resign" parameterType="java.lang.String">
+    delete from tbl_member where member_id = #{member_id}
+  </delete>
+  <select id="totalCount" parameterType="Criterion" resultType="java.lang.Integer">
+    select count(member_id) from tbl_member where rownum > 0
+  </select>
+</mapper>
