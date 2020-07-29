@@ -1,4 +1,5 @@
 
+
 # 여기는 Main_repo 입니다.
 
 **중요**
@@ -11,10 +12,13 @@
 
 + 개인Main_repo로 push한 것들은 매일 오후 4시 전후로 'pull request'해서 넘겨주세요
 
-오늘도 즐코!
-<<<<<<< HEAD
-(Md test2)
-=======
 
-zzzzzz
->>>>>>> 032dea8fe1ced04d155f3bb10262f8c51009e826
+오늘도 즐코~
+(modify test)
+
+
+
+오늘도 즐코!
+
+(Md test2)
+

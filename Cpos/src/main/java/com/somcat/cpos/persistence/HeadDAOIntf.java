@@ -12,7 +12,9 @@ public interface HeadDAOIntf {
 	public List<HeadVO> selectHeadList(Criterion cri);
 	public List<HeadVO> selectLargeCate(Criterion cri);
 	public List<HeadVO> selectMediumCate(Criterion cri);
+	public HeadVO selectProduct(int barcode);
 	public int updateHead(HeadVO hvo);
 	public int deleteHead(int barcode);
-	public int selectTotalCount(Criterion cri);
+	public int selectTotalCount();
+	
 }

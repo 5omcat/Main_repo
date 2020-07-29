@@ -9,6 +9,7 @@ public class Criterion {
 	private CategoryVO cate;
 	private Date today;
 	
+	
 	public Criterion() {
 		this(1,10);
 	}
