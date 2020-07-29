@@ -4,30 +4,6 @@
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">
-<<<<<<< HEAD
-<div class="btn-group">
-  <a href="" class="btn btn-primary">결제</a>
-</div>
-
-<div class="btn-group">
-  <a href="" class="btn btn-primary">재고관리</a>
-  <a href="" class="btn btn-primary">폐기관리</a>
-</div>
-
-<div class="btn-group">
-  <a href="" class="btn btn-primary">판매조회</a>
-</div>
-
-<div class="btn-group">
-  <a href="/order/ons" class="btn btn-primary">발주관리</a>
-  <a href="" class="btn btn-primary">매출통계</a>
-</div>
-
-<div class="btn-group">
-  <a href="" class="btn btn-primary">로그아웃</a>
-</div>
-  <!-- /.container -->
-=======
 	<div class="container">
 		<div class="btn-group">
 			<div class="btn-group">
@@ -56,8 +32,6 @@
 			</c:if>
 		</div>
 	</div>
-		<!-- /.container -->
->>>>>>> a42b0b834f30d2940628d1ba2bc9ded18df5e90a
 </footer>
 
 <script>

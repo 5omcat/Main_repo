@@ -27,9 +27,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 <div class="form-group">
-<input type="hidden" value="${mvo.member_id}" id="hddn_mid"/>
+<input type="hidden" value="${mid}" id="hddn_mid"/>
 </div>
-=======
->>>>>>> a42b0b834f30d2940628d1ba2bc9ded18df5e90a

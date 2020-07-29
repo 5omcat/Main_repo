@@ -1,20 +1,16 @@
 package com.somcat.cpos.ctrl;
 
-<<<<<<< HEAD
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
 
-=======
->>>>>>> a42b0b834f30d2940628d1ba2bc9ded18df5e90a
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.somcat.cpos.domain.Criterion;
@@ -22,8 +18,6 @@ import com.somcat.cpos.domain.MemberVO;
 import com.somcat.cpos.domain.OrderVO;
 import com.somcat.cpos.domain.PagingVO;
 import com.somcat.cpos.service.OrderServiceIntf;
-=======
->>>>>>> a42b0b834f30d2940628d1ba2bc9ded18df5e90a
 
 @Controller
 @RequestMapping("/order")

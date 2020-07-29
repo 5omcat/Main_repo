@@ -37,20 +37,6 @@
 	
 	<!-- 넘어다니는 데이터들의 값을 encodign해줌 -->
 	<filter>
-<<<<<<< HEAD
-		<filter-name>encoding</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
-		</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encoding</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-=======
     <filter-name>encoding</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
     <init-param>
@@ -62,7 +48,5 @@
     <filter-name>encoding</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-
->>>>>>> a42b0b834f30d2940628d1ba2bc9ded18df5e90a
 
 </web-app>

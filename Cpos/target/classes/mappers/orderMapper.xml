@@ -23,7 +23,7 @@ wrap_no, expire_term from
 	</insert>
 	<select id="amountCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 	<![CDATA[
-	SELECT sum(cnt) from
+	SELECT NVL(sum(cnt), 0) from
 	(SELECT WRAP_NO, COUNT(WRAP_NO ) cnt, ROW_NUMBER() OVER(ORDER BY WRAP_NO ASC) AS rank
 	FROM TBL_ORDER where member_id = #{ovo.member_id}
     and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= #{ovo.flag_hdate}
