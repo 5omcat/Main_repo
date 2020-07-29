@@ -10,6 +10,7 @@ public class InventoryVO {
 	private int barcode;
 	private String pname;
 	private int category;
+	private CategoryVO catelm;
 	private int get_price;
 	private int sell_price;
 	private int discount_rate;
@@ -18,11 +19,9 @@ public class InventoryVO {
 	
 	public InventoryVO() {}
 
-
 	public InventoryVO(int inventory_no, int inv_qnt, int discount_rate, int status) {
 		this.inventory_no = inventory_no;
 		this.inv_qnt = inv_qnt;
-		this.discount_rate = discount_rate;
 		this.status = status;
 	}
 
@@ -41,6 +40,31 @@ public class InventoryVO {
 		this.status = status;
 	}
 	
+	public InventoryVO(int inventory_no, int inv_qnt, int barcode, String pname, int category, 
+			String large, String medium, int get_price, Date expire_date, int status) {
+		this.inventory_no = inventory_no;
+		this.inv_qnt = inv_qnt;
+		this.barcode = barcode;
+		this.pname = pname;
+		this.category = category;
+		this.catelm = new CategoryVO(large, medium);
+		this.get_price = get_price;
+		this.expire_date = expire_date;
+		this.status = status;
+	}
+
+	public InventoryVO(int inventory_no, int inv_qnt, String pname, int category,
+			String large, String medium, int discount_rate, Date expire_date, int status) {
+		this.inventory_no = inventory_no;
+		this.inv_qnt = inv_qnt;
+		this.pname = pname;
+		this.category = category;
+		this.catelm = new CategoryVO(large, medium);
+		this.discount_rate = discount_rate;
+		this.expire_date = expire_date;
+		this.status = status;
+	}
+
 	public int getInventory_no() {
 		return inventory_no;
 	}
@@ -128,6 +152,20 @@ public class InventoryVO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	
+
+	public String getLarge() {
+		return catelm.getLarge();
+	}
+
+	public void setLarge(String large) {
+		this.catelm = new CategoryVO(large);
+	}
+
+	public String getMedium() {
+		return catelm.getMedium();
+	}
+
+	public void setMedium(String medium) {
+		catelm.setMedium(medium);
+	}
 }

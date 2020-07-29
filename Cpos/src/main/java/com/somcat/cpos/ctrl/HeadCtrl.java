@@ -1,8 +1,5 @@
 package com.somcat.cpos.ctrl;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,7 +26,6 @@ import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.HeadVO;
 import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.PagingVO;
-import com.somcat.cpos.domain.SearchVO;
 import com.somcat.cpos.service.HeadServiceIntf;
 
 @Controller
@@ -42,7 +36,6 @@ public class HeadCtrl {
 	
 	@Inject
 	HeadServiceIntf hsv;	
-	
 
 	@GetMapping("/pregist")
 	public void regist() {
@@ -59,32 +52,23 @@ public class HeadCtrl {
 	
 	
 	@GetMapping("/pmodify")
-	public void modify(@RequestParam("barcode") int barcode, Model model, @RequestParam("pSign") int pSign,
-						RedirectAttributes reAttr, @ModelAttribute("cri")Criterion cri) {
-		
-		model.addAttribute("hvo", hsv.getProduct(barcode));
-		log.info(">>>>>>>>>>> check modify01");
-		
-		//model.addAttribute("cri",hsv.getHeadList(cri));
-		
-		if(pSign > 0) { reAttr.addFlashAttribute("pSign", "상품수정완료"); }
-		 
-	}
-	
-	
-	@PostMapping("/pmodify")
-	public String modify(Model model, HeadVO hvo, Criterion cri, RedirectAttributes reAttr) {
-		int isOk = hsv.modify(hvo);
-		log.info(">>>>>"+isOk);
-		/*
-		 * if(isOk > 0) { model.addAttribute("hvo", hvo); }
-		 */
-		log.info(">>>>>>>>>>> check modify02");
-		return "redirect:/head/plist?pSign="+isOk
-				+"&barcode="+hvo.getBarcode()
-				+"&pageNum="+cri.getPageNum()
-				+"&amount="+cri.getAmount();
-	}
+	   public void modify(@RequestParam("barcode") int barcode, Model model,
+	                  RedirectAttributes reAttr, @ModelAttribute("cri")Criterion cri) {
+	      model.addAttribute("hvo", hsv.getProduct(barcode));      
+	   }
+	   @PostMapping("/pmodify")
+	   public String modify(Model model, HeadVO hvo, Criterion cri, RedirectAttributes reAttr) {
+	      int isOk = hsv.modify(hvo);
+	      log.info(">>>>>"+isOk);
+	      
+	      if(isOk > 0) {
+	         reAttr.addFlashAttribute("pSign", "상품수정완료");
+	      }
+	      return "redirect:/head/plist?pSign="+isOk
+	            +"&barcode="+hvo.getBarcode()
+	            +"&pageNum="+cri.getPageNum()
+	            +"&amount="+cri.getAmount();
+	   }
 	
 	
 	/*

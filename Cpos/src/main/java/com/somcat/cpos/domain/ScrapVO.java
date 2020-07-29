@@ -3,28 +3,29 @@ package com.somcat.cpos.domain;
 import java.sql.Date;
 
 public class ScrapVO {
-	private int scrap_no; //number(5,0),
+	private int scrap_no;
 	private String member_id;
-	private int barcode; //number(8,0),
+	private int barcode;
 	private String pname;
-	private int category; //number(4,0),
-	private int scrap_qnt; //number(4,0)
-	private int get_price; //number(4,0),
+	private int category;
+	private int scrap_qnt;
+	private int get_price;
 	private Date scrap_date;
 	private Date expire_date;
 	private int ino;
 	
 	public ScrapVO() {}
 	
-	public ScrapVO(int scrap_no, String member_id, int barcode, int category, int get_price, Date scrap_date,
-			Date expire_date) {
-		this.scrap_no = scrap_no;
+	public ScrapVO(String member_id, int barcode, String pname, int category, int get_price, 
+			Date expire_date, int scrap_qnt, int ino) {
 		this.member_id = member_id;
 		this.barcode = barcode;
+		this.pname = pname;
 		this.category = category;
 		this.get_price = get_price;
-		this.scrap_date = scrap_date;
 		this.expire_date = expire_date;
+		this.scrap_qnt = scrap_qnt;
+		this.ino = ino;
 	}
 	
 	public ScrapVO(int scrap_no, String member_id, int barcode, int category, int get_price, Date scrap_date,

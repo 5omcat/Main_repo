@@ -1,11 +1,6 @@
 package com.somcat.cpos.domain;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class CategoryVO {
-	private static Logger log = LoggerFactory.getLogger(CategoryVO.class);
-	
 	private int category;
 	private String large;
 	private String medium;

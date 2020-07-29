@@ -2,12 +2,7 @@ package com.somcat.cpos.domain;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class PayVO {
-	private static Logger log = LoggerFactory.getLogger(PayVO.class);
-
 	private int sell_no;
 	private String member_id;
 	private int barcode;

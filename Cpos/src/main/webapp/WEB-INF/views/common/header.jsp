@@ -23,7 +23,7 @@
 <script src="/resources/js/common.js"></script>
 
 <!-- Custom styles for this template -->
-<!-- <link href="/resources/css/custom.css" rel="stylesheet"> -->
+<link href="/resources/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
