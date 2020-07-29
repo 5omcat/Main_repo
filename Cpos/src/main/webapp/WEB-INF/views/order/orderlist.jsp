@@ -50,7 +50,7 @@
 
 <section class="pricing py-5">
 	<div class="container mt-3">
-		<h2>발주 내역</h2>
+		<h2>발주 내역</h2><a href="/order/order" id="order">발주</a>
 		<p>
 			공지 <span>: 다음 주부터 칸쵸 1+1 행사가 진행됩니다.</span>
 		</p>

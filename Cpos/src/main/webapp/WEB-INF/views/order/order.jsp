@@ -3,10 +3,11 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <section class="py-5">
 	<div class="container">
+	<h1>발주 등록</h1>
 		<div class="form-group">
 			<label for="largeCtg">상품 대분류:</label> <select class="form-control"
 				id="LgCtgSlc" name="largeCtg">
-				<option selected>선택</option>
+				<option value="-1" selected>선택</option>
 				<option value="냉장">냉장</option>
 				<option value="냉동">냉동</option>
 				<option value="실온">실온</option>
@@ -15,12 +16,10 @@
 			</select>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group" style="display:none;">
 			<label for="sel1">상품 중분류:</label> <select class="form-control" id="MdCtgSlc"
 				name="mediumCtg">
-				<!-- <option selected>선택</option> //쿼리 동적 insert hidden > open when
-					large select //+DB category insert Dummy in// barcode hddn  상품 name.
-					<option value=""></option> -->
+				<option value="-1" selected>선택</option>
 			</select>
 		</div>
 
@@ -34,4 +33,7 @@
 		
 	</div>
 </section>
+<script>
+//$("#LgCtgSlc")
+</script>
 <jsp:include page="../common/footer.jsp"></jsp:include>
