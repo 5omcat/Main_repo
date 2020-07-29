@@ -6,6 +6,7 @@ public class Criterion {
 	private int pageNum;
 	private String keyword;
 	
+	
 	public Criterion() {
 		this(1,10);
 	}

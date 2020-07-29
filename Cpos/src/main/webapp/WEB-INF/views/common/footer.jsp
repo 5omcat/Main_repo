@@ -5,7 +5,11 @@
 <!-- Footer -->
 <footer class="py-5 bg-dark">
   <div class="container">
+<<<<<<< HEAD
     <div class="btn-group">
+=======
+   <div class="btn-group">
+>>>>>>> a5f7eee4f264e6c5a73c1ebfcb1e5f8633b2d9d2
   <a href="" class="btn btn-primary">결제</a>
 </div>
 
@@ -15,19 +19,26 @@
 </div>
 
 <div class="btn-group">
+<<<<<<< HEAD
   <a href="/receipt/soldlist?member_id=${mid}" class="btn btn-primary">판매조회</a>
+=======
+  <a href="" class="btn btn-primary">판매조회</a>
+>>>>>>> a5f7eee4f264e6c5a73c1ebfcb1e5f8633b2d9d2
 </div>
 
 <div class="btn-group">
   <a href="" class="btn btn-primary">발주관리</a>
   <a href="" class="btn btn-primary">매출통계</a>
 </div>
+<<<<<<< HEAD
 
 <c:if test="${ses ne null || ses ne ''}">
 <div class="btn-group">
   <a href="/member/logout" class="btn btn-primary">로그아웃</a>
 </div>
 </c:if>
+=======
+>>>>>>> a5f7eee4f264e6c5a73c1ebfcb1e5f8633b2d9d2
   </div>
   <!-- /.container -->
 </footer>
@@ -37,10 +48,12 @@
   if (msg != '') {
     alert(msg);
   }
-  let pSign = '<c:out value="${pSign}"/>';
+  /* let pSign = '<c:out value="${pSign}"/>';
   if (pSign != '') {
     alert(pSign);
-  }
+  } */
+  
+  
 
   $(function() {
 	  $("#chkid").on(
@@ -80,8 +93,9 @@
 	            //join 활성화
 	         }
 	      }
-  });
+  }); 
 </script>
+
 </body>
 
 </html>

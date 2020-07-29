@@ -21,7 +21,7 @@
         </select>
       </div>
       <input type="date" id="sell_date_s"> - <input type="date" id="sell_date_e">
-      <button type="button" class="btn btn-primary" id="schBtn">조회</button>
+      
     </div>
   <div class="container listArea" style="overflow: auto">
     <ul class="nav nav-pills nav-justified" id="recList">
