@@ -8,7 +8,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/resources/js/ksy/datepicker-ko.js"></script>
 <script type="text/javascript">
-
 	$(function() {
 		$("#date1").datepicker({
 			showOn : "both",
@@ -50,7 +49,60 @@
 
 <section class="pricing py-5">
 	<div class="container mt-3">
-		<h2>발주 내역</h2><a href="/order/order" id="order">발주</a>
+		<h2>발주 내역</h2>
+		<button type="button" class="btn btn-primary" data-toggle="modal"
+			data-target="#myModal">발주</button>
+		<!-- The Modal -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-xl modal-dialog-centered">
+				<div class="modal-content">
+
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">발주 등록</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="largeCtg">대분류:</label> <select class="form-control"
+								id="largeCtg" name="largeCtg">
+								<option value="-1" selected>선택</option>
+								<option value="10">냉장</option>
+								<option value="20">냉동</option>
+								<option value="30">실온</option>
+								<option value="40">생필품</option>
+								<option value="50">기호품</option>
+							</select>
+						</div>
+						<!-- 스트립트 임시 -->
+						<div class="form-group" id="md_wdiv">
+							<label for="mediumCtg">중분류:</label> <select class="form-control"
+								id="mediumCtg" name="mediumCtg">
+								<option value="-1" selected>선택</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="largeCtg">상품 리스트:</label>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="largeCtg">선택된 상품:</label>
+						</div>
+					</div>
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" id="ord_insert_btn" class="btn btn-warning" data-dismiss="modal">등록</button>
+						<button type="button" id="ord_cancel_btn" class="btn btn-danger" data-dismiss="modal">취소</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
 		<p>
 			공지 <span>: 다음 주부터 칸쵸 1+1 행사가 진행됩니다.</span>
 		</p>
@@ -69,15 +121,16 @@
 								<c:forEach items="${ovol}" var="ovo" begin="0" end="0">
 								김 점장 <small><i>Posted on ${ovo.order_sdate}</i></small>
 							</h4>
-					</c:forEach>
-					<c:forEach items="${ovol}" var="ovo">
-						<span>${ovo.pname} : </span> <span>${ovo.order_qnt}개/</span>
-					
-					</c:forEach>
-						</div>
-					</div>
 				</c:forEach>
-			</c:when>
+				<c:forEach items="${ovol}" var="ovo">
+					<span>${ovo.pname} : </span>
+					<span>${ovo.order_qnt}개/</span>
+
+				</c:forEach>
+	</div>
+	</div>
+	</c:forEach>
+	</c:when>
 	<c:otherwise>
 		<tr>
 			<th colspan="6"><h3 class="text-center">조회된 발주내역이 없습니다.</h3></th>
@@ -105,5 +158,29 @@
 	</ul>
 	</div>
 </section>
-
+<script>
+	$(function() {
+		$('#md_wdiv').hide();
+		$('#largeCtg').change(function() {
+			let large = "";
+			large = $(this).val();
+			console.log(large);
+			if (large != '-1') {
+				$.getJSON("/order/getMCtgs/"+large, function(mCtgs){
+					$('#mediumCtg option:first-child').nextAll("option").remove();
+					for (let md of mCtgs) {
+						let optionTag = '<option value="'+md.category+'">';
+						optionTag += ''+md.medium+'</option>';
+						$("#mediumCtg").append(optionTag);
+						console.log(optionTag);
+						console.log(md.category);
+						console.log(md.medium);
+					}
+				});
+				$('#md_wdiv').show();
+				alert("짜잔");
+			}
+		});
+	})
+</script>
 <jsp:include page="../common/footer.jsp"></jsp:include>

@@ -28,7 +28,7 @@
 		 
 		<button type="submit" class="btn btn-primary">발주 등록</button>
 		<button type="button" class="btn btn-danger"
-			onclick="location.repace('order.jsp')">취소</button>
+			onclick="location.replace('order.jsp')">취소</button>
 		</form>
 		
 	</div>

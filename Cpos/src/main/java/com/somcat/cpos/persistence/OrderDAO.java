@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.HeadVO;
 import com.somcat.cpos.domain.MemberVO;
@@ -88,9 +89,8 @@ public class OrderDAO implements OrderDAOIntf {
 	}
 
 	@Override
-	public List<String> selectMediumCate() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CategoryVO> selectMediumCates(String large) {
+		return sql.selectList(ns+"mCtgs", large);
 	}
 
 	@Override

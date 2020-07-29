@@ -49,4 +49,9 @@ wrap_no, expire_term from
     and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{flag_tdate} GROUP by wrap_no)
 		]]>
 	</select>
+	<select id="mCtgs" parameterType="java.lang.String" resultType="CategoryVO">
+	<![CDATA[
+	select medium, category from tbl_category WHERE SUBSTR(to_char(category),1,2) = #{large}
+	]]>
+	</select>
 </mapper>

@@ -3,6 +3,7 @@ package com.somcat.cpos.persistence;
 import java.sql.Date;
 import java.util.List;
 
+import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.HeadVO;
 import com.somcat.cpos.domain.MemberVO;
@@ -23,7 +24,7 @@ public interface OrderDAOIntf {
 
 	public List<String> selectLargeCate();
 
-	public List<String> selectMediumCate();
+	public List<CategoryVO> selectMediumCates(String large);
 
 	public int updateProduct(HeadVO hvo);
 

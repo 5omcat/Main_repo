@@ -7,12 +7,17 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.MemberVO;
 import com.somcat.cpos.domain.OrderVO;
@@ -59,22 +64,20 @@ public class OrderCtrl {
 		model.addAttribute("pgvo", new PagingVO(totalCount, cri));
 	}
 
-	@GetMapping("/order")
+	@GetMapping(value = "/order")
 	public void order() {
 	}
 
-	@GetMapping("/ons")
+	@GetMapping(value = "/ons")
 	public void ons() {
 
 	}
 
-	@GetMapping("/cal")
-	public void cal() {
 
+	@GetMapping(value = "/getMCtgs/{large}", produces = { MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<CategoryVO>> getMCtgs(@PathVariable("large") String large) throws Exception {
+		List<CategoryVO> mCtgs = (List<CategoryVO>) osv.getMCtgs(large);
+		return new ResponseEntity<>(mCtgs, HttpStatus.OK);
 	}
-
-//	@PostMapping("/order")
-//	public void order(RequestBody reqb, OrderVO ovo){
-//		osv.registOrder(ovo);
-//	}
 }
