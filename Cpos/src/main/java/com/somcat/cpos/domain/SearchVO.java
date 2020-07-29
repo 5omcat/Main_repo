@@ -8,6 +8,12 @@ public class SearchVO {
 	
 	public SearchVO() {
 	}
+	
+
+	public SearchVO(CategoryVO cate) {		
+		this.cate = cate;
+	}
+
 
 	public SearchVO(CategoryVO cate, Date expire_date) {
 		this.cate = cate;
