@@ -10,14 +10,24 @@
         <label for="pname">상품명: &nbsp;<span id="chkPname"></span></label> 
         <input type="text" class="form-control" id="chkpname" name="pname">
       </div> 
-      <div class="form-group">    
-        <label for="large">대분류</label>
-        <input type="text" class="from-control" name="large" id="large">
+      <div class="form-group">
+         <label for="large">대분류:</label>
+         <select class="form-control" id="large" name="large">
+           <option>10</option>
+           <option>20</option>
+           <option>30</option>
+           <option>40</option>
+           <option>50</option>
+         </select>          
       </div>
-       <div class="form-group">
-        <label for="medium">소분류</label>
-        <input type="text" class="from-control" name="medium" id="medium">
-      </div> 
+      <div class="form-group">
+         <label for="medium">중분류:</label>
+         <select class="form-control" id="medium" name="medium">
+           <option>01</option>
+           <option>02</option>
+           <option>03</option>           
+         </select>          
+      </div>
       <div class="form-group">
         <label for="category">카테고리</label>
         <input type="text" class="from-control" name="category" id="category">

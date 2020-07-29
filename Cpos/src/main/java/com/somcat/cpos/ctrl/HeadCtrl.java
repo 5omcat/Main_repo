@@ -52,32 +52,23 @@ public class HeadCtrl {
 	
 	
 	@GetMapping("/pmodify")
-	public void modify(@RequestParam("barcode") int barcode, Model model, @RequestParam("pSign") int pSign,
-						RedirectAttributes reAttr, @ModelAttribute("cri")Criterion cri) {
-		
-		model.addAttribute("hvo", hsv.getProduct(barcode));
-		log.info(">>>>>>>>>>> check modify01");
-		
-		//model.addAttribute("cri",hsv.getHeadList(cri));
-		
-		if(pSign > 0) { reAttr.addFlashAttribute("pSign", "상품수정완료"); }
-		 
-	}
-	
-	
-	@PostMapping("/pmodify")
-	public String modify(Model model, HeadVO hvo, Criterion cri, RedirectAttributes reAttr) {
-		int isOk = hsv.modify(hvo);
-		log.info(">>>>>"+isOk);
-		/*
-		 * if(isOk > 0) { model.addAttribute("hvo", hvo); }
-		 */
-		log.info(">>>>>>>>>>> check modify02");
-		return "redirect:/head/plist?pSign="+isOk
-				+"&barcode="+hvo.getBarcode()
-				+"&pageNum="+cri.getPageNum()
-				+"&amount="+cri.getAmount();
-	}
+	   public void modify(@RequestParam("barcode") int barcode, Model model,
+	                  RedirectAttributes reAttr, @ModelAttribute("cri")Criterion cri) {
+	      model.addAttribute("hvo", hsv.getProduct(barcode));      
+	   }
+	   @PostMapping("/pmodify")
+	   public String modify(Model model, HeadVO hvo, Criterion cri, RedirectAttributes reAttr) {
+	      int isOk = hsv.modify(hvo);
+	      log.info(">>>>>"+isOk);
+	      
+	      if(isOk > 0) {
+	         reAttr.addFlashAttribute("pSign", "상품수정완료");
+	      }
+	      return "redirect:/head/plist?pSign="+isOk
+	            +"&barcode="+hvo.getBarcode()
+	            +"&pageNum="+cri.getPageNum()
+	            +"&amount="+cri.getAmount();
+	   }
 	
 	
 	/*
