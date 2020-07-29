@@ -156,7 +156,7 @@ $("#mcate").on("change", function() {
 	
 	$(document).on("click",".mod_qntBtn", function() {
 		$(this).closest('tr').find("td:nth-child(3) input:first-child").attr("readonly",false);
-		let modbtn = '<button type="button" class="modBtn">수정완료</button>';
+		let modbtn = '<button type="button" class="modBtn btn btn-outline-success">수정완료</button>';
 		$(this).after(modbtn).trigger("create");
 		$(this).remove();
 	});

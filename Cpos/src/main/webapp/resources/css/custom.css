@@ -26,3 +26,7 @@ body {
 .scrap option:hover{
 	background: #ddd;
 }
+
+ul.fa-ul{
+	padding-right: 20px;
+}
