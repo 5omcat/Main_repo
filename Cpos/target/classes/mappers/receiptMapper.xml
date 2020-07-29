@@ -4,19 +4,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ReceiptMapper">
   <sql id="search">
-  <if test="sell_date != null and pay_method == null">
-    <trim prefix=" and (" suffix=") ">
-        sell_date = #{sell_date}
-    </trim>
-  </if>
-  <if test="pay_method != null and sell_date == null">
+  <if test="pay_method != 'null'.toString()">
     <trim prefix=" and (" suffix=") ">
       pay_method = #{pay_method}
     </trim>
   </if>
-  <if test="pay_method != null and sell_date != null">
+  <if test="division != -1">
     <trim prefix=" and (" suffix=") ">
-      pay_method = #{pay_method} and sell_date = #{sell_date}
+      division = #{division}
     </trim>
   </if>
 </sql>
@@ -30,20 +25,20 @@
   </select>
   <select id="plist">
   </select>
-  <insert id="addrec">
-    insert into tbl_receipt(sell_no, member_id, barcode, sell_qnt, pay_method, sell_date, discount_rate, receipt_no) 
+  <insert id="addrec" parameterType="ReceiptVO">
+    insert into tbl_sell(sell_no, member_id, barcode, sell_qnt, pay_method, sell_date, discount_rate, receipt_no) 
     values(seq_sell_no.nextval, #{member_id}, #{barcode}, #{sell_qnt}, #{pay_method}, sysdate, #{discount_rate}, #{receipt_no})
   </insert>
-  <select id="rlist">
+  <select id="rlist" parameterType="ReceiptVO" resultType="ReceiptVO">
   <![CDATA[
-    select/*+INDEX_DESC(tbl_sell pk_sell)*/ sell_no, pay_method, sell_date, receipt_no from tbl_sell where rownum > 0 
+    select/*+INDEX_DESC(tbl_sell pk_sell)*/ sell_no, pay_method, sell_date, receipt_no, pname from tbl_sell where rownum > 0 
     ]]>
     <include refid="search"/>
     <![CDATA[
-    group by receipt_no
+    and (sell_date between #{sell_date_s} and #{sell_date_e}) group by receipt_no, pay_method, sell_date, sell_no, pname
     ]]>
   </select>
-  <select id="rdetail">
+  <select id="rdetail" parameterType="java.lang.Integer" resultType="ReceiptVO">
     select * from tbl_sell where receipt_no = #{receipt_no}
   </select>
 </mapper>

@@ -2,14 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
-
 <section class="py-5">
 
 	<div class="dropdown ml-5">
 		<button type="button" class="btn btn-primary dropdown-toggle"
 			data-toggle="dropdown">대분류</button>
 		<div class="dropdown-menu">
-		
+
 			<c:forEach items="${lList }" var="lvo">
 				<a class="dropdown-item" href="/paysold/lmlist?large=${lvo.large }">${lvo.large }</a>
 			</c:forEach>
@@ -36,26 +35,26 @@
 				<th>판매가</th>
 			</tr>
 		</table>
-		
-		 <table class="table table-hover">
-      <c:forEach items="${iList }" var="ivo">
-        <tr class="i">
-          <td>${ivo.pname }</td>
-          <td>${ivo.barcode }</td>
-          <td>${ivo.sell_price }</td>
-        </tr>
-      </c:forEach>
-    </table>
-    
-		 <table class="table table-hover">
-      <c:forEach items="${liList }" var="livo">
-        <tr class="i">
-          <td>${livo.pname }</td>
-          <td>${livo.barcode }</td>
-          <td>${livo.sell_price }</td>
-        </tr>
-      </c:forEach>
-    </table>
+
+		<table class="table table-hover">
+			<c:forEach items="${iList }" var="ivo">
+				<tr class="i">
+					<td>${ivo.pname }</td>
+					<td>${ivo.barcode }</td>
+					<td>${ivo.sell_price }</td>
+				</tr>
+			</c:forEach>
+		</table>
+
+		<table class="table table-hover">
+			<c:forEach items="${liList }" var="livo">
+				<tr class="i">
+					<td>${livo.pname }</td>
+					<td>${livo.barcode }</td>
+					<td>${livo.sell_price }</td>
+				</tr>
+			</c:forEach>
+		</table>
 
 		<table class="table table-hover">
 			<c:forEach items="${lmiList }" var="lmivo">
@@ -68,14 +67,14 @@
 		</table>
 
 	</div>
-	
-	<div  id="shoppinglist" >
-	 <ul>
-	   <li></li>
-	 </ul>
+
+	<div id="shoppinglist">
+		<ul>
+			<li></li>
+		</ul>
 	</div>
-	
-	
+
+
 
 	<div class="mr-5" align="right">
 		<button class="btn btn-success pull-right" data-toggle="modal"
@@ -109,14 +108,10 @@
 
 <script>
 	$(function() {
-		  $(document).on("click", ".i", function(){
-		    $(this).clone().appendTo("#shoppinglist");
-		  });
+		$(document).on("click", ".i", function() {
+			$(this).clone().appendTo("#shoppinglist");
+		});
 	});
-	
-
-	
-	
 </script>
 
 <jsp:include page="../common/footer.jsp"></jsp:include>
