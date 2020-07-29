@@ -19,9 +19,5 @@ public class HeadCtrl {
 	@Inject
 	HeadServiceIntf hsv;	
 	
-	@GetMapping("/plist")
-	public void plist() {
-		
-	}
 	
 }
