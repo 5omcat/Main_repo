@@ -1,7 +1,9 @@
 package com.somcat.cpos.persistence;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -44,7 +46,7 @@ public class HeadDAO implements HeadDAOIntf{
 
 	@Override
 	public List<HeadVO> selectLargeCate( Criterion cri) {
-		return sql.selectList(hs+"lcate", cri);
+		return sql.selectList(hs+"lcate", cri);		
 	}
 
 	@Override
@@ -65,5 +67,10 @@ public class HeadDAO implements HeadDAOIntf{
 	@Override
 	public int selectTotalCount() {
 		return sql.selectOne(hs+"total");
+	}
+
+	@Override
+	public HeadVO selectProduct(int barcode) {
+		return sql.selectOne(hs+"detail", barcode);
 	}
 }

@@ -15,7 +15,7 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>가맹점리스트</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>가맹점등록</li>              
             </ul>
-            <a href="/head/mlist" class="btn btn-block btn-success text-uppercase">GO</a>
+            <a href="/head/mlist" class="btn btn-block btn-primary text-uppercase">GO</a>
           </div>
         </div>
         <div class="card">
@@ -29,7 +29,7 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>상품 수정</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>상픔 삭제</li>
             </ul>
-            <a href="/head/plist" class="btn btn-block btn-success text-uppercase">GO</a>
+            <a href="/head/plist" class="btn btn-block btn-primary text-uppercase">GO</a>
           </div>
         </div>
       </div>

@@ -1,17 +1,21 @@
 function randomNum(num00,num11){
-	let rmNum = Math.floor(Math.random()*(num11 - num00 + 1)) + num00;
+	let num = Math.floor(Math.random()*(num11 - num00 + 1)) + num00;
+	console.log(num);
+	return num;
 }
-function makeBarcodeCategory(largeVal,mediumVal,rnNum){   
-	temp = String(largeVal)+String(mediumVal)+String(rnNum);
-    document.getElementById('barcode').value = Number(temp);
-    temp1 = String(largeVal)+String(mediumVal);    
+
+function makeBarcode(cateVal,rnNum){   
+	temp = String(cateVal)+String(rnNum);
+	console.log("temp:"+temp);
+	return temp;  	
 }
 function makeCategory(largeVal,mediumVal){
-	temp1 = String(largeVal)+String(mediumVal);
-	document.getElementById('category').value = Number(temp1);
-	console.log('temp1'+temp1);
-	console.log(typeof temp1);
+	cateNum = String(largeVal)+String(mediumVal);
+	document.getElementById('category').value = Number(cateNum);
 }
+
+
+
 
 
 

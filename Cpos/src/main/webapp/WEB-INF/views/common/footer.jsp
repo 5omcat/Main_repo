@@ -27,16 +27,16 @@
 </footer>
 
 <script>
- 
-
   let msg = '<c:out value="${msg}"/>';
   if (msg != '') {
     alert(msg);
   }
-  let pSign = '<c:out value="${pSign}"/>';
+  /* let pSign = '<c:out value="${pSign}"/>';
   if (pSign != '') {
     alert(pSign);
-  }
+  } */
+  
+  
 
   $(function() {
 	  $("#chkid").on(
@@ -76,10 +76,9 @@
 	            //join 활성화
 	         }
 	      }
-  });
-  
- 
+  }); 
 </script>
+
 </body>
 
 </html>

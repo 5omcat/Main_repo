@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 section.pricing {
-	background: #228b22;
-	background: linear-gradient(to right, #2e8b57, #3cb371);
+	background: #007bff;
+	background: linear-gradient(to right, #0062E6, #33AEFF);
 }
 
 .custm_a1 {

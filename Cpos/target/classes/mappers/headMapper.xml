@@ -9,25 +9,31 @@
 </insert>
 <select id="plist" parameterType="Criterion" resultType="HeadVO">
  <![CDATA[
- select barcode,pname,category from (select /*+INDEX_DESC(tbl_head category)*/
+ select barcode,pname,category
+ from (select /*+INDEX_DESC(tbl_head pk_head)*/
  rownum as rn,barcode,pname,category
  from tbl_head
  where rownum <= #{pageNum}*#{amount})
- where rn > (#{pageNum}-1)*#{amount}]]> 
+ where rn > (#{pageNum}-1)*#{amount}
+ ]]> 
 </select>
 <select id="total" resultType="java.lang.Integer">
- select count(barcode) from tbl_head
+ 	select count(barcode) from tbl_head
 </select>
-<!-- <select id="checkbarcode" parameterType="java.lang.Integer" resultType="java.lang.Integer"></select>
-=======
-<insert id="regist" parameterType="HeadVO"></insert>
-<select id="checkbarcode" parameterType="java.lang.Integer" resultType="java.lang.Integer"></select>
->>>>>>> abe9930cf14edf98eaa6dcd090e093663fdb0507
-<select id="checkpname" parameterType="java.lang.String" resultType="java.lang.Integer"></select>
-
-<select id="lcate" parameterType="Criterion" resultType="HeadVO"></select>
-<select id="mcate" parameterType="Criterion" resultType="HeadVO"></select>
-<update id="modify" parameterType="HeadVO"></update>
-<delete id="remove" parameterType="java.lang.Integer"></delete>
- -->
+<select id="checkpname" parameterType="java.lang.String" resultType="java.lang.Integer">
+	select count(pname) from tbl_head where pname=#{pname}
+</select>
+<select id="checkbarcode" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	select count(barcode) from tbl_head where barcode=#{barcode}
+</select>
+<select id="detail" parameterType="java.lang.Integer" resultType="HeadVO">
+	select * from tbl_head where barcode=#{barcdoe}
+</select>
+<update id="modify" parameterType="HeadVO">
+update tbl_head set pname=#{pname}, expire_term=#{expire_term}, get_price=#{get_price}, discount_rate=#{discount_rate},status=#{status}
+where barcode = #{barcode} 
+</update>
+<delete id="remove" parameterType="java.lang.Integer">
+delete from tbl_head where barcode=#{barcode}
+</delete>
 </mapper>
