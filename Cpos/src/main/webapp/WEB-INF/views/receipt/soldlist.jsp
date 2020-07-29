@@ -31,9 +31,22 @@
       <li class="nav-item">결제수단</li>
       <li class="nav-item">판매일시</li>
     </ul>
-    <c:if test="${list ne null}">
+    <c:if test="${not empty list}">
     	<c:forEach var="rvo" items="${list}" >
-    		
+    	  <ul class="nav nav-pills nav-justified">
+	    	<li class="nav-item">${rvo.sell_no}</li>
+	      	<li class="nav-item">${rvo.receipt_no }</li>
+	      	<li class="nav-item">${rvo.pname }</li>
+	      	<c:choose>
+	      		<c:when test="${rvo.pay_method eq 'cash'}">
+	      			<li class="nav-item">현금</li>
+	      		</c:when>
+	      		<c:when test="${rvo.pay_method eq 'card'}">
+	      			<li class="nav-item">카드</li>
+	      		</c:when>
+	      	</c:choose>
+	      	<li class="nav-item">${rvo.sell_date }</li>
+	      </ul>
     	</c:forEach>
     </c:if>
   </div>
