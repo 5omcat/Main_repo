@@ -2,14 +2,38 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ProductMapper">
-<insert id="regist" parameterType="HeadVO"></insert>
-<select id="checkbarcode" parameterType="java.lang.Integer" resultType="java.lang.Integer"></select>
-<select id="checkpname" parameterType="java.lang.String" resultType="java.lang.Integer"></select>
-<select id="hlist" parameterType="Criterion" resultType="HeadVO"></select>
-<select id="lcate" parameterType="Criterion" resultType="HeadVO"></select>
-<select id="mcate" parameterType="Criterion" resultType="HeadVO"></select>
-<update id="modify" parameterType="HeadVO"></update>
-<delete id="remove" parameterType="java.lang.Integer"></delete>
-<select id="total" parameterType="Criterion" resultType="java.lang.Integer"></select>
+<mapper namespace="HeadMapper">
+<insert id="regist" parameterType="HeadVO">
+ insert into tbl_head(pname,expire_term,get_price,sell_price,discount_rate,status,barcode,category) 
+ values(#{pname},#{expire_term},#{get_price},#{sell_price},#{discount_rate},0,#{barcode},#{category})
+</insert>
+<select id="plist" parameterType="Criterion" resultType="HeadVO">
+ <![CDATA[
+ select barcode,pname,category
+ from (select /*+INDEX_DESC(tbl_head pk_head)*/
+ rownum as rn,barcode,pname,category
+ from tbl_head
+ where rownum <= #{pageNum}*#{amount})
+ where rn > (#{pageNum}-1)*#{amount}
+ ]]> 
+</select>
+<select id="total" resultType="java.lang.Integer">
+ 	select count(barcode) from tbl_head
+</select>
+<select id="checkpname" parameterType="java.lang.String" resultType="java.lang.Integer">
+	select count(pname) from tbl_head where pname=#{pname}
+</select>
+<select id="checkbarcode" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	select count(barcode) from tbl_head where barcode=#{barcode}
+</select>
+<select id="detail" parameterType="java.lang.Integer" resultType="HeadVO">
+	select * from tbl_head where barcode=#{barcdoe}
+</select>
+<update id="modify" parameterType="HeadVO">
+update tbl_head set pname=#{pname}, expire_term=#{expire_term}, get_price=#{get_price}, discount_rate=#{discount_rate},status=#{status}
+where barcode = #{barcode} 
+</update>
+<delete id="remove" parameterType="java.lang.Integer">
+delete from tbl_head where barcode=#{barcode}
+</delete>
 </mapper>

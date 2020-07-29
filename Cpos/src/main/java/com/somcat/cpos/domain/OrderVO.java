@@ -1,42 +1,58 @@
 package com.somcat.cpos.domain;
 
-import java.sql.Date;
-
 public class OrderVO {
 	private int order_no;
 	private String member_id;
 	private int barcode;
 	private String pname;
 	private int order_qnt;
-	private Date order_date;
-	private Date get_date;
+	private String order_sdate;
+	private String flag_hdate;
+	private String flag_tdate;
+	private String get_date;
 	private int wrap_no;
 	private int expire_term;
 	private int status;
-	
-	public OrderVO(int order_no, int barcode, int order_qnt, Date order_date, Date get_date, int wrap_no, int status) {
-		this.order_no = order_no;
-		this.barcode = barcode;
-		this.order_qnt = order_qnt;
-		this.order_date = order_date;
-		this.get_date = get_date;
-		this.wrap_no = wrap_no;
-		this.status = status;
+
+	public OrderVO() {
 	}
 
-	public OrderVO(int order_no, String member_id, int barcode, String pname, int order_qnt, Date order_date,
-			Date get_date, int wrap_no, int expire_term, int status) {
+	//insert
+	public OrderVO(String member_id, int barcode, String pname, int order_qnt, int wrap_no, int expire_term) {
+		this.member_id = member_id;
+		this.barcode = barcode;
+		this.pname = pname;
+		this.order_qnt = order_qnt;
+		this.wrap_no = wrap_no;
+		this.expire_term = expire_term;
+	}
+
+	
+	//select all
+	public OrderVO(int order_no, String member_id, int barcode, String pname, int order_qnt, String order_sdate,
+			String flag_hdate, String flag_tdate, String get_date, int wrap_no, int expire_term, int status) {
 		this.order_no = order_no;
 		this.member_id = member_id;
 		this.barcode = barcode;
 		this.pname = pname;
 		this.order_qnt = order_qnt;
-		this.order_date = order_date;
+		this.order_sdate = order_sdate;
+		this.flag_hdate = flag_hdate;
+		this.flag_tdate = flag_tdate;
 		this.get_date = get_date;
 		this.wrap_no = wrap_no;
 		this.expire_term = expire_term;
 		this.status = status;
 	}
+
+	
+	//for getList
+	public OrderVO(String member_id, String flag_hdate, String flag_tdate) {
+		this.member_id = member_id;
+		this.flag_hdate = flag_hdate;
+		this.flag_tdate = flag_tdate;
+	}
+
 
 	public int getOrder_no() {
 		return order_no;
@@ -88,22 +104,42 @@ public class OrderVO {
 	}
 
 
-	public Date getOrder_date() {
-		return order_date;
+	public String getOrder_sdate() {
+		return order_sdate;
 	}
 
 
-	public void setOrder_date(Date order_date) {
-		this.order_date = order_date;
+	public void setOrder_sdate(String order_sdate) {
+		this.order_sdate = order_sdate;
 	}
 
 
-	public Date getGet_date() {
+	public String getFlag_hdate() {
+		return flag_hdate;
+	}
+
+
+	public void setFlag_hdate(String flag_hdate) {
+		this.flag_hdate = flag_hdate;
+	}
+
+
+	public String getFlag_tdate() {
+		return flag_tdate;
+	}
+
+
+	public void setFlag_tdate(String flag_tdate) {
+		this.flag_tdate = flag_tdate;
+	}
+
+
+	public String getGet_date() {
 		return get_date;
 	}
 
 
-	public void setGet_date(Date get_date) {
+	public void setGet_date(String get_date) {
 		this.get_date = get_date;
 	}
 
@@ -136,4 +172,8 @@ public class OrderVO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+
+
+	
 }

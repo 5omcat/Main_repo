@@ -14,4 +14,3 @@
   <button type="submit" class="btn btn-primary">로그인</button>
   <a class="btn btn-warning" href="/member/join">회원가입</a>
 </form>
-<jsp:include page="../common/footer.jsp"></jsp:include>

@@ -3,27 +3,36 @@ package com.somcat.cpos.domain;
 import java.util.Date;
 
 public class PayVO {
-
 	private int sell_no;
 	private String member_id;
 	private int barcode;
+	private String pname;
+	private int category;
 	private int sell_qnt;
+	private int get_price;
+	private int sell_price;
 	private String pay_method;
 	private Date sell_date;
 	private int discount_rate;
 	private int receipt_no;
-
-	public PayVO() {
-	}
+	
+	public PayVO() {}
 
 	// 상품판매시
-	public PayVO(String member_id, int barcode, int sell_qnt, String pay_method) {
+	public PayVO(String member_id, int barcode, String pname, int category, int sell_qnt, int get_price, int sell_price,
+			String pay_method, int discount_rate, int receipt_no) {
 		this.member_id = member_id;
 		this.barcode = barcode;
+		this.pname = pname;
+		this.category = category;
 		this.sell_qnt = sell_qnt;
+		this.get_price = get_price;
+		this.sell_price = sell_price;
 		this.pay_method = pay_method;
+		this.discount_rate = discount_rate;
+		this.receipt_no = receipt_no;
 	}
-
+	
 	public int getSell_no() {
 		return sell_no;
 	}

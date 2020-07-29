@@ -40,16 +40,13 @@ public class StockScrapDAO implements StockScrapDAOIntf{
 	}
 
 	@Override
-	public List<InventoryVO> selectProductList(Criterion cri) {
-		return sql.selectList(ns+"invenlist", cri);
-	}
-
-	@Override
 	public List<Integer> insertScrap(List<ScrapVO> svo) {
+		sql.insert(ns+"addsclist", svo);
 		List<Integer> li = new ArrayList<Integer>();
-		li.add(sql.insert(ns+"addsclist", svo));
+		for (ScrapVO i : svo) {
+			li.add(i.getIno());
+		}
 		return li;
-		//return svo.getBarcode();
 	}
 
 	@Override
@@ -64,12 +61,16 @@ public class StockScrapDAO implements StockScrapDAOIntf{
 
 	@Override
 	public int deleteInventory(List<Integer> ino) {
-		return sql.delete(ns+"deliv", ino);
+		for(Integer i : ino) {
+			sql.delete(ns+"delete", i);
+		}
+		return 1;
 	}
 
 	@Override
-	public List<InventoryVO> selectInventoryList(CategoryVO cate) {
-		return sql.selectList(ns+"ilist", cate);
+	public List<InventoryVO> selectInvenList(Criterion cri) {
+		log.info("cri-large"+cri.getLarge());
+		return sql.selectList(ns+"ilist", cri);
 	}
 
 	@Override
@@ -83,8 +84,18 @@ public class StockScrapDAO implements StockScrapDAOIntf{
 	}
 
 	@Override
-	public int deleteInven(int inventory_no) {
-		return sql.delete(ns+"delete", inventory_no);
+	public int deleteInven(int ino) {
+		return sql.delete(ns+"delete", ino);
+	}
+
+	@Override
+	public List<InventoryVO> selectInventoryList(Criterion cri) {
+		return sql.selectList(ns+"sclist", cri);
+	}
+
+	@Override
+	public int totalCount(Criterion cri) {
+		return sql.selectOne(ns+"totalCount",cri);
 	}
 
 }

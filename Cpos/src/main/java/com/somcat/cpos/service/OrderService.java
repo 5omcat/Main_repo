@@ -10,24 +10,25 @@ import org.springframework.stereotype.Service;
 
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.OrderVO;
+import com.somcat.cpos.persistence.OrderDAOIntf;
 
 @Service
 public class OrderService implements OrderServiceIntf {
 	private static Logger log = LoggerFactory.getLogger(OrderService.class);
 
+	@Inject
+	OrderDAOIntf odao;
 	
-	
-	
-	
-	@Override
-	public List<OrderVO> getList(Criterion cri, String member_id) {
-		return null;
-	}
-
 	@Override
 	public int registOrder(OrderVO ovo) {
-		return 0;
+		return odao.insertOrder(ovo);
 	}
+	
+	@Override
+	public List<List<OrderVO>> getList(Criterion cri, OrderVO ovo) {
+		return odao.selectOrderList(cri, ovo);
+	}
+
 
 	@Override
 	public int modifyOrder(OrderVO ovo) {
@@ -37,5 +38,20 @@ public class OrderService implements OrderServiceIntf {
 	@Override
 	public int cancelOrder(int order_no) {
 		return 0;
+	}
+
+	@Override
+	public int getTotalCount(OrderVO ovo) {
+		return odao.selectTotalCount(ovo);
+	}
+
+	@Override
+	public int getAmount(OrderVO ovo, int pageNum) {
+		return odao.selectAmount(ovo, pageNum);
+	}
+
+	@Override
+	public int getUnderAmount(OrderVO ovo, int pageNum) {
+		return odao.selectUnderAmount(ovo, pageNum);
 	}
 }

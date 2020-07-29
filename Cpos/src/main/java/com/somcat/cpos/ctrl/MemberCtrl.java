@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -22,12 +23,17 @@ import com.somcat.cpos.domain.MemberVO;
 import com.somcat.cpos.service.MemberServiceIntf;
 
 @Controller
-@RequestMapping("/member/*")
+@RequestMapping({"/member/*", "/store/*"})
 public class MemberCtrl {
 	private static Logger log = LoggerFactory.getLogger(MemberCtrl.class);
 	
 	@Inject
 	MemberServiceIntf msv;
+	
+	@GetMapping("/nav")
+	public void nav() {
+		
+	}
 	
 	@GetMapping("/join")
 	public void join() {
@@ -49,16 +55,16 @@ public class MemberCtrl {
 	}
 	
 	@PostMapping("/login")
-	public String login(MemberVO mvo, HttpSession ses, RedirectAttributes reAttr) {
+	public String login(MemberVO mvo, HttpServletRequest req, RedirectAttributes reAttr){
 		MemberVO minfo = msv.login(mvo);
+		HttpSession ses = req.getSession();
 		if(minfo != null) {
+			ses.setAttribute("mid", minfo.getMember_id());
+			log.info(">>>>"+minfo.getMember_id());
 			if(minfo.getOpt()==0) {
-				ses.setAttribute("mid", minfo);
-				return "redirect:/store/main";
+				return "/store/nav";
 			}else if(minfo.getOpt()==1) {
-				ses.setAttribute("mid", minfo);
-				
-				return "redirect:/head/hlist";
+				return "/head/plist";
 			}
 		}else {
 			reAttr.addFlashAttribute("msg", "로그인에 실패했습니다");

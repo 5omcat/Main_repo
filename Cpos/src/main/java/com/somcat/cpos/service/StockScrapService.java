@@ -3,7 +3,6 @@ package com.somcat.cpos.service;
 import java.sql.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -13,16 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
+import com.somcat.cpos.domain.InventoryDTO;
 import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.ScrapVO;
-import com.somcat.cpos.persistence.StockScrapDAO;
+import com.somcat.cpos.persistence.StockScrapDAOIntf;
 
 @Service
 public class StockScrapService implements StockScrapServiceIntf{
 	private static Logger log = LoggerFactory.getLogger(StockScrapService.class);
 	
 	@Inject
-	StockScrapDAO sdao;
+	StockScrapDAOIntf sdao;
 
 	@Override
 	public int addInventory(InventoryVO ivo) {
@@ -39,15 +39,11 @@ public class StockScrapService implements StockScrapServiceIntf{
 		return sdao.selectMediumCate();
 	}
 
-	@Override
-	public List<InventoryVO> getProductList(Criterion cri) {
-		return sdao.selectProductList(cri);
-	}
-
 	@Transactional
 	@Override
 	public int addScrap(List<ScrapVO> svo) {
 		List<Integer> ilist = sdao.insertScrap(svo);
+		log.info("addscrap-ilist: "+ilist);
 		return sdao.deleteInventory(ilist);
 	}
 
@@ -67,8 +63,11 @@ public class StockScrapService implements StockScrapServiceIntf{
 	}
 
 	@Override
-	public List<InventoryVO> getInvenList(CategoryVO cate) {
-		return sdao.selectInventoryList(cate);
+	public InventoryDTO getInvenList(Criterion cri) {
+		List<InventoryVO> list = sdao.selectInvenList(cri);
+		int itemCnt = sdao.totalCount(cri);
+		InventoryDTO idto= new InventoryDTO(itemCnt, list);
+		return idto;
 	}
 
 	@Override
@@ -76,5 +75,23 @@ public class StockScrapService implements StockScrapServiceIntf{
 		return sdao.selectAllCate();
 	}
 	
-	
+	@Override
+	public InventoryDTO getInvenList2(Criterion cri) {
+		List<InventoryVO> list = sdao.selectInventoryList(cri);
+		int itemCnt = sdao.totalCount(cri);
+		InventoryDTO idto= new InventoryDTO(itemCnt, list);
+		return idto;
+	}
+
+	@Transactional
+	@Override
+	public int addScrap(ScrapVO svo) {
+		sdao.insertScrap(svo);
+		return sdao.deleteInven(svo.getIno());
+	}
+
+	@Override
+	public int getTotalCount(Criterion cri) {
+		return sdao.totalCount(cri);
+	}
 }
