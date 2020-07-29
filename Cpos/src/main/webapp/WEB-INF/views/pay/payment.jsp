@@ -2,10 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<<<<<<< HEAD
 
-=======
->>>>>>> 5610de9ed6b7cf79b16afed0fef844552ac08a0c
 <section class="py-5">
 
 	<div class="dropdown ml-5">

@@ -1,8 +1,5 @@
 package com.somcat.cpos.ctrl;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,7 +26,6 @@ import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.HeadVO;
 import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.PagingVO;
-import com.somcat.cpos.domain.SearchVO;
 import com.somcat.cpos.service.HeadServiceIntf;
 
 @Controller
@@ -42,9 +36,6 @@ public class HeadCtrl {
 	
 	@Inject
 	HeadServiceIntf hsv;	
-	
-<<<<<<< HEAD
-=======
 
 	@GetMapping("/pregist")
 	public void regist() {
@@ -140,7 +131,6 @@ public class HeadCtrl {
 		log.info(isIn+"isIn");
 		return isIn == 1 ? "1":"0";
 	}
->>>>>>> 5610de9ed6b7cf79b16afed0fef844552ac08a0c
 	
 	@ResponseBody
 	@GetMapping("/checkBarcode")

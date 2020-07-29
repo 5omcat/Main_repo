@@ -4,30 +4,6 @@
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">
-<<<<<<< HEAD
-  <div class="container">
-  <div class="btn-group">
-  <a href="" class="btn btn-primary">결제</a>
-</div>
-
-<div class="btn-group">
-  <a href="/stockscrap/ssmenu" class="btn btn-info">재고/폐기</a>
-  <a href="/stockscrap/inventory" class="btn btn-info">재고관리</a>
-  <a href="/stockscrap/exscrap" class="btn btn-info">폐기관리</a>
-</div>
-
-<div class="btn-group">
-  <a href="#" class="btn btn-warning">판매조회</a>
-</div>
-
-<div class="btn-group">
-  <a href="" class="btn btn-success">발주관리</a>
-  <a href="" class="btn btn-success">매출통계</a>
-</div>
-    <p class="m-0 text-center text-white">푸터푸터 여기에 '로그아웃버튼'이랑 '네비게이션' 만들어줘야함</p>
-  </div>
-  <!-- /.container -->
-=======
 	<div class="container">
 		<div class="btn-group">
 			<div class="btn-group">
@@ -35,8 +11,9 @@
 			</div>
 
 			<div class="btn-group">
-				<a href="" class="btn btn-primary">재고관리</a> <a href=""
-					class="btn btn-primary">폐기관리</a>
+			  <a href="/stockscrap/ssmenu" class="btn btn-info">재고/폐기</a>
+			  <a href="/stockscrap/inventory" class="btn btn-info">재고관리</a>
+			  <a href="/stockscrap/exscrap" class="btn btn-info">폐기관리</a>
 			</div>
 
 			<div class="btn-group">
@@ -44,8 +21,8 @@
 			</div>
 
 			<div class="btn-group">
-				<a href="" class="btn btn-primary">발주관리</a> <a href=""
-					class="btn btn-primary">매출통계</a>
+				<a href="" class="btn btn-primary">발주관리</a> 
+				<a href="" class="btn btn-primary">매출통계</a>
 			</div>
 
 			<c:if test="${ses ne null || ses ne ''}">
@@ -54,8 +31,8 @@
 				</div>
 			</c:if>
 		</div>
+	</div>
 		<!-- /.container -->
->>>>>>> 5610de9ed6b7cf79b16afed0fef844552ac08a0c
 </footer>
 
 <script>

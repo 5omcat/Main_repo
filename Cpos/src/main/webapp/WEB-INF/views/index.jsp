@@ -8,7 +8,3 @@
 
 <jsp:include page="head/ons.jsp"></jsp:include>
 <jsp:include page="common/footer.jsp"></jsp:include>
-<<<<<<< HEAD
-=======
-
->>>>>>> 5610de9ed6b7cf79b16afed0fef844552ac08a0c
