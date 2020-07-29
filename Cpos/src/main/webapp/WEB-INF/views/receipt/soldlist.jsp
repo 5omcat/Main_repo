@@ -7,7 +7,7 @@
   <div class="container">
     <button type="button" class="btn btn-primary">전체보기</button>
       <div class="btn-group">
-        <select name="category" class="custom-select" id="category">
+        <select name="division" class="custom-select" id="division">
 			    <option selected value="-1">매출분류</option>
 			    <option value="0">판매</option>
 			    <option value="1">폐기</option>
@@ -69,7 +69,7 @@
 		  //null값대신 사용할 체크용 값 정해두기
 		  console.log('sch click');
 		  let member_id = '<c:out value="${ses}"/>';
-		  let category = $("#category").val();
+		  let division = $("#division").val();
 		  let pay_method = $("#pay_method").val();
 		  let sell_date_s = "";
 		  let sell_date_e = "";
@@ -85,10 +85,10 @@
 			  console.log(sell_date_e);
 		  }
 		  console.log(member_id);
-		  console.log(category+" "+pay_method);
+		  console.log(division+" "+pay_method);
 		  console.log(typeof sell_date_s);
 		  console.log(typeof sell_date_e);
-		  searchList(member_id, category, pay_method, sell_date_s, sell_date_e);
+		  searchList(member_id, division, pay_method, sell_date_s, sell_date_e);
 	  });
 });
 </script>

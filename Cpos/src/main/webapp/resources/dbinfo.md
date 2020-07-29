@@ -1,6 +1,6 @@
 ----------1.tbl_head----------
-create table tbl_product(
-barcode number(8,0) constraint pk_head primary key,
+create table tbl_head(
+barcode number(10,0) constraint pk_head primary key,
 pname varchar2(100) not null,
 category number(4,0),
 expire_term number(4,0),
@@ -15,7 +15,7 @@ create table tbl_inventory(
 inventory_no number(5,0) constraint pk_inventory primary key,
 member_id varchar2(100),
 inv_qnt number(4,0),
-barcode number(8,0),
+barcode number(10,0),
 pname varchar2(100),
 category number(4,0),
 get_price number(4,0),
@@ -51,12 +51,12 @@ opt number(4,0) default 0
 create table tbl_sell(
 sell_no number(10,0) constraint pk_sell primary key,
 member_id varchar2(100),
-barcode number(8,0),
+barcode number(10,0),
 sell_qnt number(4,0),
 pay_method varchar2(100),
 sell_date date,
 discount_rate number(4,0),
-receipt_no number(14,0)
+receipt_no varchar2(14,0)
 
 create sequence seq_sell_no
 start with 1
@@ -68,7 +68,7 @@ nocycle nocache;
 create table tbl_order(
 order_no number(10,0) constraint pk_order primary key,
 member_id varchar2(100),
-barcode number(8,0),
+barcode number(10,0),
 pname varchar2(100),
 order_qnt number(4,0),
 order_date date,
@@ -88,7 +88,7 @@ nocycle nocache;
 create table tbl_scrap(
 scrap_no number(5,0) constraint pk_scrap primary key,
 member_id varchar2(100),
-barcode number(8,0),
+barcode number(10,0),
 category number(4,0),
 get_price number(4,0),
 scrap_date date,

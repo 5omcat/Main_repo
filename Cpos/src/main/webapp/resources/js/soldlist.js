@@ -2,10 +2,10 @@ function allList() {
 	
 }
 
-function searchList(member_id, category, pay_method, sell_date_s, sell_date_e) {
+function searchList(member_id, division, pay_method, sell_date_s, sell_date_e) {
 	$.ajax({
 		url: "/receipt/list",
-		data: {category:category, pay_method:pay_method, str_date_s:sell_date_s, str_date_e:sell_date_e},
+		data: {division:division, pay_method:pay_method, str_date_s:sell_date_s, str_date_e:sell_date_e},
 	}).done(function(result) {
 		console.log('list select success');
 		printList(result);
@@ -35,7 +35,7 @@ function printDetail(rno){
 		let rvo = JSON.parse(str);
 		alert('detail');
 		for(let key in rvo){
-			//console.log(key+":"+rvo[key]);
+			console.log(key+":"+rvo[key]);
 		}
 	});
 }

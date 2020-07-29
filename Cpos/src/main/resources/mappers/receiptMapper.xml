@@ -9,9 +9,9 @@
       pay_method = #{pay_method}
     </trim>
   </if>
-  <if test="category != -1">
+  <if test="division != -1">
     <trim prefix=" and (" suffix=") ">
-      category = #{category}
+      division = #{division}
     </trim>
   </if>
 </sql>
@@ -26,7 +26,7 @@
   <select id="plist">
   </select>
   <insert id="addrec" parameterType="ReceiptVO">
-    insert into tbl_receipt(sell_no, member_id, barcode, sell_qnt, pay_method, sell_date, discount_rate, receipt_no) 
+    insert into tbl_sell(sell_no, member_id, barcode, sell_qnt, pay_method, sell_date, discount_rate, receipt_no) 
     values(seq_sell_no.nextval, #{member_id}, #{barcode}, #{sell_qnt}, #{pay_method}, sysdate, #{discount_rate}, #{receipt_no})
   </insert>
   <select id="rlist" parameterType="ReceiptVO" resultType="ReceiptVO">

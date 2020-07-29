@@ -40,8 +40,8 @@ public class ReceiptCtrl {
 		cal.set(1999, Calendar.JANUARY, 1);
 		Date sell_date_s = new Date(cal.getTimeInMillis());
 		Date sell_date_e = new Date();
-		int cate = -1;
-		rvo = new ReceiptVO(member_id, "null", sell_date_s, sell_date_e, cate);
+		int division = -1;
+		rvo = new ReceiptVO(member_id, "null", sell_date_s, sell_date_e, division);
 		log.info(rvo.getPay_method()+" "+rvo.getSell_date_s()+" "+rvo.getSell_date_e());
 		
 		list = rsv.selectReceiptList(rvo);

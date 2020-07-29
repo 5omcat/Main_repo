@@ -13,7 +13,7 @@ public class ReceiptVO {
 	private Date sell_date_e;	//정렬 종료일
 	private String str_date_s;
 	private String str_date_e;
-	private int category;
+	private int division;
 	private int discount_rate;
 	private String receipt_no;
 	private String pname;
@@ -25,13 +25,11 @@ public class ReceiptVO {
 	}
 
 	public ReceiptVO(String member_id, String receipt_no) {
-		super();
 		this.member_id = member_id;
 		this.receipt_no = receipt_no;
 	}
 
 	public ReceiptVO(int sell_no, String pay_method, Date sell_date, String receipt_no, String pname) {
-		super();
 		this.sell_no = sell_no;
 		this.pay_method = pay_method;
 		this.sell_date = sell_date;
@@ -39,18 +37,18 @@ public class ReceiptVO {
 		this.pname = pname;
 	}
 
-	public ReceiptVO(String member_id, String pay_method, Date sell_date_s, Date sell_date_e, int category) {
+	public ReceiptVO(String member_id, String pay_method, Date sell_date_s, Date sell_date_e, int division) {
 		super();
 		this.member_id = member_id;
 		this.pay_method = pay_method;
 		this.sell_date_s = sell_date_s;
 		this.sell_date_e = sell_date_e;
-		this.category = category;
+		this.division = division;
 	}
 
 	
 	public ReceiptVO(int sell_no, String member_id, int barcode, int sell_qnt, String pay_method, Date sell_date,
-			Date sell_date_s, Date sell_date_e, int category, int discount_rate, String receipt_no, String pname,
+			Date sell_date_s, Date sell_date_e, int division, int discount_rate, String receipt_no, String pname,
 			int get_price, int sell_price) {
 		super();
 		this.sell_no = sell_no;
@@ -61,7 +59,7 @@ public class ReceiptVO {
 		this.sell_date = sell_date;
 		this.sell_date_s = sell_date_s;
 		this.sell_date_e = sell_date_e;
-		this.category = category;
+		this.division = division;
 		this.discount_rate = discount_rate;
 		this.receipt_no = receipt_no;
 		this.pname = pname;
@@ -135,12 +133,12 @@ public class ReceiptVO {
 		this.sell_date_e = sell_date_e;
 	}
 
-	public int getCategory() {
-		return category;
+	public int getDivision() {
+		return division;
 	}
 
-	public void setCategory(int category) {
-		this.category = category;
+	public void setDivision(int division) {
+		this.division = division;
 	}
 
 	public int getSell_no() {

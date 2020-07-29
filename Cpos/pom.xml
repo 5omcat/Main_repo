@@ -126,7 +126,6 @@
 			<version>1.2</version>
 		</dependency>
 
-<<<<<<< HEAD
 		<!-- DB -->
 
 		<dependency>
@@ -134,8 +133,6 @@
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.3</version>
 		</dependency>
-=======
->>>>>>> a5f7eee4f264e6c5a73c1ebfcb1e5f8633b2d9d2
 
 			
 
