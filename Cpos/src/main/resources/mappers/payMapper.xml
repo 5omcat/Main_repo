@@ -4,16 +4,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PayMapper">
   <select id="ilist" resultType="InventoryVO">
-    select barcode, pname, category, get_price, sell_price, discount_rate from tbl_inventory
+    select inventory_no, inv_qnt, barcode, pname, category, get_price, sell_price, discount_rate from tbl_inventory
   </select>
   <select id="lilist" parameterType="java.lang.String" resultType="InventoryVO">
-    select  barcode, pname, i.category, get_price, sell_price, discount_rate 
+    select inventory_no, inv_qnt, barcode, pname, i.category, get_price, sell_price, discount_rate 
     from tbl_inventory i join tbl_category c 
     on i.category = c.category 
     and c.large = #{large}
   </select>
   <select id="lmilist" parameterType="CategoryVO" resultType="InventoryVO">
-    select  barcode, pname, i.category, get_price, sell_price, discount_rate 
+    select  inventory_no, inv_qnt, barcode, pname, i.category, get_price, sell_price, discount_rate 
     from tbl_inventory i join tbl_category c 
     on i.category = c.category 
     and c.large = #{large} 
@@ -28,4 +28,17 @@
     where category in
     (select category from tbl_inventory where large = #{large})
   </select>
+  <insert id="update" parameterType="java.util.List">
+  insert into tbl_sell
+  select seq_sell_no.nextval, a.* from(
+  <foreach collection="list" item="ex" separator="UNION ALL">
+    select #{ex.member_id} as member_id, #{ex.barcode} as barcode, #{ex.pname} as pname, 
+    #{ex.category} as category, #{ex.sell_qnt} as sell_qnt, #{ex.get_price} as get_price, #{ex.sell_price} as sell_price, 
+    #{ex.pay_method} as pay_method, sysdate,  #{ex.discount_rate} as discount_rate, 
+    #{ex.receipt_no} as receipt_no, #{ex.division} as division from dual
+  </foreach> ) a
+  </insert>
+  <select id="chkrno" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(receipt_no) from tbl_sell where receipt_no = #{receipt_no}
+  </select> 
 </mapper>

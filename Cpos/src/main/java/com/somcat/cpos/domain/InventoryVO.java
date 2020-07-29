@@ -153,17 +153,27 @@ public class InventoryVO {
 		this.status = status;
 	}
 
-	public String getLarge() {
-		return catelm.getLarge();
+	
+	public String getLarge() { 
+		if(catelm == null) {
+			return "";
+		}else
+			return catelm.getLarge();
 	}
+	 
 
 	public void setLarge(String large) {
 		this.catelm = new CategoryVO(large);
 	}
 
+	
 	public String getMedium() {
-		return catelm.getMedium();
+		if(catelm == null) {
+			return "";
+		}else
+			return catelm.getMedium();
 	}
+	 
 
 	public void setMedium(String medium) {
 		catelm.setMedium(medium);

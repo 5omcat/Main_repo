@@ -166,9 +166,13 @@ $("#mcate").on("change", function() {
     	data:JSON.stringify(datas),
     	contentType: "application/json; charset=utf-8",
     	success: function(data) {
-    		alert(data==1?"처리완료!":"처리 실패"+data);
-    		location.reload();
-    	},
+            alert(data==1?"처리완료!":"처리 실패"+data);
+            let page = $("li.active a").text();
+            if(page > Math.ceil(page/10.0)*10)
+               exlistUp($("#lcate").val(), $("#mcate").val(), $("li.active a").text());
+            else
+               exlistUp($("#lcate").val(), $("#mcate").val(), $("li.active a").text()-1);
+         },
     	error: function(e) {
     		alert("에러메시지:관리자에게 문의하세요~");
     		console.log(e);
@@ -221,7 +225,12 @@ $("#mcate").on("change", function() {
 	       ino:$(this).closest('tr').find("input[name=ino]").val()}
 	   }).done(function(result) {
 		   alert(result=="1"?"폐기처리성공":"폐기처리실패");
-		   location.reload();
+		   let page = $("li.active a").text();
+	       exlistUp($("#lcate").val(), $("#mcate").val(), page);
+	       let li_list = $("#tbody tr");
+	       if(li_list.length == 1){
+	          exlistUp($("#lcate").val(), $("#mcate").val(), page-1);
+	       }
 	   }).fail(function(e) {
 		   alert("관리자에게 문의하세요~~");
 		   console.log(e);

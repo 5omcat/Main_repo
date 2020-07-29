@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.InventoryVO;
+import com.somcat.cpos.domain.PayVO;
 
 @Repository
 public class PayDAO implements PayDAOIntf {
@@ -42,10 +43,16 @@ public class PayDAO implements PayDAOIntf {
 
 	@Override
 	public List<InventoryVO> selectlmiList(CategoryVO cvo) {
-		/*
-		 * Map<String, String> map = new HashMap<>(); map.put("large", large);
-		 * map.put("medium", medium);
-		 */
 		return sql.selectList(ns + "lmilist", cvo);
+	}
+
+	@Override
+	public int update(List<PayVO> pvos) {
+		return sql.update(ns+"update", pvos);
+	}
+
+	@Override
+	public int selectrno(String receipt_no) {
+		return sql.selectOne(ns+"chkrno", receipt_no);
 	}
 }
