@@ -5,9 +5,11 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link href="/resources/css/ksy/order.css" rel="stylesheet">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/resources/js/ksy/datepicker-ko.js"></script>
 <script type="text/javascript">
+
 	$(function() {
 		$("#date1").datepicker({
 			showOn : "both",
@@ -54,7 +56,8 @@
 			data-target="#myModal">발주</button>
 		<!-- The Modal -->
 		<div class="modal fade" id="myModal">
-			<div class="modal-dialog modal-xl modal-dialog-centered">
+			<div style="overflow-x: initial !important;"
+				class="modal-dialog modal-xl modal-dialog-centered">
 				<div class="modal-content">
 
 					<!-- Modal Header -->
@@ -87,17 +90,21 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="largeCtg">상품 리스트:</label>
+							<div class="scrollHList"></div>
 						</div>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="largeCtg">선택된 상품:</label>
+							<div class="SelectList"></div>
 						</div>
 					</div>
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="button" id="ord_insert_btn" class="btn btn-warning" data-dismiss="modal">등록</button>
-						<button type="button" id="ord_cancel_btn" class="btn btn-danger" data-dismiss="modal">취소</button>
+						<button type="button" id="ord_insert_btn" class="btn btn-warning"
+							data-dismiss="modal">등록</button>
+						<button type="button" id="ord_cancel_btn" class="btn btn-danger"
+							data-dismiss="modal">취소</button>
 					</div>
 
 				</div>
@@ -161,6 +168,7 @@
 <script>
 	$(function() {
 		$('#md_wdiv').hide();
+		
 		$('#largeCtg').change(function() {
 			let large = "";
 			large = $(this).val();
@@ -172,15 +180,47 @@
 						let optionTag = '<option value="'+md.category+'">';
 						optionTag += ''+md.medium+'</option>';
 						$("#mediumCtg").append(optionTag);
-						console.log(optionTag);
-						console.log(md.category);
-						console.log(md.medium);
 					}
 				});
 				$('#md_wdiv').show();
-				alert("짜잔");
 			}
 		});
-	})
+		
+		let aJsonArray = new Array();
+		let hJsn = new Object();
+		
+		$('#mediumCtg').change(function() {
+			let large = $('#largeCtg').val();
+			let category = $(this).val();
+			if (large!='-1'&&category!='-1') {
+				alert("제이쿼리 에러 체크용");				
+				$.getJSON("/order/getHList/"+category, function(hList){
+					aJsonArray = hList;
+					$('.scrollHList').empty();
+ 					for (var i = 0; i < hList.length; i++) {
+						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" id="hl'+i+'">'+hList[i].pname+'</button>';
+						$(".scrollHList").append(btnTag);
+					}
+				});
+			}else{
+				return 'false';
+			}
+		});
+		
+		$(document).on("click",
+		".hgetter",
+		function(e){
+		e.preventDefault();
+		let hlnum = $(this).attr('id');
+		hlnum = hlnum.substring(2,hlnum.length);
+		hJsn = aJsonArray[hlnum];
+				let btnTag = '<button type="button" class="btn btn-outline-primary" id="'+hJsn.barcode+'">'+hJsn.pname+'</button>';
+				+'<button type="button" class="btn btn-outline-primary">-</button>'
+				+'<input class="btn btn-outline-primary" style="width: 50px;" type="number"/>'
+				+'<button type="button" class="btn btn-outline-primary">+</button>';
+				$(".SelectList").append(btnTag);
+		
+		}); 
+	});
 </script>
 <jsp:include page="../common/footer.jsp"></jsp:include>

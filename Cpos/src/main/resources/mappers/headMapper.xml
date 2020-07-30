@@ -17,6 +17,10 @@
  where rn > (#{pageNum}-1)*#{amount}
  ]]> 
 </select>
+<select id="hlist" parameterType="java.lang.Integer" resultType="HeadVO">
+select barcode, pname, category, expire_term, get_price, sell_price, discount_rate, status 
+FROM TBL_HEAD WHERE CATEGORY = #{category} AND status = 0
+</select>
 <select id="total" resultType="java.lang.Integer">
  	select count(barcode) from tbl_head
 </select>

@@ -45,7 +45,7 @@ public class HeadDAO implements HeadDAOIntf{
 	}
 
 	@Override
-	public List<HeadVO> selectLargeCate( Criterion cri) {
+	public List<HeadVO> selectLargeCate(Criterion cri) {
 		return sql.selectList(hs+"lcate", cri);		
 	}
 
@@ -72,5 +72,10 @@ public class HeadDAO implements HeadDAOIntf{
 	@Override
 	public HeadVO selectProduct(int barcode) {
 		return sql.selectOne(hs+"detail", barcode);
+	}
+
+	@Override
+	public List<HeadVO> selectHList(int category) {
+		return sql.selectList(hs+"hlist",category);
 	}
 }

@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
+import com.somcat.cpos.domain.HeadVO;
 import com.somcat.cpos.domain.MemberVO;
 import com.somcat.cpos.domain.OrderVO;
 import com.somcat.cpos.domain.PagingVO;
+import com.somcat.cpos.service.HeadServiceIntf;
 import com.somcat.cpos.service.OrderServiceIntf;
 
 @Controller
@@ -31,6 +33,9 @@ public class OrderCtrl {
 
 	@Inject
 	OrderServiceIntf osv;
+	
+	@Inject
+	HeadServiceIntf ssv;
 
 	@GetMapping(value = "/orderlist")
 	public void list(Model model, Criterion cri,
@@ -72,6 +77,19 @@ public class OrderCtrl {
 	public void ons() {
 
 	}
+	@GetMapping(value = "/test")
+	public void test() {
+		
+	}
+	
+	
+	@GetMapping(value = "/getHList/{category}", produces = { MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<HeadVO>> getHList(@PathVariable("category") int category) throws Exception  {
+		List<HeadVO> hList = (List<HeadVO>) ssv.getHList(category);
+		log.info("hList size:"+hList.size());
+		return new ResponseEntity<>(hList, HttpStatus.OK);
+	}
 
 
 	@GetMapping(value = "/getMCtgs/{large}", produces = { MediaType.APPLICATION_XML_VALUE,
@@ -79,5 +97,12 @@ public class OrderCtrl {
 	public ResponseEntity<List<CategoryVO>> getMCtgs(@PathVariable("large") String large) throws Exception {
 		List<CategoryVO> mCtgs = (List<CategoryVO>) osv.getMCtgs(large);
 		return new ResponseEntity<>(mCtgs, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getHVO/{barcode}", produces = { MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<HeadVO> getHVO(@PathVariable("barcode") int barcode) throws Exception {
+		HeadVO hvo = ssv.getProduct(barcode);
+		return new ResponseEntity<>(hvo, HttpStatus.OK);
 	}
 }
