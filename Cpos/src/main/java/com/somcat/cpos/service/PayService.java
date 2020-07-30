@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.InventoryVO;
+import com.somcat.cpos.domain.PayVO;
 import com.somcat.cpos.persistence.PayDAOIntf;
 
 @Service
@@ -42,6 +43,16 @@ public class PayService implements PayServiceIntf {
 	@Override
 	public List<InventoryVO> getlmiList(CategoryVO cvo) {
 		return psdao.selectlmiList(cvo);
+	}
+
+	@Override
+	public int update(List<PayVO> pvos) {
+		return psdao.update(pvos);
+	}
+
+	@Override
+	public int chkrno(String receipt_no) {
+		return psdao.selectrno(receipt_no);
 	}
 
 }

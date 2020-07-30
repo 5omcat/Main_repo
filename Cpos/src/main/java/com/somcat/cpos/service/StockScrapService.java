@@ -52,9 +52,15 @@ public class StockScrapService implements StockScrapServiceIntf{
 		return sdao.selectScrapList(date);
 	}
 
+	@Transactional
 	@Override
 	public int modifyQuantity(InventoryVO ivo) {
-		return sdao.updateQuantity(ivo);
+		int iqnt = ivo.getInv_qnt();
+		if (iqnt > 0) {
+			return sdao.updateQuantity(ivo);	
+		} else {
+			return sdao.deleteInven(ivo.getInventory_no());
+		}
 	}
 
 	@Override
