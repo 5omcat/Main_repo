@@ -3,7 +3,8 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="OrderMapper">
-	<select id="orderList" parameterType="java.util.HashMap" resultType="OrderVO">
+	<select id="orderList" parameterType="java.util.HashMap"
+		resultType="OrderVO">
   <![CDATA[
   select order_no, member_id, barcode, pname, order_qnt, 
 TO_CHAR(order_date,'YYYY-MM-DD HH24:MI:SS') as order_sdate, 
@@ -17,11 +18,19 @@ wrap_no, expire_term from
   )body where body.rank BETWEEN (#{cri.underamount}+1) AND (#{cri.underamount} + #{cri.amount})
   ]]>
 	</select>
-	
-	<insert id="order" parameterType="OrderVO">
-		insert into tbl_order(order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term) values(seq_order_no.nextval, #{member_id}, #{barcode}, #{pname}, #{order_qnt}, sysdate, #{wrap_no}, #{expire_term})
+	<insert id="order" parameterType="java.util.List">
+		insert into tbl_order 
+		select seq_order_no.nextval, a.* from(
+		<foreach collection="list" item="ovo" separator="UNION ALL">
+			select #{ovo.member_id} as member_id, #{ovo.barcode} as barcode, 
+			#{ovo.pname} as pname, #{ovo.order_qnt} as order_qnt,
+			sysdate, sysdate, #{ovo.wrap_no} as wrap_no, #{ovo.expire_term} as expire_term from
+			dual
+		</foreach>
+		) a
 	</insert>
-	<select id="amountCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+	<select id="amountCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Integer">
 	<![CDATA[
 	SELECT NVL(sum(cnt), 0) from
 	(SELECT WRAP_NO, COUNT(WRAP_NO ) cnt, ROW_NUMBER() OVER(ORDER BY WRAP_NO ASC) AS rank
@@ -31,7 +40,8 @@ wrap_no, expire_term from
     GROUP by wrap_no)body WHERE body.RANK BETWEEN ((#{pageNum}-1)*10+1) AND #{pageNum}*10
 	]]>
 	</select>
-	<select id="underAmountCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+	<select id="underAmountCount" parameterType="java.util.HashMap"
+		resultType="java.lang.Integer">
 	<![CDATA[
 	SELECT sum(cnt) from
 	(SELECT WRAP_NO, COUNT(WRAP_NO ) cnt, ROW_NUMBER() OVER(ORDER BY WRAP_NO ASC) AS rank
@@ -40,7 +50,8 @@ wrap_no, expire_term from
     and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{ovo.flag_tdate} GROUP by wrap_no)body WHERE body.RANK >=1 AND body.RANK <= (#{pageNum}-1)*10
 	]]>
 	</select>
-	<select id="totalCount" parameterType="OrderVO" resultType="java.lang.Integer">
+	<select id="totalCount" parameterType="OrderVO"
+		resultType="java.lang.Integer">
 	<![CDATA[
 	SELECT count(rank) from
 	(SELECT WRAP_NO, COUNT(WRAP_NO ) cnt, ROW_NUMBER() OVER(ORDER BY WRAP_NO ASC) AS rank
@@ -49,9 +60,13 @@ wrap_no, expire_term from
     and TO_CHAR(order_date,'YYYYMMDDHH24MISS') <= #{flag_tdate} GROUP by wrap_no)
 		]]>
 	</select>
-	<select id="mCtgs" parameterType="java.lang.String" resultType="CategoryVO">
+	<select id="mCtgs" parameterType="java.lang.String"
+		resultType="CategoryVO">
 	<![CDATA[
 	select medium, category from tbl_category WHERE SUBSTR(to_char(category),1,2) = #{large}
 	]]>
+	</select>
+	<select id="getWrapno" resultType="java.util.HashMap">
+	select NVL(wrap_no, 0) from tbl_order
 	</select>
 </mapper>

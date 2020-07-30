@@ -10,6 +10,8 @@
 <script src="/resources/js/ksy/datepicker-ko.js"></script>
 <script type="text/javascript">
 
+<c:set var="ses" value="${mid}" scope="session"/>
+
 	$(function() {
 		$("#date1").datepicker({
 			showOn : "both",
@@ -185,8 +187,10 @@
 			}
 		});
 		
-		let aJsonArray = new Array();
-		let hJsn = new Object();
+		var aJsonArray = new Array();
+		var selectJsonArray = new Array();
+		var hJsn = new Object();
+		var tempObj = new Object();
 		
 		$('#mediumCtg').change(function() {
 			let large = $('#largeCtg').val();
@@ -196,7 +200,7 @@
 				$.getJSON("/order/getHList/"+category, function(hList){
 					aJsonArray = hList;
 					$('.scrollHList').empty();
- 					for (var i = 0; i < hList.length; i++) {
+ 					for (let i = 0; i < aJsonArray.length; i++) {
 						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" id="hl'+i+'">'+hList[i].pname+'</button>';
 						$(".scrollHList").append(btnTag);
 					}
@@ -206,62 +210,92 @@
 			}
 		});
 		
-		let abc = []
+		var flag_ord_jsnArr = new Array();
 		
 		$(document).on("click",
 		".hgetter",
 		function(e){
 		e.preventDefault();
-		let hlnum = $(this).attr('id');
+		let hlnum = ""; 
+		hlnum =	$(this).attr('id');
 		hlnum = hlnum.substring(2,hlnum.length);
 		hJsn = aJsonArray[hlnum];
-				let btnTag = '<button type="button" class="btn btn-secondary">'+hJsn.pname+'</button>'
-				+'<button type="button" class="btn btn-secondary">-</button>'
-				+'<input type="text" style="width: 50px;" value="'+hJsn.barcode+'"/>'
-				+'<input type="text" style="width: 50px;" value="'+hJsn.category+'"/>'
-				+'<input type="text" style="width: 50px;" value="'+hJsn.expire_term+'"/>'
-				+'<input type="text" style="width: 50px;" value="'+hJsn.get_price+'"/>'				
-				+'<input type="text" style="width: 50px;" value="'+hJsn.sell_price+'"/>'				
-				+'<input type="text" style="width: 50px;" value="'+hJsn.discount_rate+'"/>'				
-				+'<input type="text" style="width: 50px;" value="'+hJsn.status+'"/>'				
-				+'<button type="button" class="btn btn-secondary">+</button>'				
-				+'<input type="number" style="width: 50px;"/>'		
-				+'<input type="number" style="width: 50px;"/>';
-				$(".SelectList").append(btnTag);
-				/* addlist(hJsn.barcode, hJsn.category,hJsn.expire_term, hJsn.get_price, hJsn.sell_price,
-						hJsn.discount_rate,hJsn.status); */
+				let selectItemTags = '<button type="button" class="btn btn-secondary pnmNest" id="'+hlnum+'">'+hJsn.pname+'</button>'
+				+'<button type="button" class="btn btn-secondary minus_btn">-</button>'
+				+'<span>1</span>'	
+				+'<button type="button" class="btn btn-secondary plus_btn">+</button>';				
+				+'<input type="hidden" style="width: 50px;" value="'+hJsn.barcode+'"/>'
+				$(".SelectList").append(selectItemTags);
+				$("#"+hlnum+"").attr('value',hJsn.pname);
+				flag_ord_jsnArr.push(hlnum);
 		});
 		
-		/* function addlist(hJsn.barcode, hJsn.category,hJsn.expire_term, hJsn.get_price, hJsn.sell_price,
-				hJsn.discount_rate,hJsn.status){
-			
-			
-		
-			
-			
-			abc.push
-			
-			
-			
-		}; */
-		/* 
-		수량 
-		let qnt = $(".SelectList:nth-child(11)").val()
-		만기일(수량) */
+		$(document).on("click",
+				".minus_btn",
+				function(e){
+			e.preventDefault();
+			if($(this).next('span').html()==1){
+				alert("더이상 줄일 수 없습니다.");				
+			}else{
+				$(this).next('span').html($(this).next('span').html()-1);
+			}
+		});
 		
 		$(document).on("click",
-				"#ord_insert_btn",
+				".plus_btn",
 				function(e){
-				e.preventDefault();
-				let count = $(".SelectList input").length;
-				console.log(count);
-				for (var i = 1; i <= count; i++) {
-					let name = $(".SelectList input").attr("id");
-					console.log(name);
-					console.log(":name");
-					
-				}
+			e.preventDefault();
+				$(this).prev('span').html(Number($(this).prev('span').html())+1);
+		});
+		
+		$(document).on("focus",
+				".plus_btn",
+				function(e){
+			e.preventDefault();
+				$(this).prev('span').html(Number($(this).prev('span').html())+1);
+		});
+
+		
+		$("#ord_insert_btn").on("click",function(e){
+			e.preventDefault();
+			if (flag_ord_jsnArr.length>0) {
+				let wrpno = -1;
+				$.ajax({
+					url:"/order/getWrpno",
+					type:"GET",
+					data:{wrap_no:wrpno}
+				}).done(function(result){
+					wrpno = result;
+				}).fail(function(result){
+					alert("wrap_no 가져오기 실패");
 				});
+			for (let i = 0; i < flag_ord_jsnArr.length; i++) {
+				tempObj = aJsonArray[flag_ord_jsnArr[i]];
+				let pname = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").val();
+				if (tempObj.pname==pname) {
+					tempObj.order_qnt = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").nextAll("span").html();
+					tempObj.member_id = $("#hddn_mid");
+					tempObj.wrap_no = wrpno;
+					selectJsonArray.push(tempObj);
+				}
+			}
+			$.ajax({
+				url:"/order/registOrder",
+				type:"POST",
+				data:JSON.stringify(selectJsonArray),
+				contentType: "application/json; charset=utf-8"
+			}).done(function(result){
+				alert("등록이 완료됐습니다.");
+				location.reload();
+			}).fail(function(result){
+				alert("발주등록 실패. 관리자에게 문의하세요");
+			});
+			
+			}else{
+				return 'false';
+			}
+	});
+
 		
 	});
 </script>

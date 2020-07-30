@@ -1,6 +1,7 @@
 package com.somcat.cpos.ctrl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,8 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
@@ -33,7 +37,7 @@ public class OrderCtrl {
 
 	@Inject
 	OrderServiceIntf osv;
-	
+
 	@Inject
 	HeadServiceIntf ssv;
 
@@ -45,9 +49,9 @@ public class OrderCtrl {
 		if (flag_hdate.length() < 1 && flag_tdate.length() < 1) {
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 			flag_tdate = format1.format(System.currentTimeMillis());
-			flag_hdate = String.valueOf(Integer.parseInt(flag_tdate)-7);
+			flag_hdate = String.valueOf(Integer.parseInt(flag_tdate) - 7);
 		}
-		if (flag_hdate.length()<9) {
+		if (flag_hdate.length() < 9) {
 			flag_hdate += "000000";
 			flag_tdate += "235959";
 		}
@@ -56,10 +60,10 @@ public class OrderCtrl {
 			member_id = mvo.getMember_id();
 		}
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
-		cri.setAmount(osv.getAmount(ovo,cri.getPageNum()));
-		if (cri.getPageNum()==1) {
+		cri.setAmount(osv.getAmount(ovo, cri.getPageNum()));
+		if (cri.getPageNum() == 1) {
 			cri.setUnderamount(0);
-		}else {
+		} else {
 			cri.setUnderamount(osv.getUnderAmount(ovo, cri.getPageNum()));
 		}
 		List<List<OrderVO>> ordWL = osv.getList(cri, ovo);
@@ -69,6 +73,36 @@ public class OrderCtrl {
 		model.addAttribute("pgvo", new PagingVO(totalCount, cri));
 	}
 
+	@GetMapping(value = "/getHList/{category}", produces = { MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<HeadVO>> getHList(@PathVariable("category") int category) throws Exception {
+		List<HeadVO> hList = (List<HeadVO>) ssv.getHList(category);
+		log.info("hList size:" + hList.size());
+		return new ResponseEntity<>(hList, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getMCtgs/{large}", produces = { MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<List<CategoryVO>> getMCtgs(@PathVariable("large") String large) throws Exception {
+		List<CategoryVO> mCtgs = (List<CategoryVO>) osv.getMCtgs(large);
+		return new ResponseEntity<>(mCtgs, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getHVO/{barcode}", produces = { MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<HeadVO> getHVO(@PathVariable("barcode") int barcode) throws Exception {
+		HeadVO hvo = ssv.getProduct(barcode);
+		return new ResponseEntity<>(hvo, HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/registOrder")
+	public ResponseEntity<String> registOrder(@RequestBody List<OrderVO> ovos) throws Exception {
+		int isOk = osv.registOrder(ovos);
+		return isOk > 0 ? new ResponseEntity<>("발주등록이 완료됐습니다.", HttpStatus.OK) 
+						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); 
+	}
+	
 	@GetMapping(value = "/order")
 	public void order() {
 	}
@@ -77,32 +111,12 @@ public class OrderCtrl {
 	public void ons() {
 
 	}
-	@GetMapping(value = "/test")
-	public void test() {
-		
-	}
-	
-	
-	@GetMapping(value = "/getHList/{category}", produces = { MediaType.APPLICATION_XML_VALUE,
-			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<HeadVO>> getHList(@PathVariable("category") int category) throws Exception  {
-		List<HeadVO> hList = (List<HeadVO>) ssv.getHList(category);
-		log.info("hList size:"+hList.size());
-		return new ResponseEntity<>(hList, HttpStatus.OK);
-	}
 
-
-	@GetMapping(value = "/getMCtgs/{large}", produces = { MediaType.APPLICATION_XML_VALUE,
-			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<CategoryVO>> getMCtgs(@PathVariable("large") String large) throws Exception {
-		List<CategoryVO> mCtgs = (List<CategoryVO>) osv.getMCtgs(large);
-		return new ResponseEntity<>(mCtgs, HttpStatus.OK);
+	@ResponseBody
+	@GetMapping(value = "/getWrpno")
+	public ResponseEntity<Integer> getWrpno() throws Exception {
+		int wrpno = osv.getWrapno();
+		return new ResponseEntity<>(wrpno, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/getHVO/{barcode}", produces = { MediaType.APPLICATION_XML_VALUE,
-			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<HeadVO> getHVO(@PathVariable("barcode") int barcode) throws Exception {
-		HeadVO hvo = ssv.getProduct(barcode);
-		return new ResponseEntity<>(hvo, HttpStatus.OK);
-	}
 }

@@ -1,5 +1,6 @@
 package com.somcat.cpos.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,8 +22,8 @@ public class OrderService implements OrderServiceIntf {
 	OrderDAOIntf odao;
 	
 	@Override
-	public int registOrder(OrderVO ovo) {
-		return odao.insertOrder(ovo);
+	public int registOrder(List<OrderVO> ovos) {
+		return odao.insertOrder(ovos);
 	}
 	
 	@Override
@@ -59,5 +60,22 @@ public class OrderService implements OrderServiceIntf {
 	@Override
 	public List<CategoryVO> getMCtgs(String large) {
 		return odao.selectMediumCates(large);
+	}
+
+	@Override
+	public int getWrapno() {
+		List<Integer> wrpL = odao.getWrapno();
+		boolean unFlag = true;
+		int rs = 0;
+		while (unFlag) {
+			int base = 1000;
+			base += (int)(Math.random()*100);
+			unFlag = wrpL.contains(base);
+			if(unFlag==false) {
+				rs = base;
+				return rs;
+			}
+		}
+		return 0;
 	}
 }
