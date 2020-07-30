@@ -25,6 +25,7 @@ import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.PayVO;
 import com.somcat.cpos.service.PayServiceIntf;
+import com.somcat.cpos.service.StockScrapServiceIntf;
 
 @Controller
 @RequestMapping("/pay/*")
@@ -33,6 +34,9 @@ public class PayCtrl {
 
 	@Inject
 	PayServiceIntf pssv;
+	
+	@Inject
+	StockScrapServiceIntf ssv;
 
 	@GetMapping("/payment")
 	public void payment(Model model, HttpSession ses) {
@@ -43,11 +47,20 @@ public class PayCtrl {
 	}
 	
 	@ResponseBody
+	@PostMapping("/qntmodify")
+	public String modqnt(InventoryVO ivo) {
+		int re = ssv.modifyQuantity(ivo);
+		return re==1?"1":"0";
+	}
+	
+	@ResponseBody
 	@GetMapping("/receiptNoChk")
 	public String receiptNoChk(@RequestParam("receipt_no") String receipt_no) {
 		int isExt = pssv.chkrno(receipt_no);
 		return isExt > 0 ? "1" : receipt_no;
 	}
+	
+	
 
 	@ResponseBody
 	@PostMapping(value = "/update")
@@ -70,14 +83,14 @@ public class PayCtrl {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<List<InventoryVO>> lilist(@PathVariable("large") String large) {
 		log.info("large : " + large);
-		List<InventoryVO> liList = (List<InventoryVO>) pssv.getliList(large);
+		List<InventoryVO> liList = pssv.getliList(large);
 		return new ResponseEntity<>(liList, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getlmlist/{large}", produces = { MediaType.APPLICATION_XML_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<List<CategoryVO>> lmlist(@PathVariable("large") String large) {
-		List<CategoryVO> lmList = (List<CategoryVO>) pssv.getmList(large);
+		List<CategoryVO> lmList = pssv.getmList(large);
 		return new ResponseEntity<>(lmList, HttpStatus.OK);
 	}
 
@@ -88,7 +101,7 @@ public class PayCtrl {
 		CategoryVO cvo = new CategoryVO();
 		cvo.setLarge(large);
 		cvo.setMedium(medium);
-		List<InventoryVO> lmiList = (List<InventoryVO>) pssv.getlmiList(cvo);
+		List<InventoryVO> lmiList = pssv.getlmiList(cvo);
 		log.info(">>list::" + lmiList);
 		return new ResponseEntity<>(lmiList, HttpStatus.OK);
 	}

@@ -2,12 +2,7 @@ package com.somcat.cpos.domain;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class PayVO {
-	private static Logger log = LoggerFactory.getLogger(PayVO.class);
-
 	private int sell_no;
 	private String member_id;
 	private int barcode;
@@ -23,7 +18,6 @@ public class PayVO {
 	private int division;
 	
 	public PayVO() {}
-	
 
 	// 상품판매시
 	public PayVO(String member_id, int barcode, String pname, int category, int sell_qnt, int get_price, int sell_price,
