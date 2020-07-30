@@ -172,7 +172,6 @@
 		$('#largeCtg').change(function() {
 			let large = "";
 			large = $(this).val();
-			console.log(large);
 			if (large != '-1') {
 				$.getJSON("/order/getMCtgs/"+large, function(mCtgs){
 					$('#mediumCtg option:first-child').nextAll("option").remove();
@@ -207,6 +206,8 @@
 			}
 		});
 		
+		let abc = []
+		
 		$(document).on("click",
 		".hgetter",
 		function(e){
@@ -214,13 +215,54 @@
 		let hlnum = $(this).attr('id');
 		hlnum = hlnum.substring(2,hlnum.length);
 		hJsn = aJsonArray[hlnum];
-				let btnTag = '<button type="button" class="btn btn-outline-primary" id="'+hJsn.barcode+'">'+hJsn.pname+'</button>';
-				+'<button type="button" class="btn btn-outline-primary">-</button>'
-				+'<input class="btn btn-outline-primary" style="width: 50px;" type="number"/>'
-				+'<button type="button" class="btn btn-outline-primary">+</button>';
+				let btnTag = '<button type="button" class="btn btn-secondary">'+hJsn.pname+'</button>'
+				+'<button type="button" class="btn btn-secondary">-</button>'
+				+'<input type="text" style="width: 50px;" value="'+hJsn.barcode+'"/>'
+				+'<input type="text" style="width: 50px;" value="'+hJsn.category+'"/>'
+				+'<input type="text" style="width: 50px;" value="'+hJsn.expire_term+'"/>'
+				+'<input type="text" style="width: 50px;" value="'+hJsn.get_price+'"/>'				
+				+'<input type="text" style="width: 50px;" value="'+hJsn.sell_price+'"/>'				
+				+'<input type="text" style="width: 50px;" value="'+hJsn.discount_rate+'"/>'				
+				+'<input type="text" style="width: 50px;" value="'+hJsn.status+'"/>'				
+				+'<button type="button" class="btn btn-secondary">+</button>'				
+				+'<input type="number" style="width: 50px;"/>'		
+				+'<input type="number" style="width: 50px;"/>';
 				$(".SelectList").append(btnTag);
+				/* addlist(hJsn.barcode, hJsn.category,hJsn.expire_term, hJsn.get_price, hJsn.sell_price,
+						hJsn.discount_rate,hJsn.status); */
+		});
 		
-		}); 
+		/* function addlist(hJsn.barcode, hJsn.category,hJsn.expire_term, hJsn.get_price, hJsn.sell_price,
+				hJsn.discount_rate,hJsn.status){
+			
+			
+		
+			
+			
+			abc.push
+			
+			
+			
+		}; */
+		/* 
+		수량 
+		let qnt = $(".SelectList:nth-child(11)").val()
+		만기일(수량) */
+		
+		$(document).on("click",
+				"#ord_insert_btn",
+				function(e){
+				e.preventDefault();
+				let count = $(".SelectList input").length;
+				console.log(count);
+				for (var i = 1; i <= count; i++) {
+					let name = $(".SelectList input").attr("id");
+					console.log(name);
+					console.log(":name");
+					
+				}
+				});
+		
 	});
 </script>
 <jsp:include page="../common/footer.jsp"></jsp:include>
