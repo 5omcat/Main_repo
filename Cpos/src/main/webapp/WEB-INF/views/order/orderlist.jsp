@@ -128,7 +128,7 @@
 						<div class="media-body">
 							<h4>
 								<c:forEach items="${ovol}" var="ovo" begin="0" end="0">
-								김 점장 <small><i>Posted on ${ovo.order_sdate}</i></small>
+								김 점장 <small><i>Ordered on ${ovo.order_sdate}</i></small>
 							</h4>
 				</c:forEach>
 				<c:forEach items="${ovol}" var="ovo">
