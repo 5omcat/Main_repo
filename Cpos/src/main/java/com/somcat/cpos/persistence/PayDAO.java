@@ -15,44 +15,44 @@ import com.somcat.cpos.domain.PayVO;
 
 @Repository
 public class PayDAO implements PayDAOIntf {
-	private static Logger log = LoggerFactory.getLogger(PayDAO.class);
-	private static String ns = "PayMapper.";
+   private static Logger log = LoggerFactory.getLogger(PayDAO.class);
+   private static String ns = "PayMapper.";
 
-	@Inject
-	SqlSession sql;
+   @Inject
+   SqlSession sql;
 
-	@Override
-	public List<InventoryVO> selectiList() {
-		return sql.selectList(ns + "ilist");
-	}
+   @Override
+   public List<InventoryVO> selectiList() {
+      return sql.selectList(ns + "ilist");
+   }
 
-	@Override
-	public List<CategoryVO> selectcList() {
-		return sql.selectList(ns + "llist");
-	}
+   @Override
+   public List<CategoryVO> selectcList() {
+      return sql.selectList(ns + "llist");
+   }
 
-	@Override
-	public List<CategoryVO> selectmList(String large) {
-		return sql.selectList(ns + "lmlist", large);
-	}
+   @Override
+   public List<CategoryVO> selectmList(String large) {
+      return sql.selectList(ns + "lmlist", large);
+   }
 
-	@Override
-	public List<InventoryVO> selectilList(String large) {
-		return sql.selectList(ns + "lilist", large);
-	}
+   @Override
+   public List<InventoryVO> selectilList(String large) {
+      return sql.selectList(ns + "lilist", large);
+   }
 
-	@Override
-	public List<InventoryVO> selectlmiList(CategoryVO cvo) {
-		return sql.selectList(ns + "lmilist", cvo);
-	}
+   @Override
+   public List<InventoryVO> selectlmiList(CategoryVO cvo) {
+      return sql.selectList(ns + "lmilist", cvo);
+   }
 
-	@Override
-	public int update(List<PayVO> pvos) {
-		return sql.update(ns+"update", pvos);
-	}
+   @Override
+   public int update(List<PayVO> pvos) {
+      return sql.update(ns+"update", pvos);
+   }
 
-	@Override
-	public int selectrno(String receipt_no) {
-		return sql.selectOne(ns+"chkrno", receipt_no);
-	}
+   @Override
+   public int selectrno(String receipt_no) {
+      return sql.selectOne(ns+"chkrno", receipt_no);
+   }
 }

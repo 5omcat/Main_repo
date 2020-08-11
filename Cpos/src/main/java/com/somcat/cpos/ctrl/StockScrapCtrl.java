@@ -106,7 +106,7 @@ public class StockScrapCtrl {
 		  if(jsonData.size() != 0) {
 		  int a = ssv.addScrap(jsonData);
 		  return a==1?"1":a+"";
-		  }else return "폐기처리할 상품 없음";
+		  }else return "Scrap clean";
 	  }
 	  
 	  @PostMapping("/scraplist") 
@@ -118,12 +118,7 @@ public class StockScrapCtrl {
 	  @ResponseBody
 	  @PostMapping("/scrap")
 	  public String scrap(ScrapVO svo) {
-		  Date d = svo.getExpire_date();
-		  svo.setMember_id("pos2");
-		  //log.info("ino="+svo.getIno());
-		  //log.info("date="+d);
 		  int result = ssv.addScrap(svo);
-		  //log.info(">>>d="+result);
 		  return result==1?"1":"0";
 	  }
 }

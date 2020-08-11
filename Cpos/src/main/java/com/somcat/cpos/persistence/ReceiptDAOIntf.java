@@ -7,5 +7,5 @@ import com.somcat.cpos.domain.ReceiptVO;
 public interface ReceiptDAOIntf {
 	public int insertReceipt(ReceiptVO rvo);
 	public List<ReceiptVO> getReceiptList(ReceiptVO rvo);
-	public ReceiptVO getReceiptDetail(int rno);
+	public List<ReceiptVO> getReceiptDetail(String rno);
 }

@@ -3,40 +3,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <section class="py-5">
-  <div class="container">
-    <h1>상품 등록</h1>
-    <form action="/head/pregist" method="post">   
+  <div class="container" id="registform">
+   <!--  <h5>상품 등록</h5> -->
+    <form action="/head/pregist" method="post" >   
       <div class="form-group">
-        <label for="pname">상품명: &nbsp;<span id="chkPname"></span></label> 
+        <label for="pname">상품명 &nbsp;<span id="chkPname"></span></label> 
         <input type="text" class="form-control" id="chkpname" name="pname">
       </div> 
       <div class="form-group">
-         <label for="large">대분류:</label>
-         <select class="form-control" id="large" name="large">
-           <option>10</option>
-           <option>20</option>
-           <option>30</option>
-           <option>40</option>
-           <option>50</option>
-         </select>          
+      	<label for="large">대분류</label>
+      	<select class="form-control" id="large" name="large">
+        	<option>10</option>
+        	<option>20</option>
+        	<option>30</option>
+        	<option>40</option>
+        	<option>50</option>
+      	</select>          
       </div>
       <div class="form-group">
-         <label for="medium">중분류:</label>
-         <select class="form-control" id="medium" name="medium">
-           <option>01</option>
-           <option>02</option>
-           <option>03</option>           
-         </select>          
-      </div>
+      	<label for="medium">중분류</label>
+      	<select class="form-control" id="medium" name="medium">
+        	<option>01</option>
+        	<option>02</option>
+        	<option>03</option>        	
+      	</select>          
+      </div>       
       <div class="form-group">
         <label for="category">카테고리</label>
         <input type="text" class="from-control" name="category" id="category">
       </div>
        <div class="form-group">
-        <label for="barcode">바코드: &nbsp;<span id="chkBarcode"></span></label> 
+        <label for="barcode">바코드 &nbsp;<span id="chkBarcode"></span></label> 
         <input type="text" class="form-control" name="barcode" id="chkbarcode">
       </div>
+      <div class="form-group">
       <button type="button" id="bBtn" value="button">바코드생성</button>
+      </div>
       <div class="form-group">
         <label for="expire_term">유통기간</label>
         <input type="number" class="from-control" name="expire_term">
@@ -94,54 +96,21 @@ $(function(){
 	});
 });
 </script>
-<script>
 
+<script>
 let category = document.getElementById('category');
 category.onmouseover = function(event){
 	largeVal = document.getElementById('large').value;
-	mediumVal = document.getElementById('medium').value;
-	console.log("l"+largeVal+"m"+mediumVal);
+	mediumVal = document.getElementById('medium').value;	
 	makeCategory(largeVal,mediumVal);	
 }
 
 let bBtn = document.getElementById('bBtn');
 let rnNum = randomNum(1000,9999);
-bBtn.onclick = function(event){
-	console.log(rnNum);	
+bBtn.onclick = function(event){	
 	let cateVal = document.getElementById('category').value;	
 	barcodeNum = makeBarcode(cateVal,rnNum);	
 	document.getElementById('chkbarcode').value = Number(barcodeNum);
 	}
 </script>
 
-
-<!-- 
-<script type="text/javascript">
-
- let hSign = '<c:out value="${hSign}"/>';
- if(hSign !=''){
-	 alert(hSign);
- }
-  
-	
-	let bBtn = document.getElementById('bBtn');
-	let cate = document.getElementById('category');
-	
-	category.focus = function(event){
-				makeCategory(largeVal,mediumVal);
-	}	
-	
-	bBtn.onclick = function(event){
-		randomNum(1000,9999);
-		largeVal = document.getElementById('large');
-		mediumVal = document.getElementById('medium');
-		
-		Num = randomNum();
-		console.log("rn"+Num);
-		console.log("cate"+cate);
-		makeBarcode(cate,Num);		
-	}
-</script> -->
-
-
-<jsp:include page="../common/footer.jsp"></jsp:include>

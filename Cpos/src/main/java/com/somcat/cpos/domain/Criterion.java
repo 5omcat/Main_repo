@@ -11,7 +11,7 @@ public class Criterion {
 	private Date today;
 	
 	public Criterion() {
-		this(1,10);
+		this(1,9);
 		this.underamount=-1; 
 	}
 	public Criterion(int pageNum, int amount) {

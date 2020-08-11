@@ -27,7 +27,7 @@
   </select>
   <insert id="addrec" parameterType="ReceiptVO">
     insert into tbl_sell(sell_no, member_id, barcode, sell_qnt, pay_method, sell_date, discount_rate, receipt_no) 
-    values(seq_sell_no.nextval, #{member_id}, #{barcode}, #{sell_qnt}, #{pay_method}, sysdate, #{discount_rate}, #{receipt_no})
+    values(seq_sell_no.nextval, #{member_id}, #{barcode}, #{sell_qnt}, #{pay_method}, #{sell_date}, #{discount_rate}, #{receipt_no})
   </insert>
   <select id="rlist" parameterType="ReceiptVO" resultType="ReceiptVO">
   <![CDATA[
@@ -35,10 +35,10 @@
     ]]>
     <include refid="search"/>
     <![CDATA[
-    and (sell_date between #{sell_date_s} and #{sell_date_e}) group by receipt_no, pay_method, sell_date, sell_no, pname
+    and (sell_date between #{sell_date_s} and #{sell_date_e}) order by sell_no desc, pname
     ]]>
   </select>
-  <select id="rdetail" parameterType="java.lang.Integer" resultType="ReceiptVO">
+  <select id="rdetail" parameterType="java.lang.String" resultType="ReceiptVO">
     select * from tbl_sell where receipt_no = #{receipt_no}
   </select>
 </mapper>

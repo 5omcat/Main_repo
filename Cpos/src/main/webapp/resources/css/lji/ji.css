@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+#receipt:after{content: ""; display: block; clear: both}
+
+#receipt{
+	width: auto; margin: 0 auto 150px auto;
+}
+
+#receiptMenu{
+	padding: 10px; margin: 50px auto; text-align: center;
+	border-radius: 10px; border: 1px solid black;
+}
+
+#ReceiptList{
+	float:left; margin: 1% 1% 1% 2%; padding: 20px;
+	width: 40%; height: 400px; overflow: auto;
+	border-radius: 10px; border: 1px solid black;
+}
+
+#ReceiptList #recList{
+	background-color: #007bff; color: #fffff0;
+	padding: 5px; margin: 5px
+}
+
+#receiptDetail{
+	float: right; margin: 1%; padding: 20px;
+	width: 50%; height: 400px;  overflow: auto;
+	border-radius: 10px; border: 1px solid black;
+}
+
+#receiptDetail thead{
+	background-color: #007bff; color: #fffff0
+}
+
+footer{
+    position: fixed; bottom: 0; right: 0; padding: 0;
+    width: 100%; height: 100px;
+   background-color: #fff; text-align: center;
+   border-top: olive solid 1px;
+}
+footer>div{
+   margin: 0 auto;
+}

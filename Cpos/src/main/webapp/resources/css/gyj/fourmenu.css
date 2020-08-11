@@ -1,0 +1,35 @@
+@charset "UTF-8";
+#fourmenusec {
+	background: #fffff0;	
+}
+
+#custm_01 {
+	padding: 10%;
+}
+
+#fourmenusec .card {
+	border: none;
+	border-radius: 1rem;
+	transition: all 0.2s;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+#fourmenusec .card-title {
+	margin: 0.5rem 0;
+	font-size: 0.9rem;
+	letter-spacing: .1rem;
+	font-weight: bold;
+}
+
+
+/* Hover Effects on Card */
+@media ( min-width : 992px) {
+	#fourmenusec .card:hover {
+		margin-top: -.25rem;
+		margin-bottom: .25rem;
+		box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+	}
+	#fourmenusec .card:hover .btn {
+		opacity: 1;
+	}
+}

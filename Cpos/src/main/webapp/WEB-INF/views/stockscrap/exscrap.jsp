@@ -6,8 +6,10 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 
+<section class="scrap pt-5 pb-2">
 <div class="container">
-<h1 class="text-center">폐기할 리스트</h1>
+<h1 class="text-center pb-3">폐기예정 상품</h1>
+<div class="cate">
   <label for="sel1" class="ml-3">대분류:</label>
   <select class="btn btn-outline-secondary scrap" id="lcate">
   <option class="btn-light text-dark" value="x">전체</option>
@@ -19,10 +21,10 @@
   <select class="btn btn-outline-secondary scrap" id="mcate">
     <option class="btn-light text-dark" value="전체">전체</option>
   </select>
-
-  <table class="table table-hover text-center mt-3">
+</div>
+  <table class="table table-hover text-center table-secondary mt-3">
     <thead>
-    <tr class="table-secondary">
+    <tr class="bg-dark text-light">
       <th>상품명</th>
       <th>카테고리</th>
       <th></th>
@@ -59,14 +61,14 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="6" class="text-left"><button type="button" class="btn btn-outline-secondary" id="allscrap">현재 페이지 전체 폐기</button></td>
+        <td colspan="6" class="text-center"><button type="button" class="btn btn-outline-dark" id="allscrap">현재 페이지 전체 폐기</button></td>
       </tr>
     </tfoot>
   </table>
   <div id="itemPaging">
   </div>
 </div>
-
+</section>
 <script>
 exlistUp("x","전체",1);
 $("#lcate").on("change", function(e) {
@@ -114,21 +116,22 @@ function exlistUp(large, medium, page) {
 }
 
 function  exprintList(list, itemTotal, page){
-   let uls="";
+   let uls='';
     if(list.length != 0){
      for(svo of list){
       let exdate = displayTime(svo.expire_date);
       uls +='<tr>';
       uls +='<td class="pname">'+svo.pname+'</td>';
-      uls +='<td class="text-warning"><input type="hidden" class="category" value="'+svo.category+'">'+svo.large+"/"+svo.medium+'</td>';
+      uls +='<td class="text-primary"><input type="hidden" class="category" value="'+svo.category+'">'+svo.large+"/"+svo.medium+'</td>';
       uls +='<td class="hidden"><input type="hidden" class="barcode" value="'+svo.barcode+'">';
       uls +='<input type="hidden" class="ino" name="ino" value="'+svo.inventory_no+'">';
+      uls +='<input type="hidden" class="mid" value="'+svo.member_id+'">';
       uls +='<input type="hidden" class="get_price" value="'+svo.get_price+'">'+'</td>';
       uls +='<td class="qnt text-success">'+svo.inv_qnt+'</td>';
       uls +='<td class="ex_date text-danger"><input type="hidden" class="exdate" name="exdate" value="'+exdate+'">'+exdate+'</td>';
-      uls += exScrap(exdate) == 1 ? '<td><button type="button btn-outline-dark" class="scrapBtn">폐기 <span class="spinner-border spinner-border-sm"></span></button></td>'
-          :'<td>'+svo.status+'</td>';
-      uls +='</tr>';
+      uls += exScrap(exdate) == 1 ? '<td><button type="button btn-outline-dark" class="scrapBtn">폐기 <span class="spinner-border spinner-border-sm"></span></button>'
+          :'<td>'+svo.status;
+      uls +='</td></tr>';
      }
     }else{
      uls += '<tr><td rowspan="6">해당 상품이 없습니다.</td></tr>';
@@ -148,7 +151,7 @@ $("#mcate").on("change", function() {
     let barcodes = $(".barcode");
     let datas = [];
     for (let i = 0; i <barcodes.length; i++) {
-        let scData = {member_id:"posSomcat",
+        let scData = {member_id:$(".mid").eq(i).val(),
         		barcode:$(".barcode").eq(i).val(),
         		pname:$(".pname").eq(i).text(),
         		category:$(".cate").eq(i).val(),
@@ -166,13 +169,13 @@ $("#mcate").on("change", function() {
     	data:JSON.stringify(datas),
     	contentType: "application/json; charset=utf-8",
     	success: function(data) {
-            alert(data==1?"처리완료!":"처리 실패"+data);
-            let page = $("li.active a").text();
-            if(page > Math.ceil(page/10.0)*10)
-               exlistUp($("#lcate").val(), $("#mcate").val(), $("li.active a").text());
-            else
-               exlistUp($("#lcate").val(), $("#mcate").val(), $("li.active a").text()-1);
-         },
+    		alert(data==1?"처리완료!":"처리 실패"+data);
+    		let page = $("li.active a").text();
+    		if(page > Math.ceil(page/10.0)*10)
+    			exlistUp($("#lcate").val(), $("#mcate").val(), page);
+    		else
+    			exlistUp($("#lcate").val(), $("#mcate").val(), page-1);
+    	},
     	error: function(e) {
     		alert("에러메시지:관리자에게 문의하세요~");
     		console.log(e);
@@ -213,24 +216,30 @@ $("#mcate").on("change", function() {
 	 let barcode = $(this).closest('tr').find(".hidden").find("input[name=barcode]").val();
 	 let ex = $(this).closest('tr').find(".exdate").val();
 	 let ex2 = $(this).closest('tr').find(".exdate").text();
+	 //console.log("값-대분류:"+$("#lcate").val()+"/중:"+$("#mcate").val()+"/페이지:"+$("li.active a").text());
+	 let tr_chk = $(this).closest('tr');
 	   $.ajax({
 	     type:"post",
 	     url:"/stockscrap/scrap",
 	     data: {barcode:barcode,
+	    	 member_id:$(this).closest('tr').find(".mid").val(),
 	       pname:$(this).closest('tr').find(".pname").text(),
 	       category:$(this).closest('tr').find(".cate").val(),
 	       scrap_qnt:$(this).closest('tr').find(".qnt").text(),
 	       get_price:$(this).closest('tr').find(".get_price").val(), 
 	       expire_date:ex,
-	       ino:$(this).closest('tr').find("input[name=ino]").val()}
+	       ino:$(this).closest('tr').find("input[name=ino]").val()
+	       }
 	   }).done(function(result) {
 		   alert(result=="1"?"폐기처리성공":"폐기처리실패");
 		   let page = $("li.active a").text();
-	       exlistUp($("#lcate").val(), $("#mcate").val(), page);
-	       let li_list = $("#tbody tr");
-	       if(li_list.length == 1){
-	          exlistUp($("#lcate").val(), $("#mcate").val(), page-1);
-	       }
+		   exlistUp($("#lcate").val(), $("#mcate").val(), page);
+		   let li_list = $("#tbody tr");
+		   console.log(li_list);
+		   console.log(li_list.length);
+		   if(li_list.length == 1){
+			   exlistUp($("#lcate").val(), $("#mcate").val(), page-1);
+		   }
 	   }).fail(function(e) {
 		   alert("관리자에게 문의하세요~~");
 		   console.log(e);

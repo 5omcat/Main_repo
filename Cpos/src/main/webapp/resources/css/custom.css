@@ -1,28 +1,35 @@
 
 @charset "UTF-8";
 
-/*!
- * Start Bootstrap - Full Width Pics (https://startbootstrap.com/template-overviews/full-width-pics)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-full-width-pics/blob/master/LICENSE)
- */
-body {
-  padding-top: 56px;
-}
-#cmtList ul{
-	border-bottom: 1px solid black;
-	margin-bottom: 10px;
+
+/* 공통부분 - 유진 */
+/* body {
+	height : 100%;  
+	min-height : 100%;
+	background: #fffff0;
 }
 
-.bg-image-full {
-  background: no-repeat center center scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
+footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 100px;	
+	text-align : center;
+} */
+header {
+	backgroud-color : #fffff0;
+	
+}
+body #logo{
+	padding-top : 20px;
 }
 
-<<<<<<< HEAD
+#logo img{
+	width : 120px;
+	height : auto;
+}
+
+/* 은혜 */
 .qnt {
 	width: 80px;
 }
@@ -34,5 +41,40 @@ body {
 ul.fa-ul{
 	padding-right: 20px;
 }
-=======
->>>>>>> 5610de9ed6b7cf79b16afed0fef844552ac08a0c
+
+section.ivory {
+  background: linear-gradient(225deg, #fffff0, #007bff) !important;
+}
+
+section.scrap {
+  background: linear-gradient(180deg, #fff, #343a40) !important;
+}
+
+.txt-ivory{
+  color: #ffffdf;
+}
+
+.card-ivory{
+  background-color: #fffff0;
+  border-radius: 15px;
+}
+
+.card-blue{
+  background: #0130abdd;
+  border-radius: 15px;
+}
+
+div.cate{
+  background: linear-gradient(to right, #fffff9, #ffffffff) !important;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#scrapListBtn{
+	float: right;
+}
+
+section{
+	margin-bottom: 150px;
+}
+

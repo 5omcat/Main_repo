@@ -16,12 +16,7 @@ public class PagingVO {
 		this.cri = cri;
 		this.endPagingNum = (int)(Math.ceil(cri.getPageNum()/10.0))*10;
 		this.beginPagingNum = this.endPagingNum-9;
-		int realEndPagingNum=0;
-		if(cri.getUnderamount()!=-1) {
-			realEndPagingNum = (int)(Math.ceil(totalCount/10.0));
-		}else {
-			realEndPagingNum = (int)(Math.ceil((totalCount*1.0)/cri.getAmount()));
-		}
+		int realEndPagingNum = (int)(Math.ceil((totalCount*1.0)/cri.getAmount()));
 		if(realEndPagingNum <= this.endPagingNum) {
 			this.endPagingNum = realEndPagingNum;
 		}

@@ -1,0 +1,21 @@
+@charset "UTF-8";
+#listform { 
+	padding : 0 20%;
+	text-align : center;
+}
+#headnav .btn {
+	color : #007bff;
+	background-color : white;
+}
+
+#detailBtn {
+	padding : 10px;
+	text-align : center;
+}
+
+.card-deck{
+	
+}
+#rowlist{
+	padding : 10px;
+}

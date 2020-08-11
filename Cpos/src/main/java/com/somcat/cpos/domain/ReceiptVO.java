@@ -38,7 +38,6 @@ public class ReceiptVO {
 	}
 
 	public ReceiptVO(String member_id, String pay_method, Date sell_date_s, Date sell_date_e, int division) {
-		super();
 		this.member_id = member_id;
 		this.pay_method = pay_method;
 		this.sell_date_s = sell_date_s;
@@ -47,6 +46,21 @@ public class ReceiptVO {
 	}
 
 	
+	public ReceiptVO(String member_id, int barcode, int sell_qnt, String pay_method, Date sell_date,
+			int division, int discount_rate, String receipt_no, String pname, int get_price, int sell_price) {
+		this.member_id = member_id;
+		this.barcode = barcode;
+		this.sell_qnt = sell_qnt;
+		this.pay_method = pay_method;
+		this.sell_date = sell_date;
+		this.division = division;
+		this.discount_rate = discount_rate;
+		this.receipt_no = receipt_no;
+		this.pname = pname;
+		this.get_price = get_price;
+		this.sell_price = sell_price;
+	}
+
 	public ReceiptVO(int sell_no, String member_id, int barcode, int sell_qnt, String pay_method, Date sell_date,
 			Date sell_date_s, Date sell_date_e, int division, int discount_rate, String receipt_no, String pname,
 			int get_price, int sell_price) {

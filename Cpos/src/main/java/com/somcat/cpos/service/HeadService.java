@@ -70,9 +70,8 @@ public class HeadService implements HeadServiceIntf{
 	public HeadVO getProduct(int barcode) {
 		return hdao.selectProduct(barcode);
 	}
-
 	@Override
-	public List<HeadVO> getHList(int category) {
+	public List<HeadVO> getHList(int category){
 		return hdao.selectHList(category);
 	}
 }

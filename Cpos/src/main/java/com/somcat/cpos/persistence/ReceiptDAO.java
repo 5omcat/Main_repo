@@ -1,5 +1,6 @@
 package com.somcat.cpos.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,8 +25,8 @@ public class ReceiptDAO implements ReceiptDAOIntf{
 		return sql.selectList(ns+"rlist", rvo);
 	}
 	@Override
-	public ReceiptVO getReceiptDetail(int rno) {
-		return sql.selectOne(ns+"rdetail", rno);
+	public List<ReceiptVO> getReceiptDetail(String rno) {
+		return sql.selectList(ns+"rdetail", rno);
 	}
 	@Override
 	public int insertReceipt(ReceiptVO rvo) {

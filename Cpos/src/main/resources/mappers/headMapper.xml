@@ -17,10 +17,6 @@
  where rn > (#{pageNum}-1)*#{amount}
  ]]> 
 </select>
-<select id="hlist" parameterType="java.lang.Integer" resultType="HeadVO">
-select barcode, pname, category, expire_term, get_price, sell_price, discount_rate, status 
-FROM TBL_HEAD WHERE CATEGORY = #{category} AND status = 0
-</select>
 <select id="total" resultType="java.lang.Integer">
  	select count(barcode) from tbl_head
 </select>
@@ -34,10 +30,14 @@ FROM TBL_HEAD WHERE CATEGORY = #{category} AND status = 0
 	select * from tbl_head where barcode=#{barcdoe}
 </select>
 <update id="modify" parameterType="HeadVO">
-update tbl_head set pname=#{pname}, expire_term=#{expire_term}, get_price=#{get_price}, discount_rate=#{discount_rate},status=#{status}
+update tbl_head set pname=#{pname}, expire_term=#{expire_term}, get_price=#{get_price},  sell_price=#{sell_price}, discount_rate=#{discount_rate},status=#{status}
 where barcode = #{barcode} 
 </update>
 <delete id="remove" parameterType="java.lang.Integer">
 delete from tbl_head where barcode=#{barcode}
 </delete>
+<select id="hlist" parameterType="java.lang.Integer" resultType="HeadVO">
+select barcode, pname, category, expire_term, get_price, sell_price, discount_rate, status 
+FROM TBL_HEAD WHERE CATEGORY = #{category} AND status = 0
+</select>
 </mapper>

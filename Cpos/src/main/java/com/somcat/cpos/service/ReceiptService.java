@@ -29,7 +29,7 @@ public class ReceiptService implements ReceiptServiceIntf{
 	}
 
 	@Override
-	public ReceiptVO selectReceiptDetail(int rno) {
+	public List<ReceiptVO> selectReceiptDetail(String rno) {
 		return rdao.getReceiptDetail(rno);
 	}
 }

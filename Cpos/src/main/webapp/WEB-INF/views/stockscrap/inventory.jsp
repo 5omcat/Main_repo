@@ -6,22 +6,25 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 
+<section class="pt-5 pb-2 ivory">
 <div class="container">
   <h1 class="text-center">재고리스트</h1>
-  <a href="/stockscrap/new" class="text-right">재고 추가하기</a><br>
-  
+  <!-- <a href="/stockscrap/new" class="text-right">재고 추가하기</a><br> -->
+  <div class="cate">
+  <label class="ml-3">대분류:</label>
   <select class="btn btn-outline-primary ml-3" id="lcate">
   <option value="x" class="btn-light text-dark">대분류</option>
   <c:forEach items="${cate }" var="cate">
     <option class="btn-light text-dark" value="${cate.large }">${cate.large }</option>
   </c:forEach>
   </select>
-  
+  <label class="ml-3">중분류:</label>
   <select class="btn btn-outline-primary ml-3" id="mcate">
     <option value="전체">전체보기</option>
   </select>
+  </div>
   
-  <table class="table table-hover mt-3 text-center">
+  <table class="table table-hover mt-3 text-center card-ivory">
     <thead>
     <tr class="table-primary">
       <th>카테고리</th>
@@ -36,16 +39,18 @@
     <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
     <tbody id="tbody">
     </tbody>
-    <tfoot>
+    </table>
+    <span id="scrapListBtn"><a class="btn btn-secondary" href="/stockscrap/exscrap">폐기리스트</a></span>
+    <!-- <tfoot>
       <tr>
         <td colspan="6" class="text-left"><a class="btn btn-secondary" href="/stockscrap/exscrap">폐기리스트</a></td>
       </tr>
-    </tfoot>
-  </table>
+    </tfoot> 
+  </table> -->
   <div id="itemPaging" class="mb-5">
   </div>
 </div>
-  
+  </section>
 <script>
 listUp("x","전체",1);
 $("#lcate").on("change", function(e) {

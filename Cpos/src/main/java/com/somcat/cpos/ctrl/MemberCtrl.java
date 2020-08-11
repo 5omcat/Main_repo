@@ -59,12 +59,12 @@ public class MemberCtrl {
 		MemberVO minfo = msv.login(mvo);
 		HttpSession ses = req.getSession();
 		if(minfo != null) {
-			ses.setAttribute("mid", minfo.getMember_id());
+			ses.setAttribute("mvo", minfo);
 			log.info(">>>>"+minfo.getMember_id());
 			if(minfo.getOpt()==0) {
-				return "/store/nav";
+				return "/head/fourmenu";
 			}else if(minfo.getOpt()==1) {
-				return "/head/plist";
+				return "/head/headmenu";
 			}
 		}else {
 			reAttr.addFlashAttribute("msg", "로그인에 실패했습니다");

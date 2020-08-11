@@ -58,9 +58,9 @@
 </select>
 <select id="sclist" parameterType="Criterion" resultType="InventoryVO">
   <![CDATA[
-  select inventory_no, inv_qnt, barcode, pname, category, large, medium, get_price, expire_date, status 
+  select inventory_no, member_id, inv_qnt, barcode, pname, category, large, medium, get_price, expire_date, status 
   from (select /*+INDEX_DESC(tbl_inventory pk_inventory)*/
-   rownum as rn, inventory_no, inv_qnt, barcode, pname, i.category as category, large, medium, get_price, expire_date, status
+   rownum as rn, inventory_no, member_id, inv_qnt, barcode, pname, i.category as category, large, medium, get_price, expire_date, status
   from tbl_inventory i inner join tbl_category c 
   on i.category = c.category 
   where 1>0

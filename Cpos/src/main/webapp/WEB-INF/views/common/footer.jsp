@@ -11,9 +11,9 @@
 			</div>
 
 			<div class="btn-group">
-				<a href="/stockscrap/ssmenu" class="btn btn-info">재고/폐기</a> <a
-					href="/stockscrap/inventory" class="btn btn-info">재고관리</a> <a
-					href="/stockscrap/exscrap" class="btn btn-info">폐기관리</a>
+			  <a href="/stockscrap/ssmenu" class="btn btn-primary">재고/폐기</a>
+			  <a href="/stockscrap/inventory" class="btn btn-primary">재고관리</a>
+			  <a href="/stockscrap/exscrap" class="btn btn-primary">폐기관리</a>
 			</div>
 
 			<div class="btn-group">
@@ -21,8 +21,8 @@
 			</div>
 
 			<div class="btn-group">
-				<a href="" class="btn btn-primary">발주관리</a> <a href=""
-					class="btn btn-primary">매출통계</a>
+				<a href="" class="btn btn-primary">발주관리</a> 
+				<a href="" class="btn btn-primary">매출통계</a>
 			</div>
 
 			<c:if test="${ses ne null || ses ne ''}">
@@ -30,11 +30,9 @@
 					<a href="/member/logout" class="btn btn-primary">로그아웃</a>
 				</div>
 			</c:if>
-			<div class="btn-group">
-				<a href="/order/test" class="btn btn-primary">cssTest</a>
-			</div>
 		</div>
 	</div>
+		<!-- /.container -->
 </footer>
 
 <script>

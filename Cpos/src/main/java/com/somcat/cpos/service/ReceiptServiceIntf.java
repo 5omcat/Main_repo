@@ -8,5 +8,5 @@ public interface ReceiptServiceIntf {
 	public int insertReciept(ReceiptVO rvo);
 	
 	public List<ReceiptVO> selectReceiptList(ReceiptVO rvo);
-	public ReceiptVO selectReceiptDetail(int rno);
+	public List<ReceiptVO> selectReceiptDetail(String rno);
 }

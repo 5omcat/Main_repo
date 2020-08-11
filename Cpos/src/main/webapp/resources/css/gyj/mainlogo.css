@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+#con {
+	padding : 0 20% 15% 20%;	
+}
+
+#teamname {
+	color : #007bff;
+	font-size : 100px;
+}
+ 
+#teamname>a {
+	text-decoration: none;
+} 
+#sec {	
+	backgroud-color : #fffff0;
+}
