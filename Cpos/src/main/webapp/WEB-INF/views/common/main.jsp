@@ -5,6 +5,6 @@
   <!-- Content section -->
   <section class="py-5" id="sec">
     <div class="container" id="con">
-    	<p id="teamname"><a href="/head/fourmenu">5omcatCpos</a></p> 
+    	<p id="teamname"><a href="/member/login">5omcatCpos</a></p> 
     </div>
   </section>
