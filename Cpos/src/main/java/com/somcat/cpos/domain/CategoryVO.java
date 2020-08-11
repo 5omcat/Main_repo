@@ -6,6 +6,10 @@ public class CategoryVO {
 	private String medium;
 	
 	public CategoryVO() {}
+	
+	public CategoryVO(String large) {
+		this.large = large;
+	}
 
 	public CategoryVO(String large, String medium) {
 		this.large = large;
@@ -17,12 +21,7 @@ public class CategoryVO {
 		this.large = large;
 		this.medium = medium;
 	}
-
-
-	public CategoryVO(String large) {
-		this.large = large;
-	}
-
+	
 	public int getCategory() {
 		return category;
 	}

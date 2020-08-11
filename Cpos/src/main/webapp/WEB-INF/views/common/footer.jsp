@@ -7,7 +7,7 @@
 	<div class="container">
 		<div class="btn-group">
 			<div class="btn-group">
-				<a href="" class="btn btn-primary">결제</a>
+				<a href="/pay/payment" class="btn btn-primary">결제</a>
 			</div>
 
 			<div class="btn-group">
