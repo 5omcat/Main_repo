@@ -44,7 +44,7 @@
 						<li><span class="fa-li"><i class="fas fa-check"></i></span>AI
 							상품 추천</li>
 					</ul>
-					<a href="/order/cal"
+					<a href="#"
 						class="btn btn-block btn-primary text-uppercase">GO</a>
 				</div>
 			</div>
