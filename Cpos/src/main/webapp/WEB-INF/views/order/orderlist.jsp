@@ -43,7 +43,7 @@
 					let tdateArr = flag_tdate.split('-');
 					flag_tdate = tdateArr[0] + tdateArr[1] + tdateArr[2];
 					let pageNum = 1;
-					let member_id = $("#hddn_mid").val();
+					let member_id = '<c:out value="${mvo.member_id}"/>';
 					location.href = '/order/orderlist?member_id=' + member_id
 							+ '&pageNum=' + pageNum + '&flag_hdate='
 							+ flag_hdate + '&flag_tdate=' + flag_tdate;
