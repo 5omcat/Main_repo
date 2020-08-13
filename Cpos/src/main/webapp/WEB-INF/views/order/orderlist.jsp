@@ -103,8 +103,7 @@
 					</div>
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="button" id="ord_insert_btn" class="btn btn-warning"
-							data-dismiss="modal">등록</button>
+						<button type="button" id="ord_insert_btn" class="btn btn-warning">등록</button>
 						<button type="button" id="ord_cancel_btn" class="btn btn-danger"
 							data-dismiss="modal">취소</button>
 					</div>
@@ -122,7 +121,7 @@
 			<c:when test="${ordWL ne null && ordWL.size() != 0 }">
 				<c:forEach items="${ordWL}" var="ovol">
 					<div class="media border p-3">
-						<img src="/resources/img/order_picon1.png" alt="John Doe"
+						<img src="/resources/img/order_picon1.png" alt="상자이미지"
 							class="mr-3 mt-3 rounded-circle"
 							style="width: 60px; margin-top: auto !important; margin-bottom: auto !important;">
 						<div class="media-body">
@@ -195,10 +194,16 @@
 		$('#mediumCtg').change(function() {
 			let large = $('#largeCtg').val();
 			let category = $(this).val();
-			if (large!='-1'&&category!='-1') {
-				alert("제이쿼리 에러 체크용");				
+			if (large!='-1'&&category!='-1') {			
 				$.getJSON("/order/getHList/"+category, function(hList){
-					aJsonArray = hList;
+					for (let i = 0; i < hList.length; i++) {
+						tempObj = hList[i];
+						delete tempObj.category;
+						delete tempObj.discount_rate;
+						delete tempObj.get_price;
+						delete tempObj.sell_price;
+						aJsonArray.push(tempObj);
+					}
 					$('.scrollHList').empty();
  					for (let i = 0; i < aJsonArray.length; i++) {
 						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" id="hl'+i+'">'+hList[i].pname+'</button>';
@@ -266,32 +271,41 @@
 					data:{wrap_no:wrpno}
 				}).done(function(result){
 					wrpno = result;
+					for (let i = 0; i < flag_ord_jsnArr.length; i++) {
+					tempObj = aJsonArray[flag_ord_jsnArr[i]];
+					let pname = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").val();
+					if (tempObj.pname==pname) {
+						tempObj.order_qnt = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").nextAll("span").html();
+						tempObj.member_id = '<c:out value="${mvo.member_id}"/>';
+						tempObj.wrap_no = wrpno;
+						selectJsonArray.push(tempObj);
+					}
+					}
+					console.log(selectJsonArray);
+				
+					$.ajax({
+						url:"/order/registOrder",
+						type:"POST",
+						data:JSON.stringify(selectJsonArray),
+						contentType: "application/json; charset=utf-8;"
+					}).done(function(result){
+						alert("등록이 완료됐습니다.");
+						location.reload();
+				}).fail(function(result){
+					alert("발주등록 실패. 관리자에게 문의하세요");
+				});
+				
+				
+				
+				
 				}).fail(function(result){
 					alert("wrap_no 가져오기 실패");
 				});
-			for (let i = 0; i < flag_ord_jsnArr.length; i++) {
-				tempObj = aJsonArray[flag_ord_jsnArr[i]];
-				let pname = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").val();
-				if (tempObj.pname==pname) {
-					tempObj.order_qnt = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").nextAll("span").html();
-					tempObj.member_id = $("#hddn_mid");
-					tempObj.wrap_no = wrpno;
-					selectJsonArray.push(tempObj);
-				}
-			}
-			$.ajax({
-				url:"/order/registOrder",
-				type:"POST",
-				data:JSON.stringify(selectJsonArray),
-				contentType: "application/json; charset=utf-8"
-			}).done(function(result){
-				alert("등록이 완료됐습니다.");
-				location.reload();
-			}).fail(function(result){
-				alert("발주등록 실패. 관리자에게 문의하세요");
-			});
+
+				
 			
 			}else{
+				alert("orderlist_258 error. 관리자에 문의하세요.");
 				return 'false';
 			}
 	});

@@ -44,6 +44,17 @@ public class OrderVO {
 		this.expire_term = expire_term;
 		this.status = status;
 	}
+	
+	//for obj before ord regd
+	public OrderVO(String member_id, int barcode, String pname, int order_qnt, int wrap_no, int expire_term, int status) {
+		this.member_id = member_id;
+		this.barcode = barcode;
+		this.pname = pname;
+		this.order_qnt = order_qnt;
+		this.wrap_no = wrap_no;
+		this.expire_term = expire_term;
+		this.status = status;
+	}
 
 	
 	//for getList

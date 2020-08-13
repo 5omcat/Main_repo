@@ -19,12 +19,13 @@ wrap_no, expire_term from
   ]]>
 	</select>
 	<insert id="order" parameterType="java.util.List">
-		insert into tbl_order 
-		select seq_order_no.nextval, a.* from(
-		<foreach collection="list" item="ovo" separator="UNION ALL">
+		insert into tbl_order (order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term, status)  
+		select seq_order_no.nextval as order_no, a.* from( 
+		<foreach collection="list" item="ovo" separator="UNION ALL"> 
 			select #{ovo.member_id} as member_id, #{ovo.barcode} as barcode, 
-			#{ovo.pname} as pname, #{ovo.order_qnt} as order_qnt,
-			sysdate, sysdate, #{ovo.wrap_no} as wrap_no, #{ovo.expire_term} as expire_term from
+			#{ovo.pname} as pname, #{ovo.order_qnt} as order_qnt, 
+			sysdate as order_date, #{ovo.wrap_no} as wrap_no, #{ovo.expire_term} as expire_term, 
+			#{ovo.status} as status from 
 			dual
 		</foreach>
 		) a
