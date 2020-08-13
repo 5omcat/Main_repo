@@ -125,21 +125,31 @@
 							class="mr-3 mt-3 rounded-circle"
 							style="width: 60px; margin-top: auto !important; margin-bottom: auto !important;">
 						<div class="media-body">
-							<h4>
-								<c:forEach items="${ovol}" var="ovo" begin="0" end="0">
-								김 점장 <small><i>Ordered on ${ovo.order_sdate}</i></small>
-							</h4>
-				</c:forEach>
-				<c:forEach items="${ovol}" var="ovo">
-					<span>${ovo.pname} : </span>
-					<span>${ovo.order_qnt}개/</span>
+								<h4>
+									<c:forEach items="${ovol}" var="ovo" begin="0" end="0">
+									김 점장 <small><i>Ordered on ${ovo.order_sdate}</i></small>
+								</h4>
+									</c:forEach>
+						<c:forEach items="${ovol}" var="ovo">
+						<span>${ovo.pname} : </span>
+						<span>${ovo.order_qnt}개/</span>
 
+						</c:forEach>
+						</div>
+						<div>
+						<button type="button" class="btn btn-outline-light text-dark">
+						<c:set var="stt" value="${ovol[0].status}"/>
+						<c:choose>
+							<c:when test="${stt == 0 }">
+							미수령
+							</c:when>
+						</c:choose>
+						</button>
+						</div>
+					</div>
 				</c:forEach>
-	</div>
-	</div>
-	</c:forEach>
-	</c:when>
-	<c:otherwise>
+			</c:when>
+		<c:otherwise>
 		<tr>
 			<th colspan="6"><h3 class="text-center">조회된 발주내역이 없습니다.</h3></th>
 		</tr>
