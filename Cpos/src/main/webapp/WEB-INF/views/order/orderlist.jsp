@@ -120,6 +120,9 @@
 						<h4 class="modal-title">발주 상태 변경</h4>
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
+					<div class="modal-header">
+						<h4 class="modal-title">=======발주 내역=======</h4>
+					</div>
 					<!-- Modal body -->
 					<div class="modal-body">
 					</div>
