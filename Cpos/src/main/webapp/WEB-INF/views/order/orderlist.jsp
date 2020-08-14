@@ -81,7 +81,6 @@
 								<option value="50">기호품</option>
 							</select>
 						</div>
-						<!-- 스트립트 임시 -->
 						<div class="form-group" id="md_wdiv">
 							<label for="mediumCtg">중분류:</label> <select class="form-control"
 								id="mediumCtg" name="mediumCtg">
@@ -104,13 +103,37 @@
 					<!-- Modal footer -->
 					<div class="modal-footer">
 						<button type="button" id="ord_insert_btn" class="btn btn-warning">등록</button>
-						<button type="button" id="ord_cancel_btn" class="btn btn-danger"
-							data-dismiss="modal">취소</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 					</div>
 
 				</div>
 			</div>
 		</div>
+		
+		
+		<!-- The Modal2 -->
+		<div class="modal fade" id="ordStatModal">
+			<div style="overflow-x: initial !important;"
+				class="modal-dialog modal-xl modal-dialog-centered">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">발주 상태 변경</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body">
+					</div>
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" id="ord_done_btn" class="btn btn-warning">수령완료</button>
+						<button type="button" id="ord_cancel_btn" class="btn btn-danger">발주취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
 		<p>
 			공지 <span>: 다음 주부터 칸쵸 1+1 행사가 진행됩니다.</span>
 		</p>
@@ -125,8 +148,8 @@
 							class="mr-3 mt-3 rounded-circle"
 							style="width: 60px; margin-top: auto !important; margin-bottom: auto !important;">
 						<div class="media-body">
-								<h4>
 									<c:forEach items="${ovol}" var="ovo" begin="0" end="0">
+								<h4>
 									김 점장 <small><i>Ordered on ${ovo.order_sdate}</i></small>
 								</h4>
 									</c:forEach>
@@ -137,11 +160,18 @@
 						</c:forEach>
 						</div>
 						<div>
-						<button type="button" class="btn btn-outline-light text-dark">
+						<button id="ord_recivChk_btn" type="button" class="btn btn-outline-light text-dark" 
+						 data-toggle="modal" data-target="#ordStatModal">
 						<c:set var="stt" value="${ovol[0].status}"/>
 						<c:choose>
 							<c:when test="${stt == 0 }">
 							미수령
+							</c:when>
+							<c:when test="${stt == 1 }">
+							수령완료
+							</c:when>
+							<c:when test="${stt == 2 }">
+							취소
 							</c:when>
 						</c:choose>
 						</button>
@@ -179,6 +209,15 @@
 <script>
 	$(function() {
 		$('#md_wdiv').hide();
+		
+		
+		$(document).on("click", "#ord_recivChk_btn",
+				function(e){
+			e.preventDefault();
+			let temp = $(this).parent().prevAll('.media-body');
+			$("#ordStatModal .modal-body").append(temp);
+			console.log(temp);
+		});
 		
 		$('#largeCtg').change(function() {
 			let large = "";
