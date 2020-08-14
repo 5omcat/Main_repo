@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="/resources/css/ksy/order.css" rel="stylesheet">
@@ -54,10 +53,10 @@
 <section class="pricing py-5">
 	<div class="container mt-3">
 		<h2>발주 내역</h2>
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#myModal">발주</button>
+		<button type="button" class="btn btn-primary ordBtn" data-toggle="modal"
+			data-target=".ordmodal">발주</button>
 		<!-- The Modal -->
-		<div class="modal fade" id="myModal">
+		<div class="modal fade ordmodal">
 			<div style="overflow-x: initial !important;"
 				class="modal-dialog modal-xl modal-dialog-centered">
 				<div class="modal-content">
@@ -210,14 +209,21 @@
 	$(function() {
 		$('#md_wdiv').hide();
 		
+		$('.ordmodal').on('hidden.bs.modal', function () {
+			$(this).find('#largeCtg').val("-1");
+			$(this).find('#mediumCtg').val("-1");
+			$(this).find('.scrollHList').empty();
+			$(this).find('.SelectList').empty();
+		});
+		
 		
 		$(document).on("click", "#ord_recivChk_btn",
 				function(e){
 			e.preventDefault();
-			let temp = $(this).parent().prevAll('.media-body');
-			$("#ordStatModal .modal-body").append(temp);
-			console.log(temp);
+			$("#ordStatModal .modal-body").empty();
+			$(this).parent().prevAll('.media-body').clone().appendTo("#ordStatModal .modal-body");
 		});
+		
 		
 		$('#largeCtg').change(function() {
 			let large = "";
