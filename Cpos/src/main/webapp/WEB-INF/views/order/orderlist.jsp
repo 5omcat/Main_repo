@@ -224,21 +224,30 @@
 			$(this).find('.SelectList').empty();
 		});
 		
-		$(document).on("click", "#ord_done_btn",
+		$(document).on("click", "#ord_done_btn, #ord_cancel_btn",
 				function(e){
 			e.preventDefault();
-			let stt = this.dataset.stt;
+			let btnId = $(this).attr('id');
+			let stt;
+			if (btnId=="ord_done_btn") {
+				stt = 1;
+			}else if(btnId=="ord_cancel_btn"){
+				stt = 2;
+			}
+			console.log(stt);
 			let wrpno = this.dataset.wrpno;
+			let id = "${mvo.member_id}";
 			$.ajax({
 				url:"/order/changeStatus",
-				type:"GET",
+				type:"POST",
 				data:{wrap_no:wrpno,
 					status:stt
 				}
 			}).done(function(){
-				alert("다됨");
+				alert("요청이 완료됐습니다.");
+				location.replace("/order/orderlist?member_id="+id+"&pageNum=1&flag_hdate=&flag_tdate=");
 			}).fail(function(){
-				alert("안됨");
+				alert("요청을 처리하지 못했습니다. 다시 시도해주세요.");
 			});
 		});
 		
@@ -247,8 +256,8 @@
 			e.preventDefault();
 			let stt = this.dataset.stt;
 			let wrpno = this.dataset.wrpno;
-			$("#ord_done_btn").attr("data-stt",stt);
 			$("#ord_done_btn").attr("data-wrpno",wrpno);
+			$("#ord_cancel_btn").attr("data-wrpno",wrpno);
 			
 			$("#ordStatModal .modal-body").empty();
 			$(this).parent().prevAll('.media-body').clone().appendTo("#ordStatModal .modal-body");

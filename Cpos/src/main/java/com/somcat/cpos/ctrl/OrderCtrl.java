@@ -128,12 +128,12 @@ public class OrderCtrl {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "/changeStatus")
-	public ResponseEntity<String> changeStatus(@RequestBody int wrap_no, @RequestBody int status) throws Exception {
+	@PostMapping(value = "/changeStatus")
+	public ResponseEntity<String> changeStatus(@RequestParam("wrap_no") int wrap_no, @RequestParam("status") int status) throws Exception {
 				log.info("wrap_no:"+wrap_no);
 				log.info("status:"+status);
 				int isOk = osv.changeOrderStatus(wrap_no, status);
-		return isOk > 0 ? new ResponseEntity<>(HttpStatus.OK)
+		return isOk > 0 ? new ResponseEntity<>("오케이",HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

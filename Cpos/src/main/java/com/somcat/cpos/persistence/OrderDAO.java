@@ -91,7 +91,7 @@ public class OrderDAO implements OrderDAOIntf {
 
 	@Override
 	public int updateOrderStatus(int wrap_no, int status) {
-		Map<Object, Object> map2 = new HashMap<>();
+		Map<String, Integer> map2 = new HashMap<>();
 		map2.put("wrap_no", wrap_no);
 		map2.put("status",status);
 		return sql.update(ns+"changeOrderStatus",map2);
