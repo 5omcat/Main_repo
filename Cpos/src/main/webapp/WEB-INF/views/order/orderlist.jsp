@@ -167,7 +167,7 @@
 						</div>
 						<div>
 						<button id="ord_recivChk_btn" type="button" class="btn btn-outline-light text-dark" 
-						 data-toggle="modal" data-target="#ordStatModal" data-stt="${ovo1.status}">
+						 data-toggle="modal" data-target="#ordStatModal" data-stt="${ovo1.status}" data-wrpno="${ovo1.wrap_no}">
 						<c:choose>
 							<c:when test="${ovo1.status==0}">
 							미수령
@@ -224,11 +224,32 @@
 			$(this).find('.SelectList').empty();
 		});
 		
+		$(document).on("click", "#ord_done_btn",
+				function(e){
+			e.preventDefault();
+			let stt = this.dataset.stt;
+			let wrpno = this.dataset.wrpno;
+			$.ajax({
+				url:"/order/changeStatus",
+				type:"GET",
+				data:{wrap_no:wrpno,
+					status:stt
+				}
+			}).done(function(){
+				alert("다됨");
+			}).fail(function(){
+				alert("안됨");
+			});
+		});
 		
 		$(document).on("click", "#ord_recivChk_btn",
 				function(e){
 			e.preventDefault();
 			let stt = this.dataset.stt;
+			let wrpno = this.dataset.wrpno;
+			$("#ord_done_btn").attr("data-stt",stt);
+			$("#ord_done_btn").attr("data-wrpno",wrpno);
+			
 			$("#ordStatModal .modal-body").empty();
 			$(this).parent().prevAll('.media-body').clone().appendTo("#ordStatModal .modal-body");
 			switch (stt) {

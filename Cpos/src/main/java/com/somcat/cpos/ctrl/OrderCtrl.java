@@ -119,11 +119,22 @@ public class OrderCtrl {
 
 	}
 
+	
 	@ResponseBody
 	@GetMapping(value = "/getWrpno")
 	public ResponseEntity<String> getWrpno() throws Exception {
 		String wrpno = String.valueOf(osv.getWrapno());
 		return new ResponseEntity<>(wrpno, HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/changeStatus")
+	public ResponseEntity<String> changeStatus(@RequestBody int wrap_no, @RequestBody int status) throws Exception {
+				log.info("wrap_no:"+wrap_no);
+				log.info("status:"+status);
+				int isOk = osv.changeOrderStatus(wrap_no, status);
+		return isOk > 0 ? new ResponseEntity<>(HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }
