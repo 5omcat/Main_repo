@@ -24,4 +24,6 @@ public interface OrderDAOIntf {
 	public int selectUnderAmount(OrderVO ovo, int pageNum);
 	
 	public List<Integer> getWrapno();
+
+	public int updateOrderStatus(int wrap_no, int status);
 }

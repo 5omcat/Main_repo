@@ -78,15 +78,23 @@ public class OrderDAO implements OrderDAOIntf {
 
 	@Override
 	public int selectUnderAmount(OrderVO ovo, int pageNum) {
-		Map<Object, Object> map = new HashMap<>();
-		map.put("pageNum", pageNum);
-		map.put("ovo",ovo);
-		return sql.selectOne(ns+"underAmountCount", map);
+		Map<Object, Object> map1 = new HashMap<>();
+		map1.put("pageNum", pageNum);
+		map1.put("ovo",ovo);
+		return sql.selectOne(ns+"underAmountCount", map1);
 	}
 
 	@Override
 	public List<Integer> getWrapno() {
 		return sql.selectList(ns+"getWrapno");
+	}
+
+	@Override
+	public int updateOrderStatus(int wrap_no, int status) {
+		Map<Object, Object> map2 = new HashMap<>();
+		map2.put("wrap_no", wrap_no);
+		map2.put("status",status);
+		return sql.update(ns+"changeOrderStatus",map2);
 	}
 
 }

@@ -9,7 +9,7 @@ import com.somcat.cpos.domain.OrderVO;
 
 public interface OrderServiceIntf {
 	public int registOrder(List<OrderVO> ovos);	
-	public int modifyOrder(OrderVO ovo);
+	public int changeOrderStatus(int wrap_no, int status);
 	public int cancelOrder(int order_no);
 	public List<List<OrderVO>> getList(Criterion cri, OrderVO ovo);
 	public int getTotalCount(OrderVO ovo);

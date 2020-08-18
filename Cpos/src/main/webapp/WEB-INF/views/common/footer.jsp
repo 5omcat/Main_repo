@@ -5,19 +5,18 @@
 <!-- Footer -->
 <footer class="py-5 bg-dark">
 	<div class="container">
+		<c:if test="${mvo ne null}">
 		<div class="btn-group">
 			<div class="btn-group">
 				<a href="/pay/payment" class="btn btn-primary">결제</a>
 			</div>
 
 			<div class="btn-group">
-				<a href="/stockscrap/ssmenu" class="btn btn-primary">재고/폐기</a> <a
-					href="/stockscrap/inventory" class="btn btn-primary">재고관리</a> <a
-					href="/stockscrap/exscrap" class="btn btn-primary">폐기관리</a>
+				<a href="/stockscrap/ssmenu" class="btn btn-primary">재고/폐기</a>
 			</div>
 
 			<div class="btn-group">
-				<a href="/receipt/soldlist?member_id=${mid}" class="btn btn-primary">판매조회</a>
+				<a href="/receipt/soldlist?member_id=${mvo.member_id}" class="btn btn-primary">판매조회</a>
 			</div>
 
 			<div class="btn-group">
@@ -36,6 +35,7 @@
 				</div>
 			</c:if>
 		</div>
+		</c:if>
 	</div>
 	<!-- /.container -->
 </footer>

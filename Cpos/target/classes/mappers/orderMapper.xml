@@ -8,9 +8,9 @@
   <![CDATA[
   select order_no, member_id, barcode, pname, order_qnt, 
 TO_CHAR(order_date,'YYYY-MM-DD HH24:MI:SS') as order_sdate, 
-wrap_no, expire_term from 
+wrap_no, expire_term, status from 
 (SELECT 
-  order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term, ROW_NUMBER() OVER(ORDER BY order_no ASC) AS rank
+  order_no, member_id, barcode, pname, order_qnt, order_date, wrap_no, expire_term, status, ROW_NUMBER() OVER(ORDER BY order_no ASC) AS rank
   from tbl_order 
   where member_id = #{ovo.member_id}
    and TO_CHAR(order_date,'YYYYMMDDHH24MISS') >= #{ovo.flag_hdate}
@@ -70,4 +70,11 @@ wrap_no, expire_term from
 	<select id="getWrapno" resultType="java.util.HashMap">
 	select NVL(wrap_no, 0) from tbl_order
 	</select>
+	<update id="changeOrderStatus" parameterType="java.util.HashMap">
+		update tbl_order set status = #{status} 
+		<if test="#{status==1}">
+		, get_date = sysdate 
+		</if>
+		where wrap_no = #{wrap_no}
+	</update>
 </mapper>

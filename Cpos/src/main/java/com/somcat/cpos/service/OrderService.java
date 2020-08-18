@@ -33,8 +33,8 @@ public class OrderService implements OrderServiceIntf {
 
 
 	@Override
-	public int modifyOrder(OrderVO ovo) {
-		return 0;
+	public int changeOrderStatus(int wrap_no, int status) {
+		return odao.updateOrderStatus(wrap_no, status);
 	}
 
 	@Override

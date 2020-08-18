@@ -52,7 +52,7 @@
 
 <section class="pricing py-5">
 	<div class="container mt-3">
-		<h2>발주 내역</h2>
+		<h2>발주 리스트</h2>
 		<button type="button" class="btn btn-primary ordBtn" data-toggle="modal"
 			data-target=".ordmodal">발주</button>
 		<!-- The Modal -->
@@ -146,38 +146,43 @@
 			<c:when test="${ordWL ne null && ordWL.size() != 0 }">
 				<c:forEach items="${ordWL}" var="ovol">
 					<div class="media border p-3">
-						<img src="/resources/img/order_picon1.png" alt="상자이미지"
+						<c:forEach items="${ovol}" var="ovo1" begin="0" end="0">
+						
+						<img src="/resources/img/<c:if test="${ovo1.status==0}">
+						box_packaged.png</c:if>
+						<c:if test="${ovo1.status==1}">box_opened.png</c:if>
+						<c:if test="${ovo1.status==2}">box_canceled.png</c:if>" 
+							alt="발주 상태 이미지"
 							class="mr-3 mt-3 rounded-circle"
 							style="width: 60px; margin-top: auto !important; margin-bottom: auto !important;">
 						<div class="media-body">
-									<c:forEach items="${ovol}" var="ovo" begin="0" end="0">
 								<h4>
-									김 점장 <small><i>Ordered on ${ovo.order_sdate}</i></small>
+									김 점장 <small><i>Ordered on ${ovo1.order_sdate}</i></small>
 								</h4>
-									</c:forEach>
-						<c:forEach items="${ovol}" var="ovo">
-						<span>${ovo.pname} : </span>
-						<span>${ovo.order_qnt}개/</span>
-
+								
+						<c:forEach items="${ovol}" var="ovo2">
+						<span>${ovo2.pname} : </span>
+						<span>${ovo2.order_qnt}개/</span>
 						</c:forEach>
 						</div>
 						<div>
 						<button id="ord_recivChk_btn" type="button" class="btn btn-outline-light text-dark" 
-						 data-toggle="modal" data-target="#ordStatModal">
-						<c:set var="stt" value="${ovol[0].status}"/>
+						 data-toggle="modal" data-target="#ordStatModal" data-stt="${ovo1.status}">
 						<c:choose>
-							<c:when test="${stt == 0 }">
+							<c:when test="${ovo1.status==0}">
 							미수령
 							</c:when>
-							<c:when test="${stt == 1 }">
+							<c:when test="${ovo1.status==1}">
 							수령완료
 							</c:when>
-							<c:when test="${stt == 2 }">
-							취소
+							<c:when test="${ovo1.status==2}">
+							발주취소
 							</c:when>
 						</c:choose>
 						</button>
 						</div>
+						
+						</c:forEach>
 					</div>
 				</c:forEach>
 			</c:when>
@@ -223,8 +228,25 @@
 		$(document).on("click", "#ord_recivChk_btn",
 				function(e){
 			e.preventDefault();
+			let stt = this.dataset.stt;
 			$("#ordStatModal .modal-body").empty();
 			$(this).parent().prevAll('.media-body').clone().appendTo("#ordStatModal .modal-body");
+			switch (stt) {
+			case "0":
+				$("#ord_done_btn").show();
+				$("#ord_cancel_btn").show();	
+				break;
+			case "1":
+				$("#ord_done_btn").hide();
+				$("#ord_cancel_btn").hide();				
+				break;
+			case "2":
+				$("#ordStatModal .modal-body span, #ordStatModal .media-body h4").css("text-decoration","line-through");
+				$("#ordStatModal .media-body").append("<br><br><p>(취소된 발주)</p>");
+				$("#ord_done_btn").hide();
+				$("#ord_cancel_btn").hide();
+				break;
+			}
 		});
 		
 		
