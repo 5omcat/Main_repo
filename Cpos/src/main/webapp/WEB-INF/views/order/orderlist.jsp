@@ -145,7 +145,7 @@
 		<c:choose>
 			<c:when test="${ordWL ne null && ordWL.size() != 0 }">
 				<c:forEach items="${ordWL}" var="ovol">
-					<div class="media border p-3">
+					<div class="media border p-3 ordBorder">
 						<c:forEach items="${ovol}" var="ovo1" begin="0" end="0">
 						
 						<img src="/resources/img/<c:if test="${ovo1.status==0}">
@@ -166,7 +166,19 @@
 						</c:forEach>
 						</div>
 						<div>
-						<button id="ord_recivChk_btn" type="button" class="btn btn-outline-light text-dark" 
+						<button id="ord_recivChk_btn" type="button" class="btn 
+						<c:choose>
+							<c:when test="${ovo1.status==0}">
+							btn-outline-primary 
+							</c:when>
+							<c:when test="${ovo1.status==1}">
+							btn-outline-success 
+							</c:when>
+							<c:when test="${ovo1.status==2}">
+							btn-outline-dark 
+							</c:when>
+						</c:choose>
+						text-dark" 
 						 data-toggle="modal" data-target="#ordStatModal" data-stt="${ovo1.status}" data-wrpno="${ovo1.wrap_no}">
 						<c:choose>
 							<c:when test="${ovo1.status==0}">
@@ -195,20 +207,20 @@
 	<ul class="pagination">
 		<c:if test="${pgvo.prev }">
 			<li class="page-item"><a class="page-link"
-				href="/order/orderlist?member_id=${infOvo.member_id }&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${pgvo.beginPagingNum-1}}">Prev</a></li>
+				href="/order/orderlist?member_id=${mvo.member_id }&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${pgvo.beginPagingNum-1}}">Prev</a></li>
 		</c:if>
 
 		<c:forEach begin="${pgvo.beginPagingNum }" end="${pgvo.endPagingNum }"
 			var="i">
 			<li class="page-item ${pgvo.cri.pageNum == i ? 'active' : ''}">
 				<a class="page-link"
-				href="/order/orderlist?member_id=${infOvo.member_id}&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${i }">${i}</a>
+				href="/order/orderlist?member_id=${mvo.member_id}&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${i }">${i}</a>
 			</li>
 		</c:forEach>
 
 		<c:if test="${pgvo.next }">
 			<li class="page-item"><a class="page-link"
-				href="/order/orderlist?member_id=${infOvo.member_id}&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${pgvo.endPagingNum + 1 }">Next</a></li>
+				href="/order/orderlist?member_id=${mvo.member_id}&flag_hdate=${infOvo.flag_hdate}&flag_tdate=${infOvo.flag_tdate}&pageNum=${pgvo.endPagingNum + 1 }">Next</a></li>
 		</c:if>
 	</ul>
 	</div>
@@ -234,7 +246,6 @@
 			}else if(btnId=="ord_cancel_btn"){
 				stt = 2;
 			}
-			console.log(stt);
 			let wrpno = this.dataset.wrpno;
 			let id = "${mvo.member_id}";
 			$.ajax({
@@ -258,7 +269,6 @@
 			let wrpno = this.dataset.wrpno;
 			$("#ord_done_btn").attr("data-wrpno",wrpno);
 			$("#ord_cancel_btn").attr("data-wrpno",wrpno);
-			
 			$("#ordStatModal .modal-body").empty();
 			$(this).parent().prevAll('.media-body').clone().appendTo("#ordStatModal .modal-body");
 			switch (stt) {
@@ -297,6 +307,7 @@
 		});
 		
 		var aJsonArray = new Array();
+		var bJsonArray = new Array();
 		var selectJsonArray = new Array();
 		var hJsn = new Object();
 		var tempObj = new Object();
@@ -316,10 +327,12 @@
 					}
 					$('.scrollHList').empty();
  					for (let i = 0; i < aJsonArray.length; i++) {
-						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" id="hl'+i+'">'+hList[i].pname+'</button>';
+						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" id="hl'+i+'">'+aJsonArray[i].pname+'</button>';
 						$(".scrollHList").append(btnTag);
 					}
 				});
+			bJsonArray = aJsonArray;
+			aJsonArray.length = 0;
 			}else{
 				return 'false';
 			}
@@ -331,15 +344,20 @@
 		".hgetter",
 		function(e){
 		e.preventDefault();
+		let chker = this.dataset.chker;
+		if (chker == null) {
+		$(this).attr('data-chker','true');
+		}else{
+			return false;
+		}
 		let hlnum = ""; 
 		hlnum =	$(this).attr('id');
 		hlnum = hlnum.substring(2,hlnum.length);
-		hJsn = aJsonArray[hlnum];
-				let selectItemTags = '<button type="button" class="btn btn-secondary pnmNest" id="'+hlnum+'">'+hJsn.pname+'</button>'
-				+'<button type="button" class="btn btn-secondary minus_btn">-</button>'
+		hJsn = bJsonArray[hlnum];
+				let selectItemTags = '<button type="button" class="btn btn-outline-primary" id="'+hlnum+'">'+hJsn.pname+'</button>'
+				+'<button type="button" class="btn minus_btn">-</button>'
 				+'<span>1</span>'	
-				+'<button type="button" class="btn btn-secondary plus_btn">+</button>';				
-				+'<input type="hidden" style="width: 50px;" value="'+hJsn.barcode+'"/>'
+				+'<button type="button" class="btn plus_btn">+</button>';
 				$(".SelectList").append(selectItemTags);
 				$("#"+hlnum+"").attr('value',hJsn.pname);
 				flag_ord_jsnArr.push(hlnum);
@@ -362,13 +380,6 @@
 			e.preventDefault();
 				$(this).prev('span').html(Number($(this).prev('span').html())+1);
 		});
-		
-		$(document).on("focus",
-				".plus_btn",
-				function(e){
-			e.preventDefault();
-				$(this).prev('span').html(Number($(this).prev('span').html())+1);
-		});
 
 		
 		$("#ord_insert_btn").on("click",function(e){
@@ -382,7 +393,7 @@
 				}).done(function(result){
 					wrpno = result;
 					for (let i = 0; i < flag_ord_jsnArr.length; i++) {
-					tempObj = aJsonArray[flag_ord_jsnArr[i]];
+					tempObj = bJsonArray[flag_ord_jsnArr[i]];
 					let pname = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").val();
 					if (tempObj.pname==pname) {
 						tempObj.order_qnt = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").nextAll("span").html();
@@ -391,8 +402,6 @@
 						selectJsonArray.push(tempObj);
 					}
 					}
-					console.log(selectJsonArray);
-				
 					$.ajax({
 						url:"/order/registOrder",
 						type:"POST",
@@ -400,24 +409,20 @@
 						contentType: "application/json; charset=utf-8;"
 					}).done(function(result){
 						alert("등록이 완료됐습니다.");
+						
 						location.reload();
-				}).fail(function(result){
+					}).fail(function(result){
 					alert("발주등록 실패. 관리자에게 문의하세요");
-				});
-				
-				
-				
-				
+					});
 				}).fail(function(result){
 					alert("wrap_no 가져오기 실패");
 				});
-
-				
-			
 			}else{
 				alert("orderlist_258 error. 관리자에 문의하세요.");
-				return 'false';
+				location.reload();
 			}
+			
+			
 	});
 
 		

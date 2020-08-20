@@ -45,19 +45,15 @@ public class OrderCtrl {
 	public void list(Model model, Criterion cri,
 			@RequestParam(value = "flag_hdate", required = false) String flag_hdate,
 			@RequestParam(value = "flag_tdate", required = false) String flag_tdate,
-			@RequestParam(value = "member_id", required = false) String member_id) {
+			@RequestParam(value = "member_id", required = true) String member_id) {
 		if (flag_hdate.length() < 1 && flag_tdate.length() < 1) {
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 			flag_tdate = format1.format(System.currentTimeMillis());
 			flag_hdate = String.valueOf(Integer.parseInt(flag_tdate) - 7);
 		}
-		if (flag_hdate.length() < 9) {
+		if (flag_hdate.length() < 10 && flag_tdate.length() <10) {
 			flag_hdate += "000000";
 			flag_tdate += "235959";
-		}
-		if (member_id.length() < 1) {
-			MemberVO mvo = new MemberVO("testMember1", "1234", "신논현1호점", 0);
-			member_id = mvo.getMember_id();
 		}
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
 		cri.setAmount(osv.getAmount(ovo, cri.getPageNum()));

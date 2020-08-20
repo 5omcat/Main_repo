@@ -1,19 +1,23 @@
 @charset "UTF-8";
 
 div.scrollHList, div.SelectList {
-	background-color: #333;
+	background-color: #fff;
 	overflow-x: scroll;
 	white-space: nowrap;
 }
 
 div.scrollHList .btn, div.SelectList .btn{
-/* 	display: inline-block;
-	color: white;
+	display: inline-block;
+	color: black;
 	text-align: center;
 	padding: 14px;
-	text-decoration: none; */
+	text-decoration: none;
 }
 
-div.scrollHList .btn, div.SelectList .btn:hover {
-	background-color: #667;
+div.scrollHList .btn:hover, div.SelectList .btn:hover {
+	background-color: #0AFFF9;
+}
+
+div.ordBorder {
+	background-color: #fff;
 }
