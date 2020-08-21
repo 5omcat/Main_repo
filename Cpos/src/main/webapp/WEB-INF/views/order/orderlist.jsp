@@ -388,8 +388,7 @@
 				let wrpno = -1;
 				$.ajax({
 					url:"/order/getWrpno",
-					type:"GET",
-					data:{wrap_no:wrpno}
+					type:"GET"
 				}).done(function(result){
 					wrpno = result;
 					for (let i = 0; i < flag_ord_jsnArr.length; i++) {

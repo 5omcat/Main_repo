@@ -56,7 +56,10 @@ public class OrderCtrl {
 			flag_tdate += "235959";
 		}
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
+		log.info("cri.getPageNum:"+cri.getPageNum());
+		log.info("osv.getAmount(ovo, cri.getPageNum()):"+osv.getAmount(ovo, cri.getPageNum()));
 		cri.setAmount(osv.getAmount(ovo, cri.getPageNum()));
+		log.info("cri.getAmount:"+cri.getAmount());
 		if (cri.getPageNum() == 1) {
 			cri.setUnderamount(0);
 		} else {

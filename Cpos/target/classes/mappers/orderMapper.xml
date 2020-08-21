@@ -67,8 +67,8 @@ wrap_no, expire_term, status from
 	select medium, category from tbl_category WHERE SUBSTR(to_char(category),1,2) = #{large}
 	]]>
 	</select>
-	<select id="getWrapno" resultType="java.util.HashMap">
-	select NVL(wrap_no, 0) from tbl_order
+	<select id="getWrapno" resultType="java.lang.Integer">
+	SELECT max(wrap_no) FROM TBL_ORDER
 	</select>
 	<update id="changeOrderStatus" parameterType="java.util.HashMap">
 		update tbl_order set status = #{status} 

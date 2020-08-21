@@ -64,18 +64,7 @@ public class OrderService implements OrderServiceIntf {
 
 	@Override
 	public int getWrapno() {
-		List<Integer> wrpL = odao.getWrapno();
-		boolean unFlag = true;
-		int rs = 0;
-		while (unFlag) {
-			int base = 1000;
-			base += (int)(Math.random()*100);
-			unFlag = wrpL.contains(base);
-			if(unFlag==false) {
-				rs = base;
-				return rs;
-			}
-		}
-		return 0;
+		int rs = odao.getWrapno();
+		return rs+1;
 	}
 }

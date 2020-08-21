@@ -3,7 +3,7 @@ package com.somcat.cpos.domain;
 import java.util.Date;
 
 public class Criterion {
-	private int amount; // 한 페이지에 보여줄 글의 수
+	private int amount; // 한 페이지에 보여줄 개체의 수
 	private int pageNum;// 선택된 페이지 번호
 	private String keyword;
 	private int underamount;//order페이징에 사용되는 시작점 아래에 깔린 글의 수

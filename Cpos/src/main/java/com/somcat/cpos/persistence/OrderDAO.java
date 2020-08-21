@@ -85,8 +85,8 @@ public class OrderDAO implements OrderDAOIntf {
 	}
 
 	@Override
-	public List<Integer> getWrapno() {
-		return sql.selectList(ns+"getWrapno");
+	public int getWrapno() {
+		return sql.selectOne(ns+"getWrapno");
 	}
 
 	@Override
