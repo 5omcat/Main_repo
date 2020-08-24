@@ -140,7 +140,7 @@
 			공지 <span>: 다음 주부터 칸쵸 1+1 행사가 진행됩니다.</span>
 		</p>
 		<span>기간 조회 : </span><input type="text" name="date1" id="date1"
-			size="12" /> ~ <input type="text" name="date2" id="date2" size="12" />
+			size="12"/> ~ <input type="text" name="date2" id="date2" size="12"/>
 		<button type="button" id="ord_chkupBtn">조회</button>
 		<c:choose>
 			<c:when test="${ordWL ne null && ordWL.size() != 0 }">
@@ -228,6 +228,23 @@
 <script>
 	$(function() {
 		$('#md_wdiv').hide();
+
+		function setDPcker(flagDate, inputTag){
+			let date = "";
+			if (flagDate=="flag_hdate") {
+				date = '<c:out value="${infOvo.flag_hdate}"/>';
+			}else if(flagDate=="flag_tdate"){
+				date = '<c:out value="${infOvo.flag_tdate}"/>';
+			}
+			let year = date.slice(0,4);
+			let month = date.slice(4,6);
+			let day = date.slice(6,8);
+			date = year.concat("-",month,"-",day);
+			$('#'+inputTag+'').val(date);
+		}
+
+		setDPcker("flag_hdate","date1");
+		setDPcker("flag_tdate","date2");
 		
 		$('.ordmodal').on('hidden.bs.modal', function () {
 			$(this).find('#largeCtg').val("-1");
@@ -408,7 +425,6 @@
 						contentType: "application/json; charset=utf-8;"
 					}).done(function(result){
 						alert("등록이 완료됐습니다.");
-						
 						location.reload();
 					}).fail(function(result){
 					alert("발주등록 실패. 관리자에게 문의하세요");
@@ -421,9 +437,7 @@
 				location.reload();
 			}
 			
-			
 	});
-
 		
 	});
 </script>
