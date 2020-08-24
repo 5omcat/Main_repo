@@ -32,6 +32,23 @@
 			changeMonth : true
 		});
 
+		function setDPcker(flagDate, inputTag){
+			let date = "";
+			if (flagDate=="flag_hdate") {
+				date = '<c:out value="${infOvo.flag_hdate}"/>';
+			}else if(flagDate=="flag_tdate"){
+				date = '<c:out value="${infOvo.flag_tdate}"/>';
+			}
+			let year = date.slice(0,4);
+			let month = date.slice(4,6);
+			let day = date.slice(6,8);
+			date = year.concat("-",month,"-",day);
+			$('#'+inputTag+'').val(date);
+		}
+
+		setDPcker("flag_hdate","date1");
+		setDPcker("flag_tdate","date2");
+		
 		$("#ord_chkupBtn").click(
 				function(e) {
 					e.preventDefault();
@@ -228,23 +245,6 @@
 <script>
 	$(function() {
 		$('#md_wdiv').hide();
-
-		function setDPcker(flagDate, inputTag){
-			let date = "";
-			if (flagDate=="flag_hdate") {
-				date = '<c:out value="${infOvo.flag_hdate}"/>';
-			}else if(flagDate=="flag_tdate"){
-				date = '<c:out value="${infOvo.flag_tdate}"/>';
-			}
-			let year = date.slice(0,4);
-			let month = date.slice(4,6);
-			let day = date.slice(6,8);
-			date = year.concat("-",month,"-",day);
-			$('#'+inputTag+'').val(date);
-		}
-
-		setDPcker("flag_hdate","date1");
-		setDPcker("flag_tdate","date2");
 		
 		$('.ordmodal').on('hidden.bs.modal', function () {
 			$(this).find('#largeCtg').val("-1");
