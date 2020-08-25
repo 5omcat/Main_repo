@@ -330,6 +330,7 @@
 		var tempObj = new Object();
 		
 		$('#mediumCtg').change(function() {
+			$('.scrollHList').empty();
 			let large = $('#largeCtg').val();
 			let category = $(this).val();
 			if (large!='-1'&&category!='-1') {			
@@ -341,12 +342,12 @@
 						delete tempObj.get_price;
 						delete tempObj.sell_price;
 						aJsonArray.push(tempObj);
-					}
-					$('.scrollHList').empty();
- 					for (let i = 0; i < aJsonArray.length; i++) {
-						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" id="hl'+i+'">'+aJsonArray[i].pname+'</button>';
+						//여기차례1
+						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" data-pname="'+tempObj.pname+
+						'" data-barcode="'+tempObj.barcode+'" id="hl'+i+'">'+tempObj.pname+'</button>';
 						$(".scrollHList").append(btnTag);
 					}
+
 				});
 			bJsonArray = aJsonArray;
 			aJsonArray.length = 0;
@@ -361,6 +362,9 @@
 		".hgetter",
 		function(e){
 		e.preventDefault();
+		//여기차례2
+		let info = this.dataset.pname;
+		console.log(info);
 		let chker = this.dataset.chker;
 		if (chker == null) {
 		$(this).attr('data-chker','true');
