@@ -18,14 +18,19 @@ wrap_no, expire_term, status from
   )body where body.rank BETWEEN (#{cri.underamount}+1) AND (#{cri.underamount} + #{cri.amount})
   ]]>
 	</select>
+	
+	<select id="getOrder" parameterType="java.lang.Integer">
+	SELECT MEMBER_ID, BARCODE, PNAME, CATEGORY, GET_PRICE, SELL_PRICE, ORDER_QNT, EXPIRE_TERM FROM TBL_ORDER WHERE WRAP_NO = #{wrap_no}
+	</select>
+	
 	<insert id="order" parameterType="java.util.List">
 		insert into tbl_order (order_no, member_id, barcode, pname, category, get_price, 
-		sell_price, order_qnt, order_date, wrap_no, expire_term, status) 
+		sell_price, discount_rate, order_qnt, order_date, wrap_no, expire_term, status) 
 		select seq_order_no.nextval as order_no, a.* from( 
 		<foreach collection="list" item="ovo" separator="UNION ALL"> 
 			select #{ovo.member_id} as member_id, #{ovo.barcode} as barcode, 
 			#{ovo.pname} as pname, #{ovo.category} as category, #{ovo.get_price} as get_price, 
-			#{ovo.sell_price} as sell_price, #{ovo.order_qnt} as order_qnt, 
+			#{ovo.sell_price} as sell_price, #{ovo.discount_rate} as discount_rate, #{ovo.order_qnt} as order_qnt, 
 			sysdate as order_date, #{ovo.wrap_no} as wrap_no, #{ovo.expire_term} as expire_term, 
 			#{ovo.status} as status from 
 			dual

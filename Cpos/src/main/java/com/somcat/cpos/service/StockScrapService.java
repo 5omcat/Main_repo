@@ -25,11 +25,6 @@ public class StockScrapService implements StockScrapServiceIntf{
 	StockScrapDAOIntf sdao;
 
 	@Override
-	public int addInventory(InventoryVO ivo) {
-		return sdao.insertInventory(ivo);
-	}
-
-	@Override
 	public List<InventoryVO> getLargeCate() {
 		return sdao.selectLargeCate();
 	}

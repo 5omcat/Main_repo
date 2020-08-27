@@ -16,6 +16,7 @@ public class OrderVO {
 	private int wrap_no;
 	private int expire_term;
 	private int status;
+	private int discount_rate;
 
 	public OrderVO() {
 	}
@@ -67,6 +68,13 @@ public class OrderVO {
 		this.flag_tdate = flag_tdate;
 	}
 
+	public int getDiscount_rate() {
+		return discount_rate;
+	}
+
+	public void setDiscount_rate(int discount_rate) {
+		this.discount_rate = discount_rate;
+	}
 
 	public int getCategory() {
 		return category;

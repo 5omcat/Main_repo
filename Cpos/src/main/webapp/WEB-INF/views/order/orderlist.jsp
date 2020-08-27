@@ -70,8 +70,10 @@
 <section class="pricing py-5">
 	<div class="container mt-3">
 		<h2>발주 리스트</h2>
+		<c:if test="${mvo ne null}">
 		<button type="button" class="btn btn-primary ordBtn" data-toggle="modal"
 			data-target=".ordmodal">발주</button>
+		</c:if>
 		<!-- The Modal -->
 		<div class="modal fade ordmodal">
 			<div style="overflow-x: initial !important;"

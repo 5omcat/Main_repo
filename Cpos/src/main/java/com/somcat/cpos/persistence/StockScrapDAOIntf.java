@@ -10,7 +10,7 @@ import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.ScrapVO;
 
 public interface StockScrapDAOIntf {
-	public int insertInventory(InventoryVO ivo);
+	public int insertInventory(int wrap_no);
 	public List<InventoryVO> selectLargeCate(); //?
 	public List<InventoryVO> selectMediumCate(); //?
 	public List<InventoryVO> selectInvenList(Criterion cri);

@@ -56,10 +56,7 @@ public class OrderCtrl {
 			flag_tdate += "235959";
 		}
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
-		log.info("cri.getPageNum:"+cri.getPageNum());
-		log.info("osv.getAmount(ovo, cri.getPageNum()):"+osv.getAmount(ovo, cri.getPageNum()));
 		cri.setAmount(osv.getAmount(ovo, cri.getPageNum()));
-		log.info("cri.getAmount:"+cri.getAmount());
 		if (cri.getPageNum() == 1) {
 			cri.setUnderamount(0);
 		} else {
@@ -76,7 +73,6 @@ public class OrderCtrl {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<List<HeadVO>> getHList(@PathVariable("category") int category) throws Exception {
 		List<HeadVO> hList = (List<HeadVO>) ssv.getHList(category);
-		log.info("hList size:" + hList.size());
 		return new ResponseEntity<>(hList, HttpStatus.OK);
 	}
 
@@ -122,8 +118,6 @@ public class OrderCtrl {
 	@ResponseBody
 	@PostMapping(value = "/changeStatus")
 	public ResponseEntity<String> changeStatus(@RequestParam("wrap_no") int wrap_no, @RequestParam("status") int status) throws Exception {
-				log.info("wrap_no:"+wrap_no);
-				log.info("status:"+status);
 				int isOk = osv.changeOrderStatus(wrap_no, status);
 		return isOk > 0 ? new ResponseEntity<>("오케이",HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
