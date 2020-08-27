@@ -97,13 +97,6 @@ public class OrderCtrl {
 	@ResponseBody
 	@PostMapping(value = "/registOrder")
 	public ResponseEntity<String> registOrder(@RequestBody List<OrderVO> ovos) throws Exception {
-		for (int i = 0; i < ovos.size(); i++) {
-			OrderVO tovo = ovos.get(i);
-			//OVO 변수 매칭 체크
-			log.info(""+i+"번째 tovos.barcode:"+tovo.getBarcode());
-			log.info(""+i+"번째 tovos.wrap_no:"+tovo.getWrap_no());
-		}
-		log.info("ovos.:"+ovos.size());
 		int isOk = osv.registOrder(ovos);
 		return isOk > 0 ? new ResponseEntity<>("발주등록이 완료됐습니다.", HttpStatus.OK) 
 						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); 

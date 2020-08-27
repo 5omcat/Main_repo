@@ -310,6 +310,8 @@
 		$('#largeCtg').change(function() {
 			let large = "";
 			large = $(this).val();
+			console.log("selJA:");
+			console.log(selectJsonArray.length);
 			if (large != '-1') {
 				$.getJSON("/order/getMCtgs/"+large, function(mCtgs){
 					$('#mediumCtg option:first-child').nextAll("option").remove();
@@ -323,12 +325,7 @@
 			}
 		});
 		
-		var aJsonArray = new Array();
-		var bJsonArray = new Array();
 		var selectJsonArray = new Array();
-		var hJsn = new Object();
-		var tempObj = new Object();
-		var testObj = new Object();
 		var dataBox = new Object();
 		var dataBoxCnt = 0;
 		
@@ -403,11 +400,31 @@
 				}).done(function(result){
 					wrpno = result;
 					for (let i = 0; i < slotLength/4; i++) {
-						console.log("Focus!");
-						let bb = $("div.selectedSlot button.coreBody:eq("+i+")").attr('data-objNum');
-						//여기차례
-						console.log(bb);
+						let boxNum = $("div.selectedSlot button.coreBody:eq("+i+")").attr('data-boxNum');
+						let objNum = $("div.selectedSlot button.coreBody:eq("+i+")").attr('data-objNum');
+						let tempObj = dataBox[boxNum][objNum];
+						tempObj.order_qnt = $("div.selectedSlot button.coreBody:eq("+i+")").nextAll("span").html();
+						console.log("tempObj.order_qnt:");
+						console.log(tempObj.order_qnt);
+						tempObj.member_id = '<c:out value="${mvo.member_id}"/>';
+						tempObj.wrap_no = wrpno;
+						selectJsonArray.push(tempObj);
 					}
+					console.log("selectJsonArray:");
+					console.log(selectJsonArray);
+					$.ajax({
+						url:"/order/registOrder",
+						type:"POST",
+						data:JSON.stringify(selectJsonArray),
+						contentType: "application/json; charset=utf-8;"
+					}).done(function(result){
+						alert("등록이 완료됐습니다.");
+						location.reload();
+					}).fail(function(result){
+					alert("발주등록 실패. 관리자에게 문의하세요");
+					});
+				}).fail(function(result){
+					alert("wrap_no 가져오기 실패");
 				});
 			}else{
 				alert("orderlist_258 error. 관리자에 문의하세요.");
