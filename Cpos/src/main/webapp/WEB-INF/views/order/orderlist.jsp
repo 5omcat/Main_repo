@@ -312,8 +312,6 @@
 		$('#largeCtg').change(function() {
 			let large = "";
 			large = $(this).val();
-			console.log("selJA:");
-			console.log(selectJsonArray.length);
 			if (large != '-1') {
 				$.getJSON("/order/getMCtgs/"+large, function(mCtgs){
 					$('#mediumCtg option:first-child').nextAll("option").remove();
@@ -406,14 +404,10 @@
 						let objNum = $("div.selectedSlot button.coreBody:eq("+i+")").attr('data-objNum');
 						let tempObj = dataBox[boxNum][objNum];
 						tempObj.order_qnt = $("div.selectedSlot button.coreBody:eq("+i+")").nextAll("span").html();
-						console.log("tempObj.order_qnt:");
-						console.log(tempObj.order_qnt);
 						tempObj.member_id = '<c:out value="${mvo.member_id}"/>';
 						tempObj.wrap_no = wrpno;
 						selectJsonArray.push(tempObj);
 					}
-					console.log("selectJsonArray:");
-					console.log(selectJsonArray);
 					$.ajax({
 						url:"/order/registOrder",
 						type:"POST",

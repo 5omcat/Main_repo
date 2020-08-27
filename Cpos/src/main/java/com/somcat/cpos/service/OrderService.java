@@ -46,10 +46,6 @@ public class OrderService implements OrderServiceIntf {
 		return odao.updateOrderStatus(wrap_no, status);
 	}
 
-	@Override
-	public int cancelOrder(int order_no) {
-		return 0;
-	}
 
 	@Override
 	public int getTotalCount(OrderVO ovo) {
