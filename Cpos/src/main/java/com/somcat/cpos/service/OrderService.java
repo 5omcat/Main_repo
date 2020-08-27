@@ -22,6 +22,8 @@ public class OrderService implements OrderServiceIntf {
 
 	@Inject
 	OrderDAOIntf odao;
+	
+	@Inject
 	StockScrapDAOIntf sdao;
 	
 	@Override
@@ -39,9 +41,7 @@ public class OrderService implements OrderServiceIntf {
 	@Override
 	public int changeOrderStatus(int wrap_no, int status) {
 		if (status==1) {
-			log.info("IN::");
 			sdao.insertInventory(wrap_no);
-			return odao.updateOrderStatus(wrap_no, status);
 		}
 		return odao.updateOrderStatus(wrap_no, status);
 	}

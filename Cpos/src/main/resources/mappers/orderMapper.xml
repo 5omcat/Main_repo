@@ -19,10 +19,6 @@ wrap_no, expire_term, status from
   ]]>
 	</select>
 	
-	<select id="getOrder" parameterType="java.lang.Integer">
-	SELECT MEMBER_ID, BARCODE, PNAME, CATEGORY, GET_PRICE, SELL_PRICE, ORDER_QNT, EXPIRE_TERM FROM TBL_ORDER WHERE WRAP_NO = #{wrap_no}
-	</select>
-	
 	<insert id="order" parameterType="java.util.List">
 		insert into tbl_order (order_no, member_id, barcode, pname, category, get_price, 
 		sell_price, discount_rate, order_qnt, order_date, wrap_no, expire_term, status) 
