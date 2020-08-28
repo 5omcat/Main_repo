@@ -25,8 +25,9 @@ public class StockScrapDAO implements StockScrapDAOIntf{
 	SqlSession sql;
 
 	@Override
-	public int insertInventory(InventoryVO ivo) {
-		return sql.insert(ns+"addinven", ivo);
+	public int insertInventory(int wrap_no) {
+		log.info("DAO::"+wrap_no);
+		return sql.insert(ns+"addinven", wrap_no);
 	}
 
 	@Override

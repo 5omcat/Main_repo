@@ -70,8 +70,10 @@
 <section class="pricing py-5">
 	<div class="container mt-3">
 		<h2>발주 리스트</h2>
+		<c:if test="${mvo ne null}">
 		<button type="button" class="btn btn-primary ordBtn" data-toggle="modal"
 			data-target=".ordmodal">발주</button>
+		</c:if>
 		<!-- The Modal -->
 		<div class="modal fade ordmodal">
 			<div style="overflow-x: initial !important;"
@@ -107,13 +109,13 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="largeCtg">상품 리스트:</label>
-							<div class="scrollHList"></div>
+							<div class="plistSlot"></div>
 						</div>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="largeCtg">선택된 상품:</label>
-							<div class="SelectList"></div>
+							<div class="selectedSlot"></div>
 						</div>
 					</div>
 					<!-- Modal footer -->
@@ -249,8 +251,8 @@
 		$('.ordmodal').on('hidden.bs.modal', function () {
 			$(this).find('#largeCtg').val("-1");
 			$(this).find('#mediumCtg').val("-1");
-			$(this).find('.scrollHList').empty();
-			$(this).find('.SelectList').empty();
+			$(this).find('.plistSlot').empty();
+			$(this).find('.selectedSlot').empty();
 		});
 		
 		$(document).on("click", "#ord_done_btn, #ord_cancel_btn",
@@ -323,61 +325,48 @@
 			}
 		});
 		
-		var aJsonArray = new Array();
-		var bJsonArray = new Array();
 		var selectJsonArray = new Array();
-		var hJsn = new Object();
-		var tempObj = new Object();
+		var dataBox = new Object();
+		var dataBoxCnt = 0;
 		
 		$('#mediumCtg').change(function() {
+			$('.plistSlot').empty();
 			let large = $('#largeCtg').val();
 			let category = $(this).val();
 			if (large!='-1'&&category!='-1') {			
 				$.getJSON("/order/getHList/"+category, function(hList){
+					dataBox[dataBoxCnt+1] = hList;
+					dataBoxCnt += 1;
 					for (let i = 0; i < hList.length; i++) {
-						tempObj = hList[i];
-						delete tempObj.category;
-						delete tempObj.discount_rate;
-						delete tempObj.get_price;
-						delete tempObj.sell_price;
-						aJsonArray.push(tempObj);
+						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" data-boxNum="'+dataBoxCnt+
+						'" data-objNum="'+i+'">'+dataBox[dataBoxCnt][i].pname+'</button>';
+						$(".plistSlot").append(btnTag);
 					}
-					$('.scrollHList').empty();
- 					for (let i = 0; i < aJsonArray.length; i++) {
-						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" id="hl'+i+'">'+aJsonArray[i].pname+'</button>';
-						$(".scrollHList").append(btnTag);
-					}
+
 				});
-			bJsonArray = aJsonArray;
-			aJsonArray.length = 0;
 			}else{
 				return 'false';
 			}
 		});
 		
-		var flag_ord_jsnArr = new Array();
-		
 		$(document).on("click",
 		".hgetter",
 		function(e){
 		e.preventDefault();
+		let boxNum = $(this).attr('data-boxNum');
+		let objNum = $(this).attr('data-objNum');
 		let chker = this.dataset.chker;
 		if (chker == null) {
 		$(this).attr('data-chker','true');
 		}else{
 			return false;
 		}
-		let hlnum = ""; 
-		hlnum =	$(this).attr('id');
-		hlnum = hlnum.substring(2,hlnum.length);
-		hJsn = bJsonArray[hlnum];
-				let selectItemTags = '<button type="button" class="btn btn-outline-primary" id="'+hlnum+'">'+hJsn.pname+'</button>'
+				let selectItemTags = '<button type="button" class="btn btn-outline-primary coreBody" data-boxNum="'+boxNum+
+				'" data-objNum="'+objNum+'">'+dataBox[boxNum][objNum].pname+'</button>'
 				+'<button type="button" class="btn minus_btn">-</button>'
-				+'<span>1</span>'	
+				+'<span>1</span>'
 				+'<button type="button" class="btn plus_btn">+</button>';
-				$(".SelectList").append(selectItemTags);
-				$("#"+hlnum+"").attr('value',hJsn.pname);
-				flag_ord_jsnArr.push(hlnum);
+				$(".selectedSlot").append(selectItemTags);
 		});
 		
 		$(document).on("click",
@@ -398,25 +387,26 @@
 				$(this).prev('span').html(Number($(this).prev('span').html())+1);
 		});
 
-		
-		$("#ord_insert_btn").on("click",function(e){
+		$(document).on("click",
+				"#ord_insert_btn",
+				function(e){
 			e.preventDefault();
-			if (flag_ord_jsnArr.length>0) {
+			let slotLength = $(".selectedSlot").children().length;
+			if (slotLength>0) {
 				let wrpno = -1;
 				$.ajax({
 					url:"/order/getWrpno",
 					type:"GET"
 				}).done(function(result){
 					wrpno = result;
-					for (let i = 0; i < flag_ord_jsnArr.length; i++) {
-					tempObj = bJsonArray[flag_ord_jsnArr[i]];
-					let pname = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").val();
-					if (tempObj.pname==pname) {
-						tempObj.order_qnt = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").nextAll("span").html();
+					for (let i = 0; i < slotLength/4; i++) {
+						let boxNum = $("div.selectedSlot button.coreBody:eq("+i+")").attr('data-boxNum');
+						let objNum = $("div.selectedSlot button.coreBody:eq("+i+")").attr('data-objNum');
+						let tempObj = dataBox[boxNum][objNum];
+						tempObj.order_qnt = $("div.selectedSlot button.coreBody:eq("+i+")").nextAll("span").html();
 						tempObj.member_id = '<c:out value="${mvo.member_id}"/>';
 						tempObj.wrap_no = wrpno;
 						selectJsonArray.push(tempObj);
-					}
 					}
 					$.ajax({
 						url:"/order/registOrder",
@@ -437,7 +427,7 @@
 				location.reload();
 			}
 			
-	});
+		});
 		
 	});
 </script>
