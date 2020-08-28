@@ -18,7 +18,7 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>점포 재고 수량 확인 </li>
             </ul>
             <hr>
-            <a href="/stockscrap/inventory" class="btn btn-block card-ivory text-uppercase">GO</a>
+            <a href="/stockscrap/inventory" class="btn btn-block card-ivory text-uppercase">GO~</a>
           </div>
         </div>
         <div class="card">
@@ -31,7 +31,7 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>점포 재고 폐기 처분 <i class="fas fa-check"></i></li>
             </ul>
             <hr>
-            <a href="/stockscrap/exscrap" class="btn btn-block btn-dark text-uppercase">GO</a>
+            <a href="/stockscrap/exscrap" class="btn btn-block btn-dark text-uppercase">GO!</a>
           </div>
         </div>
       </div>
