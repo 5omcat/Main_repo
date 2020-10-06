@@ -13,11 +13,11 @@
       <div class="form-group">
       	<label for="large">대분류</label>
       	<select class="form-control" id="large" name="large">
-        	<option>10</option>
-        	<option>20</option>
-        	<option>30</option>
-        	<option>40</option>
-        	<option>50</option>
+        	<option value="10">냉장</option>
+        	<option value="20">냉동</option>
+        	<option value="30">실온</option>
+        	<option value="40">생필품</option>
+        	<option value="50">기호품</option>
       	</select>          
       </div>
       <div class="form-group">
@@ -25,7 +25,7 @@
       	<select class="form-control" id="medium" name="medium">
         	<option>01</option>
         	<option>02</option>
-        	<option>03</option>        	
+        	<option>03</option>
       	</select>          
       </div>       
       <div class="form-group">

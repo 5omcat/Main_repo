@@ -171,8 +171,7 @@
 						box_packaged.png</c:if>
 						<c:if test="${ovo1.status==1}">box_opened.png</c:if>
 						<c:if test="${ovo1.status==2}">box_canceled.png</c:if>" 
-							alt="발주 상태 이미지"
-							class="mr-3 mt-3 rounded-circle"
+							alt="발주 상태 이미지" class="mr-3 mt-3 rounded-circle" 
 							style="width: 60px; margin-top: auto !important; margin-bottom: auto !important;">
 						<div class="media-body">
 								<h4>
@@ -260,6 +259,7 @@
 			e.preventDefault();
 			let btnId = $(this).attr('id');
 			let stt;
+			//console.log(this);//버튼그자체
 			if (btnId=="ord_done_btn") {
 				stt = 1;
 			}else if(btnId=="ord_cancel_btn"){
@@ -338,9 +338,24 @@
 					dataBox[dataBoxCnt+1] = hList;
 					dataBoxCnt += 1;
 					for (let i = 0; i < hList.length; i++) {
+<<<<<<< HEAD
+						tempObj = hList[i];
+						delete tempObj.category;
+						delete tempObj.discount_rate;
+						delete tempObj.get_price;
+						delete tempObj.sell_price;
+						//console.log(tempObj);
+						aJsonArray.push(tempObj);
+					}
+					$('.scrollHList').empty();
+ 					for (let i = 0; i < aJsonArray.length; i++) {
+						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" id="hl'+i+'">'+aJsonArray[i].pname+'</button>';
+						$(".scrollHList").append(btnTag);
+=======
 						let btnTag = '<button type="button" class="btn btn-outline-primary hgetter" data-boxNum="'+dataBoxCnt+
 						'" data-objNum="'+i+'">'+dataBox[dataBoxCnt][i].pname+'</button>';
 						$(".plistSlot").append(btnTag);
+>>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 					}
 
 				});
@@ -361,12 +376,44 @@
 		}else{
 			return false;
 		}
+<<<<<<< HEAD
+		let hlnum = "";
+		hlnum =	$(this).attr('id');
+		hlnum = hlnum.substring(2,hlnum.length);
+		//console.log(bJsonArray);
+		hJsn = bJsonArray[hlnum];
+		let bar = hJsn.barcode.toString();
+		bar = bar.substring(0,4);
+		console.log(bar);
+		console.log(hJsn);
+		let pname = hJsn.pname;
+		    let selectItemTags = '<button type="button" class="btn btn-outline-primary" id="'+pname+'">'+hJsn.pname+'</button>'
+        +'<button type="button" class="btn minus_btn">-</button>'
+        +'<span>1</span>' 
+        +'<button type="button" class="btn plus_btn">+</button>';
+        $(".SelectList").append(selectItemTags);
+        $("#"+pname+"").attr('value',hJsn.pname);
+        flag_ord_jsnArr.push(hJsn);
+        console.log("flag");
+        console.log(flag_ord_jsnArr);
+        
+				/* let selectItemTags = '<button type="button" class="btn btn-outline-primary" id="'+hlnum+'">'+hJsn.pname+'</button>'
+=======
 				let selectItemTags = '<button type="button" class="btn btn-outline-primary coreBody" data-boxNum="'+boxNum+
 				'" data-objNum="'+objNum+'">'+dataBox[boxNum][objNum].pname+'</button>'
+>>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 				+'<button type="button" class="btn minus_btn">-</button>'
 				+'<span>1</span>'
 				+'<button type="button" class="btn plus_btn">+</button>';
+<<<<<<< HEAD
+				$(".SelectList").append(selectItemTags);
+				$("#"+hlnum+"").attr('value',hJsn.pname);
+				flag_ord_jsnArr.push(hlnum);
+				console.log("flag");
+			  console.log(flag_ord_jsnArr); */
+=======
 				$(".selectedSlot").append(selectItemTags);
+>>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 		});
 		
 		$(document).on("click",
@@ -399,15 +446,37 @@
 					type:"GET"
 				}).done(function(result){
 					wrpno = result;
+<<<<<<< HEAD
+					for(let i = 0; i<flag_ord_jsnArr.length; i++){
+						tempObj = flag_ord_jsnArr[i];
+						console.log(tempObj);
+						tempObj.order_qnt = $(".SelectList").find("#"+flag_ord_jsnArr[i].pname+"").nextAll("span").html();
+						tempObj.member_id = '<c:out value="${mvo.member_id}"/>';
+						tempObj.wrap_no = wrpno;
+						selectJsonArray.push(tempObj);
+					}
+					/* for (let i = 0; i < flag_ord_jsnArr.length; i++) {
+					tempObj = bJsonArray[flag_ord_jsnArr[i]];
+					console.log(tempObj);
+					let pname = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").val();
+					console.log("pname:"+pname);
+					if (tempObj.pname==pname) {
+						tempObj.order_qnt = $(".SelectList").find("#"+flag_ord_jsnArr[i]+"").nextAll("span").html();
+=======
 					for (let i = 0; i < slotLength/4; i++) {
 						let boxNum = $("div.selectedSlot button.coreBody:eq("+i+")").attr('data-boxNum');
 						let objNum = $("div.selectedSlot button.coreBody:eq("+i+")").attr('data-objNum');
 						let tempObj = dataBox[boxNum][objNum];
 						tempObj.order_qnt = $("div.selectedSlot button.coreBody:eq("+i+")").nextAll("span").html();
+>>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 						tempObj.member_id = '<c:out value="${mvo.member_id}"/>';
 						tempObj.wrap_no = wrpno;
 						selectJsonArray.push(tempObj);
 					}
+<<<<<<< HEAD
+					} */
+=======
+>>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 					$.ajax({
 						url:"/order/registOrder",
 						type:"POST",
@@ -430,5 +499,8 @@
 		});
 		
 	});
+	function invenSave(ovolist){
+		//인벤토리에 보내기 -이름,개수,날짜,아이디
+	}
 </script>
 <jsp:include page="../common/footer.jsp"></jsp:include>
