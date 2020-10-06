@@ -8,11 +8,13 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.OrderVO;
 import com.somcat.cpos.persistence.OrderDAOIntf;
+import com.somcat.cpos.persistence.StockScrapDAOIntf;
 
 @Service
 public class OrderService implements OrderServiceIntf {
@@ -20,6 +22,9 @@ public class OrderService implements OrderServiceIntf {
 
 	@Inject
 	OrderDAOIntf odao;
+	
+	@Inject
+	StockScrapDAOIntf sdao;
 	
 	@Override
 	public int registOrder(List<OrderVO> ovos) {
@@ -31,10 +36,13 @@ public class OrderService implements OrderServiceIntf {
 		return odao.selectOrderList(cri, ovo);
 	}
 
-
+	@Transactional
 	@Override
 	public int changeOrderStatus(int wrap_no, int status) {
-		return odao.updateOrderStatus(wrap_no, status);
+		int result = odao.updateOrderStatus(wrap_no, status);
+		if(status==1)
+			sdao.insertInventory(wrap_no);
+		return result;
 	}
 
 	@Override

@@ -25,8 +25,8 @@ public class StockScrapService implements StockScrapServiceIntf{
 	StockScrapDAOIntf sdao;
 
 	@Override
-	public int addInventory(InventoryVO ivo) {
-		return sdao.insertInventory(ivo);
+	public int addInventory(int wno) {
+		return sdao.insertInventory(wno);
 	}
 
 	@Override

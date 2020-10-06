@@ -13,6 +13,11 @@
           name="member_id">
       </div>
       <div class="form-group">
+        <label for="pwd">Password2:</label> <input type="password"
+          class="form-control" id="pwd2" placeholder="Enter password"
+          name="member_pwd2">
+      </div>
+      <div class="form-group">
         <label for="pwd">Password:</label> <input type="password"
           class="form-control" id="pwd" placeholder="Enter password"
           name="member_pwd">

@@ -40,6 +40,14 @@
 <insert id="addinven" parameterType="InventoryVO">
   insert into tbl_inventory values(seq_inventory_no.nextval, #{member_id}, #{inv_qnt}, #{barcode}, #{pname}, #{category}, #{get_price}, #{sell_price}, #{expire_date}, #{discount_rate}, 0)
 </insert>
+<insert id="invenSave" parameterType="java.lang.Integer">
+  insert into tbl_inventory 
+  select seq_inventory_no.nextval, member_id, order_qnt as inv_qnt, o.barcode AS barcode, o.pname AS pname, 
+  CATEGORY, GET_PRICE, SELL_PRICE, sysdate+EXPIRE_TERM AS expire_date, DISCOUNT_RATE, '0' 
+  FROM TBL_HEAD h JOIN (SELECT member_id, barcode, pname, order_qnt FROM TBL_ORDER WHERE wrap_no = #{wrap_no}) o 
+  ON o.barcode = h.barcode
+</insert>
+
 <select id="ilist" parameterType="Criterion" resultType="InventoryVO">
   <![CDATA[
   select inventory_no, inv_qnt, pname, category, large, medium, discount_rate, expire_date, status 
