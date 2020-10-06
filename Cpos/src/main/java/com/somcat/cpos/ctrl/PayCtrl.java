@@ -49,8 +49,13 @@ public class PayCtrl {
    @ResponseBody
    @PostMapping("/qntmodify")
    public String modqnt(InventoryVO ivo) {
-      int re = ssv.modifyQuantity(ivo);
-      return re==1?"1":"0";
+	   int re;
+	   if(ivo.getInv_qnt()>0) {
+		   re = ssv.modifyQuantity(ivo);
+	   } else {
+		   re = ssv.removeInventory(ivo.getInventory_no());
+	   }
+	   return re==1?"1":"0";
    }
    
    @ResponseBody

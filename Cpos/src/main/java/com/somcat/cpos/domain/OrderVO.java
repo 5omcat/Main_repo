@@ -5,9 +5,6 @@ public class OrderVO {
 	private String member_id;
 	private int barcode;
 	private String pname;
-	private int category;
-	private int get_price;
-	private int sell_price;
 	private int order_qnt;
 	private String order_sdate;
 	private String flag_hdate;
@@ -16,7 +13,6 @@ public class OrderVO {
 	private int wrap_no;
 	private int expire_term;
 	private int status;
-	private int discount_rate;
 
 	public OrderVO() {
 	}
@@ -68,37 +64,6 @@ public class OrderVO {
 		this.flag_tdate = flag_tdate;
 	}
 
-	public int getDiscount_rate() {
-		return discount_rate;
-	}
-
-	public void setDiscount_rate(int discount_rate) {
-		this.discount_rate = discount_rate;
-	}
-
-	public int getCategory() {
-		return category;
-	}
-
-	public void setCategory(int category) {
-		this.category = category;
-	}
-
-	public int getGet_price() {
-		return get_price;
-	}
-
-	public void setGet_price(int get_price) {
-		this.get_price = get_price;
-	}
-
-	public int getSell_price() {
-		return sell_price;
-	}
-
-	public void setSell_price(int sell_price) {
-		this.sell_price = sell_price;
-	}
 
 	public int getOrder_no() {
 		return order_no;

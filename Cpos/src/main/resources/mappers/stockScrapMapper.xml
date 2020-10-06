@@ -37,13 +37,8 @@
       </trim>
     </if>
   </sql>
-<insert id="addinven" parameterType="java.lang.Integer">
-	insert into tbl_inventory (inventory_no, member_id, inv_qnt, barcode, pname, category, get_price, 
-	sell_price, expire_date, discount_rate, status) 
-	SELECT seq_inventory_no.nextval as inventory_no, MEMBER_ID AS MEMBER_ID, ORDER_QNT AS inv_qnt, 
-	BARCODE AS BARCODE, PNAME AS PNAME, CATEGORY AS CATEGORY, 
-	GET_PRICE AS GET_PRICE, SELL_PRICE AS SELL_PRICE, SYSDATE + ord.EXPIRE_TERM AS expire_date, 
-	DISCOUNT_RATE AS DISCOUNT_RATE, 0 AS STATUS FROM TBL_ORDER ord WHERE WRAP_NO = #{wrap_no}
+<insert id="addinven" parameterType="InventoryVO">
+  insert into tbl_inventory values(seq_inventory_no.nextval, #{member_id}, #{inv_qnt}, #{barcode}, #{pname}, #{category}, #{get_price}, #{sell_price}, #{expire_date}, #{discount_rate}, 0)
 </insert>
 <insert id="invenSave" parameterType="java.lang.Integer">
   insert into tbl_inventory 

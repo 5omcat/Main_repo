@@ -393,7 +393,7 @@
                console.log("sell_qnt : " + sell_qnt);
                
                let calstock = parseInt(inv_qnt) - parseInt(sell_qnt);
-               console.log(calstock);
+               console.log("cal="+calstock);
                
             $.ajax({
                      type: "post",

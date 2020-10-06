@@ -1,5 +1,6 @@
 package com.somcat.cpos.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,7 +8,6 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.somcat.cpos.domain.CategoryVO;
@@ -43,17 +43,12 @@ public class OrderService implements OrderServiceIntf {
 		if(status==1)
 			sdao.insertInventory(wrap_no);
 		return result;
-
-	@Transactional(isolation = Isolation.READ_COMMITTED)
-	@Override
-	public int changeOrderStatus(int wrap_no, int status) {
-		if (status==1) {
-			sdao.insertInventory(wrap_no);
-		}
-		return odao.updateOrderStatus(wrap_no, status);
->>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 	}
 
+	@Override
+	public int cancelOrder(int order_no) {
+		return 0;
+	}
 
 	@Override
 	public int getTotalCount(OrderVO ovo) {

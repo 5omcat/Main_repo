@@ -56,7 +56,10 @@ public class OrderCtrl {
 			flag_tdate += "235959";
 		}
 		OrderVO ovo = new OrderVO(member_id, flag_hdate, flag_tdate);
+		log.info("cri.getPageNum:"+cri.getPageNum());
+		log.info("osv.getAmount(ovo, cri.getPageNum()):"+osv.getAmount(ovo, cri.getPageNum()));
 		cri.setAmount(osv.getAmount(ovo, cri.getPageNum()));
+		log.info("cri.getAmount:"+cri.getAmount());
 		if (cri.getPageNum() == 1) {
 			cri.setUnderamount(0);
 		} else {
@@ -73,6 +76,7 @@ public class OrderCtrl {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<List<HeadVO>> getHList(@PathVariable("category") int category) throws Exception {
 		List<HeadVO> hList = (List<HeadVO>) ssv.getHList(category);
+		log.info("hList size:" + hList.size());
 		return new ResponseEntity<>(hList, HttpStatus.OK);
 	}
 
@@ -93,6 +97,13 @@ public class OrderCtrl {
 	@ResponseBody
 	@PostMapping(value = "/registOrder")
 	public ResponseEntity<String> registOrder(@RequestBody List<OrderVO> ovos) throws Exception {
+		for (int i = 0; i < ovos.size(); i++) {
+			OrderVO tovo = ovos.get(i);
+			//OVO 변수 매칭 체크
+			log.info(""+i+"번째 tovos.barcode:"+tovo.getBarcode());
+			log.info(""+i+"번째 tovos.wrap_no:"+tovo.getWrap_no());
+		}
+		log.info("ovos.:"+ovos.size());
 		int isOk = osv.registOrder(ovos);
 		return isOk > 0 ? new ResponseEntity<>("발주등록이 완료됐습니다.", HttpStatus.OK) 
 						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); 
@@ -118,6 +129,8 @@ public class OrderCtrl {
 	@ResponseBody
 	@PostMapping(value = "/changeStatus")
 	public ResponseEntity<String> changeStatus(@RequestParam("wrap_no") int wrap_no, @RequestParam("status") int status) throws Exception {
+				log.info("wrap_no:"+wrap_no);
+				log.info("status:"+status);
 				int isOk = osv.changeOrderStatus(wrap_no, status);
 		return isOk > 0 ? new ResponseEntity<>("오케이",HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
