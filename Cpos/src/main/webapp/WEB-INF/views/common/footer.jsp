@@ -20,8 +20,7 @@
 			</div>
 
 			<div class="btn-group">
-				<a href="/order/ons" class="btn btn-primary">발주관리</a> <a href="#"
-					class="btn btn-primary">매출통계</a>
+				<a href="/order/ons" class="btn btn-primary">발주/통계</a>
 			</div>
 
 			<c:if test="${mvo ne null}">

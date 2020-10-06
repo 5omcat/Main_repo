@@ -24,9 +24,23 @@ public class StockScrapDAO implements StockScrapDAOIntf{
 	@Inject
 	SqlSession sql;
 
+//	@Override
+	public int insertInventory(List<InventoryVO> ivolist) {
+		int num = 0;
+		for (InventoryVO ivo : ivolist) {
+			num += sql.insert(ns+"addinven", ivo);
+		}
+		return num;
+	}
+	
 	@Override
-	public int insertInventory(InventoryVO ivo) {
-		return sql.insert(ns+"addinven", ivo);
+	public int insertInventory(int wrap_no) {
+<<<<<<< HEAD
+		return sql.insert(ns+"invenSave", wrap_no);
+=======
+		log.info("DAO::"+wrap_no);
+		return sql.insert(ns+"addinven", wrap_no);
+>>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 	}
 
 	@Override
@@ -40,11 +54,11 @@ public class StockScrapDAO implements StockScrapDAOIntf{
 	}
 
 	@Override
-	public List<Integer> insertScrap(List<ScrapVO> svo) {
-		sql.insert(ns+"addsclist", svo);
+	public List<Integer> insertScrap(List<ScrapVO> sclist) {
+		sql.insert(ns+"addsclist", sclist);
 		List<Integer> li = new ArrayList<Integer>();
-		for (ScrapVO i : svo) {
-			li.add(i.getIno());
+		for (ScrapVO svo : sclist) {
+			li.add(svo.getIno());
 		}
 		return li;
 	}

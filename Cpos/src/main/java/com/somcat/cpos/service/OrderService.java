@@ -1,6 +1,5 @@
 package com.somcat.cpos.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,11 +7,17 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
+=======
+import org.springframework.transaction.annotation.Isolation;
+>>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
+import org.springframework.transaction.annotation.Transactional;
 
 import com.somcat.cpos.domain.CategoryVO;
 import com.somcat.cpos.domain.Criterion;
 import com.somcat.cpos.domain.OrderVO;
 import com.somcat.cpos.persistence.OrderDAOIntf;
+import com.somcat.cpos.persistence.StockScrapDAOIntf;
 
 @Service
 public class OrderService implements OrderServiceIntf {
@@ -20,6 +25,9 @@ public class OrderService implements OrderServiceIntf {
 
 	@Inject
 	OrderDAOIntf odao;
+	
+	@Inject
+	StockScrapDAOIntf sdao;
 	
 	@Override
 	public int registOrder(List<OrderVO> ovos) {
@@ -31,16 +39,26 @@ public class OrderService implements OrderServiceIntf {
 		return odao.selectOrderList(cri, ovo);
 	}
 
-
+<<<<<<< HEAD
+	@Transactional
 	@Override
 	public int changeOrderStatus(int wrap_no, int status) {
+		int result = odao.updateOrderStatus(wrap_no, status);
+		if(status==1)
+			sdao.insertInventory(wrap_no);
+		return result;
+=======
+
+	@Transactional(isolation = Isolation.READ_COMMITTED)
+	@Override
+	public int changeOrderStatus(int wrap_no, int status) {
+		if (status==1) {
+			sdao.insertInventory(wrap_no);
+		}
 		return odao.updateOrderStatus(wrap_no, status);
+>>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 	}
 
-	@Override
-	public int cancelOrder(int order_no) {
-		return 0;
-	}
 
 	@Override
 	public int getTotalCount(OrderVO ovo) {

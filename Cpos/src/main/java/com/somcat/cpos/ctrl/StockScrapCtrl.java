@@ -47,6 +47,16 @@ public class StockScrapCtrl {
 		  ivo.setMember_id("pos1");
 	  }
 	  
+	  
+//	  @ResponseBody
+//	  @RequestMapping(value="/new")
+//	  public String addInven(@RequestBody ArrayList<InventoryVO> jsonData) throws Exception{
+//		  if(jsonData.size() != 0) {
+//		  int a = ssv.addInventory(jsonData);
+//		  return a==1?"1":a+"";
+//		  }else return "Inventory add clear";
+//	  }
+	  
 	  @GetMapping("/inventory") 
 	  public void inventory(Model model, Criterion cri) {
 		  //log.info(">>>cri="+cri.getPageNum());
