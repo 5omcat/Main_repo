@@ -10,11 +10,6 @@ import com.somcat.cpos.domain.InventoryVO;
 import com.somcat.cpos.domain.ScrapVO;
 
 public interface StockScrapServiceIntf {
-<<<<<<< HEAD
-	
-	public int addInventory(int wno);
-=======
->>>>>>> 30468e00518ec32b79620720d3d47f0feeb6ae67
 	public List<InventoryVO> getLargeCate(); //?
 	public List<InventoryVO> getMediumCate(); //?
 	public InventoryDTO getInvenList(Criterion cri);
